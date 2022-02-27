@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>给在校准备找工作的同学的几个建议 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="给在校准备找工作的同学的几个建议">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-05-22 12:23" pubdate>
+        Tuesday, May 22nd 2018, 12:23 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">给在校准备找工作的同学的几个建议</h1>
+            
+            <div class="markdown-body">
+              <ol>
+<li>了解 vim</li>
+<li>养成 git 规范</li>
+<li>学深比学广更重要</li>
+<li>拥有自己的知识体系，形成解决问题的方法论</li>
+</ol>
+<h2 id="了解-vim"><a href="#了解-vim" class="headerlink" title="了解 vim"></a>了解 vim</h2><p>Vim 被誉为”编辑器之神”，这可不是虚的。</p>
+<p>在我用了 vim 半年之后，我建议我身边的每一位程序员都去学习 vim 。</p>
+<p>因为一旦你学会了 vim 的操作，你就像中了毒一样，你会讨厌鼠标，讨厌在你敲着敲着键盘，突然又要去移动光标，因为把手从键盘移动到鼠标上的时间远远大于手指在键盘按键的切换。</p>
+<p>而且你会希望在所有的编辑器上都装有 vim 插件，不管是 vscode，还是 idea，还是 emacs；不管是自己的电脑还是别人的电脑；不管是敲代码的编辑器还是用来看网页的浏览器。</p>
+<p>还好，所希望的都有，每一个可以装插件的编辑器都有 vim 插件，甚至浏览器也有 vimum。</p>
+<p>当你真正习惯上了 vim 以后，你会迫不及待的想要一个机械键盘，因为你敲代码大部分时间都用在了键盘上，鼠标已经不再那么重要了。</p>
+<p>机械键盘推荐红轴，青轴和茶轴虽然自己敲着很舒服，手感很好，但是比较影响其他人，键盘声太吵了，黑轴就不考虑了，码字太累了，不适合程序员。</p>
+<p>我个人用过青轴和红轴，青轴给我的感觉就是码代码是一颗一颗的，听着那声音自己觉得很舒服，敲代码很有感觉。</p>
+<p>而红轴给我的感觉就是敲代码的时候你会忘记你手上的键盘，给我一种手、键盘合一的感觉，把精力完全集中在码代码上，感受不到敲键盘的感觉。</p>
+<p>最后说的就是先学 vim 的基本操作，然后装个插件在你现在的编辑器上练习就行了，不需要直接用 vim 编辑器。</p>
+<p>因为你直接用 vim 编辑器，作为一个新手，不会配置插件，快捷键等，没有提示，没有高亮。你在写项目的时候会很痛苦，你就用你熟悉的编辑器高亮，代码提示这些是你以前搞好了的，所以实际应用起来难度小很多。</p>
+<p>为了推荐更多人程序员学习 vim ，我还自己写了一篇<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODk2Mjk0Nw==&mid=2247483662&idx=1&sn=8d9e14e0b583f02bfc29d726d889c49a&chksm=ea016262dd76eb745893de4d10c98c5edf56a3c21ff1f817e5e40b9aa563c1028e30b97387bc&mpshare=1&scene=1&srcid=0522If3l13mrVdZnJaMXJwsw#rd">入门文章</a>，有兴趣的可以看看。</p>
+<p>我周围的人，只要是用 vim 敲过代码的，从没有人说过用 vim 敲代码不好用而放弃用的，只会对 vim 爱得越来越深。</p>
+<h2 id="Git-规范"><a href="#Git-规范" class="headerlink" title="Git 规范"></a>Git 规范</h2><p>Git 作为我认为最优秀的版本管理工具，那是程序员的利器，必须用得游刃有余。</p>
+<p>而我今天要说的不是怎么用好 git，如果需要可以留言给我，我后面写一篇或者一个系列。</p>
+<p>我想说的是规范，不要以为 commit 随便写就行了，其实 commit 的规范程度一部分体现了你这个人做事的态度，是否端正，严谨。</p>
+<p>我拿我在 某米工作的时候举个例子，我有个朋友那组的有个学姐，她的 commit 很随意，完全不能体现她提交代码的内容，比如，哈哈；放假了，好开心；bug；也不说是什么 bug，导致我那个同学根本不知道她提交了什么代码。</p>
+<p>也不知道她做了那些事儿，在一个团队中，这是一件很蛋疼的事儿。</p>
+<p>特别要是老大或者同事想做 review 的时候，看到这么糟糕的 commit 定会对你的印象大打折扣。</p>
+<p>如果你是个实习生，估计就不容易转正了，因为会觉得你是一个很随便的人。</p>
+<p>我平常所用的规范来自于阮老师的规范。<br>链接： <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html">http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html</a></p>
+<h2 id="深度比广度重要"><a href="#深度比广度重要" class="headerlink" title="深度比广度重要"></a>深度比广度重要</h2><p>现在还在学校的同学，可能经常听学长们这么说，在面试的时候既要考你的深度，也要考你的广度，所谓深度简单点说就是对某个知识点的掌握程度，而广度就是你知道多少个知识点。</p>
+<p>举个例子，也许你会经常听到那些面试过的人回来这么说，那个面试官一直抓住一个问题不放，知道他打不出来为止，这就是在探究掌握的深度。</p>
+<p>然后也会有这种问题，你会什么什么吗？你了解什么什么？你用过什么什么？这就是在看你的广度。</p>
+<p>所以一些在校学生就不知道自己应该去扩展自己的宽度，应该去学新知识，还是挖掘深度，再去研究以前的知识。</p>
+<p>我也面试过不少大厂，也拿了几个 offer，以及自己实习的时候跟一些工作多年的老司机谈过话。</p>
+<p>最后给出的答案是深度比广度重要。</p>
+<p>我来以我的角度谈谈为什么深度比广度重要。</p>
+<p>不知道你身边有没有这样的事儿发生，有个人（A 同学）拿到了一个好点的 offer，但和他一起的（B 同学）可能你觉得技术比他还厉害的没有拿到，然后你问那个拿到 offer 的同学，他说他是运气好。</p>
+<p>分析一下这个事儿，会发现，其实有可能确实运气原因，比如</p>
+<ul>
+<li><p>他们俩不是同一个面试官，然后导致两个面试官问的题不同，以及面试官的判断标准不同。</p>
+</li>
+<li><p>他们俩是同一个面试官，但是 A 同学和 B 同学的技术不同，A 同学技术栈跟面试官的技术栈重合性比较多，因为经统计，那些面试官更喜欢找跟自己更相似的人，因为面试官觉得自己比较优秀，跟他相似度越高，会认为这个面试者也比较优秀。</p>
+</li>
+</ul>
+<p>前面这两种基于运气的情况下，当然肯定 A 同学有实力的，基础不扎实，运气来了也抓不住。</p>
+<p>那我们怎么才能让运气来了就能抓住呢？ </p>
+<p>我的建议就是先深度再广度，深度可以体现一个人对知识「打破砂锅问到底」的精神，，对于不知道的问题喜欢探索，也许你就精通了一门框架（前端比如 React），对于其他框架只是了解，但是这样也比熟练使用好几个框架面试成功几率大得多，因为如果你遇到 React 技术栈的面试官，你是大概率能过的。对于熟练使用好几个框架而不精通的，就是这种，面试官问你会什么什么吗？答，我会啊，然后问深一点就不知道了，这种过的几率就要小很多。</p>
+<p>所以为了运气来了的时候你就能抓住，好好挖掘你的深度很重要。</p>
+<p>如果你在考虑我是应该把以前的东西巩固一下，还是该去学新知识，你仔细思考一下，你对以前熟悉的知识深度够不够，够了再去学新知识，不要啥都会，被面试官问的时候，啥都不会（这是我昨天晚上跟我们班一个培训出来的同学聊的时候的出来的，他说培训的时候学了很多东西，然后我一问他框架原理，都答不上来，得出的结论就是只会用 API）。</p>
+<p>然后我说的是深度比广度更重要对于在校生来说，而不是广度不重要，给你说这个的目的是在你不知道应该学新东西，还是巩固以前知识的建议。</p>
+<h2 id="拥有自己的知识体系，形成解决问题的方法论"><a href="#拥有自己的知识体系，形成解决问题的方法论" class="headerlink" title="拥有自己的知识体系，形成解决问题的方法论"></a>拥有自己的知识体系，形成解决问题的方法论</h2><p>巩固基础，拥有自己的知识体系，形成解决问题的方法论，这个要求是我去小米实习我老大第一周给我说的东西。</p>
+<p>当时我其实很不理解，所谓的知识体系是什么，还要谈到方法论这种东西，感觉一脸懵逼，经过我这么久的思考实践，我谈谈我的理解。</p>
+<p>其实知识体系和解决问题的方法论是相辅相成的，在自己解决问题的时候，会用到知识体系的东西，知识体系的形成，也有部分是通过解决问题来添砖加瓦的。</p>
+<p>什么是知识体系呢？</p>
+<p>可以说是一个思维导图，这个思维导图就是你所掌握的知识的一个汇总，或者没掌握，你觉得需要应该掌握的知识。比如作为一个前端工程师，你应该会 HTML、CSS、Javascript、前端框架、HTTP 相关知识、web 安全相关知识等等。</p>
+<p>关于 Javascript 需要掌握基本类型、函数、对象、内置对象、等知识，</p>
+<p>然后函数要掌握闭包、作用域、this等，对象要掌握原型、new这些等等。</p>
+<p>我就不再扩展了，根据自己的知识形成一个知识体系，然后再解决问题的时候就很容易根据自己的知识体系来解决问题，比如可能你遇到了跨域的问题，你从你的大脑搜索整个知识体系的时候，就可以知道跨域有哪几种方法，然后每种方法的适用场景是什么。</p>
+<p>在形成自己的知识体系的过程中，你就知道自己对哪些知识了解，哪些知识不了解，然后你就会花时间去补充自己不了解的知识，渐渐完善自己的知识体系。</p>
+<p>在形成自己的知识体系之后，你面试就比较胸有成竹，兵来将挡水来土掩。</p>
+<p>你的知识体系就像一张网，面试的过程就是来检验你这张网漏洞有多大的过程，而学习的过程就是就像是给这张网空隙给编织细一点，你的最终目的就是使你这张网的空隙越来越小。</p>
+<p><img src="http://www.taoweng.site/usr/uploads/2018/05/2855389845.jpg" srcset="/img/loading.gif" lazyload alt="qrcode_for_gh_39aba8571ae1_860.jpg"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/">观点与感想</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9A%8F%E6%83%B3/">随想</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Javascript 是最好的语言，不服来辩</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/88/">
+                        <span class="hidden-mobile">ES6之路之模块详解</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

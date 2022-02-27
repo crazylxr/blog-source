@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>不要再说虚拟 DOM 有多快了 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="不要再说虚拟 DOM 有多快了">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-11-20 12:03" pubdate>
+        Tuesday, November 20th 2018, 12:03 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">不要再说虚拟 DOM 有多快了</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p>如果你觉得它很快，那么这篇文章可能就是你所缺少的</p>
+</blockquote>
+<p>我经常听到有人在群里，或者在社区里说的一个很严重的错误，那就是说 React 的 Virtual Dom 是以快出名的，比原生 Dom 快多了，啥啥啥的，每次都一两句话说不清楚，所以下次有谁再说 React 是以快出名的，你就把这篇文章丢给他，下面进入正题。</p>
+<p>在过去的几年里，你一直在跟踪 JavaScript 社区的发展，你至少听说过 Virtual DOM（React，Vue.js 2，Riot.js，Angular 2等等）。他们承诺（或者更确切地说，他们的宣传）更快的渲染界面，特别是更新，减少麻烦。你很快的上手了使用虚拟DOM的应用程序，这很好。几个月后，您的应用程序现在变得越来越复杂，你可能从用户交互到屏幕更新只需要一两秒钟的更新。你可能会想，这东西很神奇，应该会比 jQuery 快，但是实际上不是这个样子的。</p>
+<p>虽然我同意虚拟 DOM 为我们提供了很多便利，但我将解释为什么我认为根据定义，更快的渲染和更快的更新是不正确的。要付出代价，其利益并不是大多数人想象或至少希望的。</p>
+<p>要阅读本文，您需要熟悉DOM。理想情况下，您至少可以使用 DOM API。如果你只使用 DOM API 构建东西，你可能不需要这篇文章，但我仍然希望你阅读它并在评论中留下一点评语。</p>
+<h2 id="渲染和更新"><a href="#渲染和更新" class="headerlink" title="渲染和更新"></a>渲染和更新</h2><p>让我们来看看手动执行 DOM 节点的创建和更新的鸟瞰图。这对于理解虚拟DOM如何工作以及它解决了哪些问题非常重要。</p>
+<p>在谈论 JavaScript Web 应用程序时，用户界面的更改通过 DOM 操作发生。这个过程分为两个阶段：</p>
+<ol>
+<li>JS 部分：定义 JavaScript 世界中的变化</li>
+<li>DOM 部分：使用 DOM API 函数和属性执行更改</li>
+</ol>
+<p>性能是根据整个过程的速度来衡量的，但了解每部分的速度也很重要，以便了解要优化的内容。</p>
+<p>有两种方法可以创建和更新DOM树的各个部分。</p>
+<p><strong>①字符串方式创建</strong></p>
+<p>使用字符串既快速又简单，但在更新方面并不是非常精细。对于字符串，JS部分是它如此之快的原因。您可以在几毫秒内创建一段代表5000个节点的HTML。这是一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">const</span> userList = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;user-list&quot;</span>);<br><br><span class="hljs-comment">// JS 部分</span><br><span class="hljs-keyword">const</span> html = users.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">`</span><br><span class="hljs-string">    &lt;div id=&quot;<span class="hljs-subst">$&#123;user.id&#125;</span>&quot; class=”user”&gt;</span><br><span class="hljs-string">      &lt;h2 class=&quot;header&quot;&gt;<span class="hljs-subst">$&#123;user.firstName&#125;</span> <span class="hljs-subst">$&#123;user.lastName&#125;</span>&lt;/h2&gt;</span><br><span class="hljs-string">      &lt;p class=&quot;email&quot;&gt;&lt;a href=”mailto:<span class="hljs-subst">$&#123;user.email&#125;</span>”&gt;EMAIL&lt;/a&gt;&lt;/p&gt;</span><br><span class="hljs-string">      &lt;p class=&quot;avg-grade&quot;&gt;Average grade: <span class="hljs-subst">$&#123;user.avgGrade&#125;</span>&lt;/p&gt;</span><br><span class="hljs-string">      &lt;p class=&quot;enrolled&quot;&gt;Enrolled: <span class="hljs-subst">$&#123;user.enrolled&#125;</span>&lt;/p&gt;</span><br><span class="hljs-string">    &lt;/div&gt;</span><br><span class="hljs-string">  `</span><br>&#125;).join(<span class="hljs-string">&quot;&quot;</span>);<br><br><span class="hljs-comment">// DOM 部分</span><br>userList.innerHTML = html;<br></code></pre></td></tr></table></figure>
+<p>我提到使用这种方法时存在局限性。请考虑以下示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> search = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;search&quot;</span>);<br>search.innerHTML = <span class="hljs-string">`&lt;input class=&quot;search&quot; type=&quot;text&quot; value=&quot;foo&quot;&gt;`</span>;<br><span class="hljs-comment">// Change value to &quot;bar&quot;?</span><br>search.innerHTML = <span class="hljs-string">`&lt;input class=&quot;search&quot; type=&quot;text&quot; value=&quot;bar&quot;&gt;`</span>;<br></code></pre></td></tr></table></figure>
+
+<p>虽然看起来上面的内容很简单，但它实际上并不起作用。当我们运行上面的代码时，原始<code>&lt;input&gt;</code>元素被替换而不是更新，例如，如果用户有焦点的字段，他们将失去焦点。</p>
+<p>创建和更新 DOM 树的另一种方法是使用 DOM 对象。就你必须编写的代码而言，这种方法非常冗长，而且总体来说它也慢得多。</p>
+<p>让我们使用这个方法重写用户列表示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> userList = <span class="hljs-built_in">document</span>.getElementById（“user-list”）;<br><span class="hljs-comment">// JS part </span><br><span class="hljs-keyword">const</span> = <span class="hljs-built_in">document</span>.createDocumentFragment（）; <br>users.forEach（<span class="hljs-function"><span class="hljs-keyword">function</span>（<span class="hljs-title">user</span>）</span>&#123; <br>  <span class="hljs-keyword">const</span> div = <span class="hljs-built_in">document</span>.createElement（“div”）; <br>  div.id = user.id; <br>  div.className =“user”; <br>  <span class="hljs-keyword">const</span> header = <span class="hljs-built_in">document</span>.createElement（“h2”）; <br>  h2 .className =“header”; <br>  h2.appendChild（<br>    <span class="hljs-built_in">document</span>.createTextNode（<span class="hljs-string">`$ &#123;user.firstName&#125; $ &#123;user.lastName&#125;`</span>）<br>  ）; <br>  <span class="hljs-comment">// .... </span><br>  frag.appendChild（div）; <br>&#125;）;<br><span class="hljs-comment">// DOM部分</span><br>userList.innerHTML =“”; <br>userList.appendChild（FRAG）;<br></code></pre></td></tr></table></figure>
+<p>这看起来不太好，但它仍然是创建DOM节点的有效方法。它还有一个优点，即我们能够将它与第三方库（如D3）混合使用，以执行 HTML 字符串不易处理的事情。在真正的优势，虽然是执行粒度更新现有的树时：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> search = <span class="hljs-built_in">document</span>.getElementById（“search”）; <br>search.innerHTML =<span class="hljs-string">`&lt;input class =&quot;search&quot; type =&quot;text&quot;value =&quot;foo&quot;&gt;`</span>; <br><span class="hljs-comment">//将值更改为“bar”？</span><br>search.querySelector（<span class="hljs-string">&quot;input&quot;</span>）。value =<span class="hljs-string">&quot;bar&quot;</span>;<br></code></pre></td></tr></table></figure>
+<p>这次我们结合快速方便的字符串 HTML 方法来创建初始 UI，然后我们使用 DOM 操作方法来更新 value 属性。不像我们第一次这样做，<code>&lt;input&gt;</code>现在没有被替换，所以它不会像第一个例子那样引起 UX 故障。</p>
+<h2 id="进入虚拟DOM"><a href="#进入虚拟DOM" class="headerlink" title="进入虚拟DOM"></a>进入虚拟DOM</h2><p>让我们回到输入示例的第一个版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> search = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;search&quot;</span>);<br>search.innerHTML = <span class="hljs-string">`&lt;input class=&quot;search&quot; type=&quot;text&quot; value=&quot;foo&quot;&gt;`</span>;<br><span class="hljs-comment">// Change value to &quot;bar&quot;?</span><br>search.innerHTML = <span class="hljs-string">`&lt;input class=&quot;search&quot; type=&quot;text&quot; value=&quot;bar&quot;&gt;`</span>;<br></code></pre></td></tr></table></figure>
+<p>如果我们参数化值部分，它将如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> search = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;search&quot;</span>);<br><span class="hljs-keyword">const</span> renderInput = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;<br>  search.innerHTML = <span class="hljs-string">`&lt;input class=&quot;search&quot; type=&quot;text&quot; value=&quot;<span class="hljs-subst">$&#123;value&#125;</span>&quot;&gt;`</span>;<br>&#125;;<br>renderInput(<span class="hljs-string">&quot;foo&quot;</span>);<br><span class="hljs-comment">// Change value to &quot;bar&quot;?</span><br>renderInput(<span class="hljs-string">&quot;bar&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>好吧，新 renderInput() 功能肯定看起来很酷，但我们已经知道这不是好方法。</p>
+<p>如果我们有一些骚操作可以让我们继续使用类似的东西，但同时弄清楚我们想要做什么并做正确的事情呢？第二次 renderInput() 被调用，我们只更新 value 属性，所以只更新该属性而不是重新渲染整个属性<code>&lt;input&gt;</code>？</p>
+<p>我们说过创建和更新 DOM 树的整个过程分为两个阶段。使用虚拟 DOM，DOM 阶段应该尽可能高效，代价是在 JS 阶段完成的额外工作。这项额外的工作会做 diff(不要以为 js 计算就不花费代价)，因此它的另一个名称将是开销。根据定义，虚拟 DOM 比精心设计的手动更新慢，但它为我们提供了一个更方便的 API 来创建 UI。</p>
+<blockquote>
+<p>虚拟DOM比精心设计的手动更新慢。</p>
+</blockquote>
+<h2 id="为什么有些开发人员认为Virtual-DOM更快"><a href="#为什么有些开发人员认为Virtual-DOM更快" class="headerlink" title="为什么有些开发人员认为Virtual DOM更快"></a>为什么有些开发人员认为Virtual DOM更快</h2><p>在虚拟DOM（尤其是React）的早期，传播了一个神话，即虚拟 DOM 使 DOM 快速更新。正如我们在前面的章节中看到的那样，这在技术上是不可行的。DOM 更新就是它们的原因，并且没有任何魔法可以使它更快：它必须在浏览器的本机代码中进行优化。</p>
+<p><img src="http://www.taoweng.site/usr/uploads/2018/11/1585582967.png" srcset="/img/loading.gif" lazyload alt="vdom.png"></p>
+<p>可以看到 React 主页里面没有提到性能，而是开发人员的便利性。</p>
+<p>React 的基本思维模式是每次有变动就整个重新渲染整个应用。如果没有 Virtual DOM，简单来想就是直接重置 innerHTML。很多人都没有意识到，在一个大型列表所有数据都变了的情况下，重置 innerHTML 其实是一个还算合理的操作… 真正的问题是在 “全部重新渲染” 的思维模式下，即使只有一行数据变了，它也需要重置整个 innerHTML，这时候显然就有大量的浪费。</p>
+<p>您仍然可以看到比较各种虚拟 DOM 实现的基准测试，并且一些措辞会误导新开发人员认为虚拟 DOM 是当今事实上的标准，并且不值得对其他技术进行基准测试。然而，有一些基准可以将它与其他技术进行比较，例如 Aerotwist 的 React +性能文章，它描绘了虚拟 DOM 在宏观方案中所处位置的更真实的画面。</p>
+<h2 id="我们得到了什么？这值得么？"><a href="#我们得到了什么？这值得么？" class="headerlink" title="我们得到了什么？这值得么？"></a>我们得到了什么？这值得么？</h2><p>虚拟DOM最终是一种执行 DOM 更新的循环方式。但是，它打开了通向有趣架构的大门，例如将视图视为状态函数，或者编写和组合视图组件。虚拟 DOM 带来了很多好东西，尽管疯狂的性能水平不是其中之一。您可以将其视为 Python 或 PHP 中的编码与 C 中的编码之间的差异。我们以性能为代价获得更多的开发人员工具。换句话说，这是一种权衡。</p>
+<p>另一方面，开发人员的时间丢失也是一些实现方面的事情。虚拟 DOM 试图弄清楚它需要执行哪些更改的部分是由人类实现的，因此它并不总是万无一失。有时你必须介入。在某些情况下，无法进行干预。对于绝对性能至关重要的事情，它甚至可能不是一种选择。</p>
+<blockquote>
+<p>衡量您的表现并根据硬数据来决定。</p>
+</blockquote>
+<p>最重要的是，虚拟DOM只是您可以使用的工具之一。衡量您的表现并根据硬数据来决定。数据绑定仍然非常可行，我们已经看到您也可以手动完成所有操作。它绝对不是万能的，因此没有必要与虚拟DOM结合。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>React 厉害的地方并不是说它比 DOM 快，而是说不管你数据怎么变化，我都可以以最小的代价来进行更新 DOM。 方法就是我在内存里面用心的数据刷新一个虚拟 DOM 树，然后新旧 DOM 进行比较，找出差异，再更新到 DOM 树上。</p>
+<p>这就是所谓的 diff 算法，虽然说 diff 算法号称算法复杂度 O(n) 可以得到最小操作结果，但实际上 DOM 树很大的时候，遍历两棵树进行各种对比还是有性能损耗的，特别是我在顶层 setState 一个简单的数据，你就要整棵树 walk 一遍，而真实中我可以一句 jQuery 就搞定，所以就有了 <code>shouldComponentUpdate</code> 这种东西。</p>
+<p>框架的意义在于为你掩盖底层的 DOM 操作，让你用更声明式的方式来描述你的目的，从而让你的代码更容易维护。没有任何框架可以比纯手动的优化 DOM 操作更快，因为框架的 DOM 操作层需要应对任何上层 API 可能产生的操作，它的实现必须是普适的。</p>
+<p>针对每一个点，都可以写出比任何框架更快的手动优化，但是那有什么意义呢？在构建一个实际应用的时候，你难道为每一个地方都去做手动优化吗？出于可维护性的考虑，这显然不可能。框架给你的保证是，你在不需要手动优化的情况下，我依然可以给你提供过得去的性能。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/157/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">破坏开发人员生产力的十二件事</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/117/">
+                        <span class="hidden-mobile">浅谈未来几年前端的发展方向</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

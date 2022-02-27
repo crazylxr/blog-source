@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>前端桃园周刊第五期 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="前端桃园周刊第五期">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-12-22 10:48" pubdate>
+        Sunday, December 22nd 2019, 10:48 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      849 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">前端桃园周刊第五期</h1>
+            
+            <div class="markdown-body">
+              <h2 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h2><h3 id="1-Thinking-in-React-Hooks"><a href="#1-Thinking-in-React-Hooks" class="headerlink" title="1. Thinking in React Hooks"></a>1. <a target="_blank" rel="noopener" href="https://wattenberger.com/blog/react-hooks">Thinking in React Hooks</a></h3><p>当从 React 类组件切换到函数组件 + hook 时，基本的思维模式发生了什么变化。</p>
+<h3 id="2-Ant-Design-1-0-背后的故事：把艺术变成技术"><a href="#2-Ant-Design-1-0-背后的故事：把艺术变成技术" class="headerlink" title="2. Ant Design 1.0 背后的故事：把艺术变成技术"></a>2. <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/TgBMOuXWgMEkJJkp868hGQ">Ant Design 1.0 背后的故事：把艺术变成技术</a></h3><p>我以前一直不喜欢读历史，今年了解吴军老师比较多，听他的硅谷来信，看他的书：《浪潮之巅》、《文明之光》才决定历史背景原来那么重要，了解历史你会发现现在很多的东西都是必然会出现的。  Ant Desgin 这么伟大的东西，了解一个产品背后的故事，我觉得还是很有必要的，看看为什么别人能做出伟大的东西，而我们不能。</p>
+<h3 id="3-前端API层架构，也许你做得还不够"><a href="#3-前端API层架构，也许你做得还不够" class="headerlink" title="3. 前端API层架构，也许你做得还不够"></a>3. <a target="_blank" rel="noopener" href="https://juejin.im/post/5de7169451882512454b18d8">前端API层架构，也许你做得还不够</a></h3><p>架构设计是一条永远走不完的路，没有最好，只有更好。这个道理适用于软件设计的各个场景，前端API 层的设计也不例外，如果您觉得在调用接口时还存在诸多槽点，那就说明您的接口层架构还待优化。作者以 vue + axios 为例，为大家梳理下我的一些经历和设想。</p>
+<h3 id="4-你的-Mac-用对了吗？推荐一些-Mac-上比较好用的软件"><a href="#4-你的-Mac-用对了吗？推荐一些-Mac-上比较好用的软件" class="headerlink" title="4. 你的 Mac 用对了吗？推荐一些 Mac 上比较好用的软件"></a>4. <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/t0v9dJ5NPVJ7StTG8kX-Vg">你的 Mac 用对了吗？推荐一些 Mac 上比较好用的软件</a></h3><p>这些 mac 软件都挺好用的，强烈推荐。</p>
+<h3 id="5-再谈编程范式—程序语言背后的思想"><a href="#5-再谈编程范式—程序语言背后的思想" class="headerlink" title="5. 再谈编程范式—程序语言背后的思想"></a>5. <a target="_blank" rel="noopener" href="https://imweb.io/topic/5cde5770e363b77a0edeb874">再谈编程范式—程序语言背后的思想</a></h3><p>详细讲述了命令式、过程式、说明式、面向对象、函数式、泛型编程各个编程范式的特性。</p>
+<h3 id="6-少讲大道理，多解决小问题"><a href="#6-少讲大道理，多解决小问题" class="headerlink" title="6. 少讲大道理，多解决小问题"></a>6. <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/j1MtPn_2YwPhiLCJHZ4GYQ">少讲大道理，多解决小问题</a></h3><p>二爷这篇文章以很多亲身体验的例子来阐述了多做事，少废话的道理，非常值得一读。</p>
+<h2 id="挖宝"><a href="#挖宝" class="headerlink" title="挖宝"></a>挖宝</h2><h3 id="1-vscode-字体-fira-code"><a href="#1-vscode-字体-fira-code" class="headerlink" title="1. vscode 字体 fira code"></a>1. <a target="_blank" rel="noopener" href="http://www.taoweng.site/index.php/archives/290/">vscode 字体 fira code</a></h3><p>一款为程序员专属的字体。</p>
+<h3 id="2-大四学生开源文言文编程语言"><a href="#2-大四学生开源文言文编程语言" class="headerlink" title="2. 大四学生开源文言文编程语言"></a>2. <a target="_blank" rel="noopener" href="https://github.com/LingDong-/wenyan-lang">大四学生开源文言文编程语言</a></h3><p>这一项目并不是简单的将程序中的英文字符换成了中文，而是利用 NLP 的一些技术，将文言文程序语法转换到 JavaScript 或 Python 运行，有一定的技术难度。</p>
+<p>如果读者想快速试一试，你也可以玩一玩在线 IDE，上面有很多预定义的函数。即使在手机上，我们也能编辑并运行「文言文代码」。</p>
+<h3 id="3-lutaonan-com"><a href="#3-lutaonan-com" class="headerlink" title="3. lutaonan.com"></a>3. <a target="_blank" rel="noopener" href="https://lutaonan.com/">lutaonan.com</a></h3><p>一款很简洁的博客，文章阅读页的样式准备参考他的。</p>
+<h3 id="4-方凳雅集"><a href="#4-方凳雅集" class="headerlink" title="4. 方凳雅集"></a>4. 方凳雅集</h3><p>方凳雅集是阿里B系前端技术团队的专属公众号，内容来自1688、阿里巴巴国际站、零售通、AliExpress、企业金融、考拉等多个BU的前端团队，涵盖阿里原创技术、精彩翻译和公司文化、职业成长等内容。</p>
+<p>最近关注到的质量比较高的前端公众号了，不过不太适合初级工程师，文章话题一般比较高大上，都是他们团队内部的一些解决方案，而不是基础知识。</p>
+<p><img src="http://imgs.taoweng.site/2019-12-22-024546.png" srcset="/img/loading.gif" lazyload alt="Dec%2016%202019/Untitled.png"></p>
+<h3 id="5-第十四届D2前端技术论坛「创心」"><a href="#5-第十四届D2前端技术论坛「创心」" class="headerlink" title="5. 第十四届D2前端技术论坛「创心」"></a>5. <a target="_blank" rel="noopener" href="https://github.com/d2forum/14th">第十四届D2前端技术论坛「创心」</a></h3><p>12 月 14 日，第十四届 D2 前端技术论坛在杭州圆满举办。来自全国各地的近千名开发者齐聚杭州，聆听 3 大会场、来自 24 位海内外嘉宾的 21 个主题分享。</p>
+<p>分了语言框架专场、智能化专场、微前端专场、工程化专场、Serverless 专场、多样化领域专场。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%A1%83%E5%9B%AD%E5%91%A8%E5%88%8A/">桃园周刊</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                      <a class="hover-with-bg" href="/tags/mac/">mac</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/293/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">根据 React 历史来聊如何理解虚拟 DOM</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/290/">
+                        <span class="hidden-mobile">为 VSCode 添加上程序员专用字体 Fira Code</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

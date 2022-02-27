@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>离开蘑菇街后，我最近的一些想法 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="离开蘑菇街后，我最近的一些想法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-30 16:19" pubdate>
+        Thursday, April 30th 2020, 4:19 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">离开蘑菇街后，我最近的一些想法</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>被裁之后我就一直在家复习，面试，所以就一直没有写文章，没有太多心思搭理公众号，现在也拿了两个 offer 了，所以开始回到正途。</p>
+<h2 id="胎死腹中的-Vue-3-0-Beta-文章"><a href="#胎死腹中的-Vue-3-0-Beta-文章" class="headerlink" title="胎死腹中的 Vue 3.0 Beta 文章"></a>胎死腹中的 Vue 3.0 Beta 文章</h2><p>4  月 17 日，早上我收到了浪浪(浪里行舟)的消息，给我发了一个微博消息，尤大在微博上宣布发布 <strong>Vue 3.0 Beta</strong> 了，然后跟我说这是热点，让我写一篇文章，我就暂停了前一天晚上定时发的文章，准备写一篇详细介绍 Vue 3.0 Beta 所发布的东西。</p>
+<p>所以当天我早早的来到了公司，希望在上班前能搞定，然后就开始翻阅 <code>vue-next</code> 的文档以及草案，想从根源去探究 <strong>vue 3.0 Beta</strong> 能给我们带来什么。</p>
+<p>没过多久，在我们技术部的群里有人就 @ 了所有人，让我们去看下邮件，邦哥(化名)发了一封邮件，每个人都要看一下。</p>
+<p>我由于还在写文章，收集资料，就没那么快去看邮件，不一会儿，突然安静的 9L 就开始叽叽喳喳，议论纷纷，这时我感觉应该是一件大事儿。</p>
+<p>我就迅速打开了邮件，第一段就描述着公司在今天要优化 140+  的人，第二段描述着公司的核心方向，<strong>直播和品牌特卖</strong>，在这个时候，我已经能意识到，我可能要被优化了，也许我们组绝大部分人都会被优化，因为我们组基本是做内部系统的，跟核心业务极大的偏离。</p>
+<p>我也加入到他们叽叽喳喳的氛围中，放下了手上所有的事情，和旁边的同事讨论着裁员的事情。</p>
+<h2 id="被裁"><a href="#被裁" class="headerlink" title="被裁"></a>被裁</h2><p>大概在十一点左右的时候，我左手边的一个应届生小声的说，我凉了，HR 让我去 11 楼一趟，然后我将这个事情传达给了我们的一个小群，以及我对接的后端，并询问他他们组的情况。</p>
+<p>没想到聊着聊着，他跟我留下了一句，<strong>我中了，我先上去了</strong>。</p>
+<p>接下来就眼睁睁的看着身边的人一个一个的都被喊上去，从工作一年的到两年的(包括我)，再到四年的，以及更多的。</p>
+<p>到中午的时候，我们组只留下一个人没沟通了，是一个工作了四年多的老员工了，就坐在我旁边，他很慌，因为大家都拿着赔偿金(n+1.5)，他也想有。</p>
+<p>一直等到一点、两点、三点、四点，五点，他放弃了，成为了我们这层楼我们组唯一个留下的。</p>
+<p>后面就开始办理离职手续，交接项目，晚上我们整个前端到旁边的<strong>修舍酒店</strong>进行聚餐，虽然离别时悲伤的，但是被裁的人拿到高于常规的赔偿，是幸运的。</p>
+<p>这次裁员对于应届生来说是最惨的，他们工作年限不久，不到一年，对于社招来说，是非常的吃亏的。工作年限不够，而且整个大环境来说又不好，现在又被裁没有工作，大公司很少会招工作年限这么短的，去小公司又有可能被压价。</p>
+<p>唉，不想写这些消极情绪的了，在这被裁的两周里，空闲下来我也思考了很多，接下来说一些我的见解，希望能给到大家帮助。</p>
+<h2 id="定时更新简历"><a href="#定时更新简历" class="headerlink" title="定时更新简历"></a>定时更新简历</h2><p>之前我在知乎上看到一个 HR 的回答里面说到，不管你跳不跳槽，其实都可以定时更新自己的简历。</p>
+<p>我是比较赞成他的说法的，我倾向于半年更新一次简历，因为在更新简历的过程中你会去思考，去总结你在之前的这半年里，你做了什么有价值的东西，有没有什么亮点。</p>
+<p>一旦发现在这半年里没有做出什么成绩，那么你也许需要在后面的时间里调整自己的工作方式，思考为什么没有值得写在简历里面的东西，然后给自己定目标，做规划，尽量在半年后可以有一些亮点可以跟别人吹。</p>
+<h2 id="多做总结"><a href="#多做总结" class="headerlink" title="多做总结"></a>多做总结</h2><p>总结这个东西，其实每个人都会觉得应该做，但是很少人真正的去执行，也许是因为太忙，也许是因为懒，也许是因为觉得他不重要。</p>
+<p>我相信很多人会有这样的感觉，当别人问你做的项目有没有什么难度，在做的时候遇到了什么困难，以及怎么解决的。你会感觉都已经做出来了，感觉没什么难的了。</p>
+<p>其实在我看来，这其实就是没有及时的总结导致的。</p>
+<p>我的建议是当你遇到难题并解决之后，<strong>马上</strong>记下来，因为这个时候是你最有动力，也是最清醒的时刻，一旦你想<strong>后面有空了再记</strong>，那么基本上就是不会记了。</p>
+<p>另外就是每个项目完结之后也需要进行总结，遇到的问题，项目的架构，项目的价值等等，这些东西是以后可以跟面试官聊项目的资本。如果不记下来，当你写简历的时候，很可能会把关键的地方忘掉。</p>
+<h2 id="忙一点的公司挺好"><a href="#忙一点的公司挺好" class="headerlink" title="忙一点的公司挺好"></a>忙一点的公司挺好</h2><p>可能对于这一点很多人会觉得我政治不正确，觉得理想的工作不应该是朝九晚六，到点下班么。</p>
+<p>但是我最近在观察那些发展得好的企业，加班都比较严重，比如阿里、腾讯、字节跳动、拼多多等，当然这些公司都会给你更高的薪水。</p>
+<p>为什么我会绝对忙的公司其实挺好呢？主要是因为公司发展迅速，意味着就会扩大生产，那么就需要更多的劳动力，但是对于招聘合适的人又是一个急不得的事儿，所以留在公司的人可能会很忙，得干超出正常一个人所干的事儿。</p>
+<p>这样其实你可以有更多需求做，也许是重复的，也许是新的东西，不管怎么样，一旦你代码写得多，你能更可能发现到别人发现不到的痛点，也会给公司做更多的贡献，其实对于成长是有帮助的。</p>
+<p>可能有人会觉得我只是一个打工的，在规定的时间把东西做完，下班时间再去学习，其实这种方式对于大部分人来说不是特别的高效，因为学习这件事其实是反人性的，下班了也许你更多的时间会用于其他娱乐中。</p>
+<p>再说一下对于比较闲的公司，也许很多人都想去，比如外企，相对国内的大厂来说要轻松很多，但是闲的公司很容易让人养成懒的习惯，特别是对于工作不久的，一旦养成了懒惰的习惯，就会危害自己一辈子。</p>
+<p><strong>我希望这一点不要跟我争论，如果你希望去不忙的公司，你去就行了，也不用说服我。</strong></p>
+<blockquote>
+<p> 可以想想之前甲骨文裁员的时候，那些老员工的无奈。</p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>蘑菇街还是一家很有良心的公司，我也很感谢公司给我带来的成长，希望蘑菇街能越来越好。</p>
+<p>这次裁员其实对于我来说影响不是特别的大，因为我其实在工作期间会偶尔出去其他公司面试，面试的目的其实不仅仅是想换份工作，另外主要也想看看自己在面试中发现自己哪些不足，然后好好的改进。</p>
+<p> 刚好在裁员的那一周，我也过了一家杭州 1000 人左右的公司，但是觉得给的薪资不是特别满意，所以我被裁之后就安心在家复习，继续投一些大点的公司。</p>
+<p>投递的公司有蚂蚁、滴滴、字节跳动，拼多多(已经面完，可拿 offer)，没拿到 offer 的也都在流程中(二面或者三面)，基本上还没有挂过。</p>
+<p>后面我会将我最近的面试题总结下来，以及我是如何复习的，希望能给到正在找工作或者想找工作的人帮助。</p>
+<blockquote>
+<p> 我是桃翁，期待你的关注</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/">观点与感想</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9A%8F%E6%83%B3/">随想</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/318/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">拼多多和酷家乐面试经历总结</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/315/">
+                        <span class="hidden-mobile">理解 JavaScript 中的执行上下文和执行栈</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

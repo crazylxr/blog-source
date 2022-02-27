@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>根据 React 历史来聊如何理解虚拟 DOM - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="根据 React 历史来聊如何理解虚拟 DOM">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-12-22 23:51" pubdate>
+        Sunday, December 22nd 2019, 11:51 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">根据 React 历史来聊如何理解虚拟 DOM</h1>
+            
+            <div class="markdown-body">
+              <p>最近我发现很多面试题里面都有「如何理解虚拟 DOM」这个题，我觉得这个题应该没有想象中那么好答，因为很多人没有真正理解虚拟 DOM 它的价值所在，我这篇从虚拟 DOM 的诞生过程来引出它的价值以及历史地位，帮助你深入的理解它。</p>
+<h2 id="什么是虚拟DOM"><a href="#什么是虚拟DOM" class="headerlink" title="什么是虚拟DOM"></a>什么是虚拟DOM</h2><p><strong>本质上是 JavaScript 对象，这个对象就是更加轻量级的对 DOM 的描述。</strong></p>
+<p>对，就是这么简单！</p>
+<p>就是一个复杂一点的对象而已，没什么好说的，重点是为什么要有这个东西，以及有了这个描述有什么好处才是我们今天要介绍的内容。</p>
+<h2 id="为什么要有虚拟DOM"><a href="#为什么要有虚拟DOM" class="headerlink" title="为什么要有虚拟DOM"></a>为什么要有虚拟DOM</h2><p>再谈为什么要用虚拟 DOM 之前，先来聊一聊 React 是怎么诞生的，毕竟在了解历史背景，再去思考他的诞生，就知道是必然会出现的。</p>
+<p>再查了很多关于 React 的历史相关的文章，这篇文章我感觉比较值得令我信服：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013365426#item-4">React 是怎样炼成的</a>。</p>
+<p>众所周知，Facebook 是 PHP 大户，所以 React 最开始的灵感就来至于 PHP。</p>
+<h3 id="字符串拼接时代-2004"><a href="#字符串拼接时代-2004" class="headerlink" title="字符串拼接时代 - 2004"></a>字符串拼接时代 - 2004</h3><p>在 2004 年这个时候，大家都还在用 PHP 的字符串拼接来开发网站：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$str = <span class="hljs-string">&#x27;&lt;ul&gt;&#x27;</span>;<br>foreach ($talks <span class="hljs-keyword">as</span> $talk) &#123;<br>  $str += <span class="hljs-string">&#x27;&lt;li&gt;&#x27;</span> . $talk-&gt;name . <span class="hljs-string">&#x27;&lt;/li&gt;&#x27;</span>;<br>&#125;<br>$str += <span class="hljs-string">&#x27;&lt;/ul&gt;&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>这种方式代码写出来不好看不说，还容易造成 XSS 等安全问题。</p>
+<p>应对方法是对用户的任何输入都进行转义（Escape）。但是如果对字符串进行多次转义，那么反转义的次数也必须是相同的，否则会无法得到原内容。如果又不小心把 HTML 标签（Markup）给转义了，那么 HTML 标签会直接显示给用户，从而导致很差的用户体验。</p>
+<h3 id="XHP-时代-2010"><a href="#XHP-时代-2010" class="headerlink" title="XHP 时代 - 2010"></a>XHP 时代 - 2010</h3><p>到了 2010 年，为了更加高效的编码，同时也避免转义 HTML 标签的错误，Facebook 开发了 XHP 。XHP 是对 PHP 的语法拓展，它允许开发者直接在 PHP 中使用 HTML 标签，而不再使用字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML">$content = &lt;ul /&gt;;<br>foreach ($talks as $talk) &#123;<br>  $content-&gt;appendChild(&lt;li&gt;&#123;$talk-&gt;name&#125;&lt;/li&gt;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样的话，所有的 HTML 标签都使用不同于 PHP 的语法，我们可以轻易的分辨哪些需要转义哪些不需要转义。</p>
+<p>不久的后来，Facebook 的工程师又发现他们还可以创建自定义标签，而且通过组合自定义标签有助于构建大型应用。</p>
+<h3 id="JSX-2013"><a href="#JSX-2013" class="headerlink" title="JSX - 2013"></a>JSX - 2013</h3><p>到了 2013 年，前端工程师 Jordan Walke 向他的经理提出了一个大胆的想法：把 XHP 的拓展功能迁移到 JS 中。首要任务是需要一个拓展来让 JS 支持 XML 语法，该拓展称为 JSX。因为当时由于 Node.js 在 Facebook 已经有很多实践，所以很快就实现了 JSX。</p>
+<blockquote>
+<p>可以猜想一下为什么要迁移到 js 中，我猜想应该是前后端分离导致的。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> content = (<br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TalkList</span>&gt;</span></span><br><span class="xml">    &#123; talks.map(talk =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">Talk</span> <span class="hljs-attr">talk</span>=<span class="hljs-string">&#123;talk&#125;</span> /&gt;</span>)&#125;</span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">TalkList</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><p>在这个时候，就有另外一个很棘手的问题，那就是在进行更新的时候，需要去操作 DOM，传统 DOM API 细节太多，操作复杂，所以就很容易出现 Bug，而且代码难以维护。</p>
+<p>然后就想到了 PHP 时代的更新机制，每当有数据改变时，只需要跳到一个由 PHP 全新渲染的新页面即可。</p>
+<p>从开发者的角度来看的话，这种方式开发应用是非常简单的，因为它不需要担心变更，且界面上用户数据改变时所有内容都是同步的。</p>
+<p>为此 React 提出了一个新的思想，即<strong>始终整体“刷新”页面</strong></p>
+<p><strong>当发生前后状态变化时，React 会自动更新 UI</strong>，让我们从复杂的 UI 操作中解放出来，使我们只需关于状态以及最终 UI 长什么样。</p>
+<p>下面看看局部刷新和整体刷新的区别。</p>
+<p><img src="http://imgs.taoweng.site/2019-12-22-155012.png" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<p>图片来自于极客时间王沛老师的《React进阶与实战》</p>
+</blockquote>
+<p>局部刷新：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 下面是伪代码</span><br><span class="hljs-keyword">var</span> ul = find(ul) <span class="hljs-comment">// 先找到 ul</span><br>ul.append(<span class="hljs-string">`&lt;li&gt;<span class="hljs-subst">$&#123;message3&#125;</span>&lt;/li&gt;`</span>) <span class="hljs-comment">//然后再将message3插到最后</span><br><br><span class="hljs-comment">// 想想如果是不插到最后一个，而是插到中间的第n个</span><br><span class="hljs-keyword">var</span> ul = find(ul) <span class="hljs-comment">// 先找到 ul</span><br><span class="hljs-keyword">var</span> preli = find(li(n-<span class="hljs-number">1</span>)) <span class="hljs-comment">// 再找到 n-1 的一个 li</span><br>preli.next(<span class="hljs-string">`&lt;li&gt;<span class="hljs-subst">$&#123;message3&#125;</span>&lt;/li&gt;`</span>) <span class="hljs-comment">// 再插入到 n-1 个的后面</span><br></code></pre></td></tr></table></figure>
+
+<p>整体刷新：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">UI = f(messages) <span class="hljs-comment">// 整体刷新 3 条消息，只需要调用 f 函数</span><br><br><span class="hljs-comment">// 这个是在初始渲染的时候就定义好的，更新的时候不用去管</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">messages</span>) </span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="xml">		&#123;messages.map(message =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>&#123; message &#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)&#125;</span><br><span class="xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个时候，我<strong>只需要关系我的状态（数据是什么），以及 UI 长什么样（布局），不再需要关系操作细节。</strong></p>
+<p>这种方式虽然简单粗暴，但是很明显的缺点，<strong>就是很慢。</strong></p>
+<p>另外还有一个问题就是这样无法包含节点的状态。比如它会失去当前聚焦的元素和光标，以及文本选择和页面滚动位置，这些都是页面的当前状态。</p>
+<h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>为了解决上面说的问题，对于没有改变的 DOM 节点，让它保持原样不动，仅仅创建并替换变更过的 DOM 节点。这种方式实现了 DOM 节点<strong>复用</strong>（Reuse）。</p>
+<p>至此，只要能够<strong>识别</strong>出哪些节点改变了，那么就可以实现对 DOM 的更新。于是问题就转化为<strong>如何比对两个 DOM 的差异</strong>。</p>
+<p>说道对比差异，可能很容易想到<strong>版本控制(git)。</strong></p>
+<p>DOM 是树形结构，所以 diff 算法必须是针对树形结构的。目前已知的完整树形结构 diff 算法复杂度为 O(n^3) 。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf">完整的 Tree diff 实现算法。</a></p>
+</blockquote>
+<p>但是时间复杂度  O(n^3) 太高了，所以Facebook工程师考虑到组件的特殊情况，然后将复杂度降低到了 O(n)。</p>
+<blockquote>
+<p>附：详细的 diff 理解：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20346379">不可思议的 react diff 。</a></p>
+</blockquote>
+<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p>前面说到，React 其实实现了对 DOM 节点的版本控制。</p>
+<p>做过 JS 应用优化的人可能都知道，DOM 是复杂的，对它的操作（尤其是查询和创建）是非常慢非常耗费资源的。看下面的例子，仅创建一个空白的 div，其实例属性就达到 231 个。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Chrome v63</span><br><span class="hljs-keyword">const</span> div = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;div&#x27;</span>);<br><span class="hljs-keyword">let</span> m = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> k <span class="hljs-keyword">in</span> div) &#123;<br>  m++;<br>&#125;<br><span class="hljs-built_in">console</span>.log(m); <span class="hljs-comment">// 231</span><br></code></pre></td></tr></table></figure>
+
+<p>对于 DOM 这么多属性，其实大部分属性对于做 Diff 是没有任何用处的，所以如果用更轻量级的 JS 对象来代替复杂的 DOM 节点，然后把对 DOM 的 diff 操作转移到 JS 对象，就可以避免大量对 DOM 的查询操作。这个更轻量级的 JS 对象就称为 Virtual DOM 。</p>
+<p>那么现在的过程就是这样：</p>
+<ol>
+<li>维护一个使用 JS 对象表示的 Virtual DOM，与真实 DOM 一一对应</li>
+<li>对前后两个 Virtual DOM 做 diff ，生成<strong>变更</strong>（Mutation）</li>
+<li>把变更应用于真实 DOM，生成最新的真实 DOM</li>
+</ol>
+<p>可以看出，因为要把变更应用到真实 DOM 上，所以还是避免不了要直接操作 DOM ，但是 React 的 diff 算法会把 DOM 改动次数降到最低。</p>
+<p>剩下的历史就不谈了，已经引出这篇文章的重点：虚拟 DOM。详细的历史可见：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013365426">React 是怎样炼成的</a>，文中历史部分内容很多摘抄与此。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>传统前端的编程方式是命令式的，直接操纵DOM，告诉浏览器该怎么干。这样的问题就是，大量的代码被用于操作 DOM 元素，且代码可读性差，可维护性低。</p>
+<p>React 的出现，将命令式变成了声明式，摒弃了直接操作 DOM 的细节，只关注数据的变动，DOM 操作由框架来完成，从而大幅度提升了代码的可读性和可维护性。</p>
+<p>在初期我们可以看到，数据的变动导致整个页面的刷新，这种效率很低，因为可能是局部的数据变化，但是要刷新整个页面，造成了不必要的开销。</p>
+<p>所以就有了 Diff 过程，将数据变动前后的 DOM 结构先进行比较，找出两者的不同处，然后再对不同之处进行更新渲染。</p>
+<p>但是由于整个 DOM 结构又太大，所以采用了更轻量级的对  DOM 的描述—虚拟 DOM。</p>
+<p>不过需要注意的是，虚拟 DOM 和 Diff 算法的出现是为了解决由命令式编程转变为声明式编程、数据驱动后所带来的性能问题的。换句话说，<strong>直接操作 DOM 的性能并不会低于虚拟 DOM 和 Diff 算法，甚至还会优于。</strong></p>
+<p>这么说的原因是因为 Diff 算法的比较过程，比较是为了找出不同从而有的放矢的更新页面。但是比较也是要消耗性能的。而直接操作 DOM 就是有的放矢，我们知道该更新什么不该更新什么，所以不需要有比较的过程。所以直接操作 DOM 效率可能更高。</p>
+<p>React 厉害的地方并不是说它比 DOM 快，而是说不管你数据怎么变化，我都可以以最小的代价来进行更新 DOM。 方法就是我在内存里面用新的数据刷新一个虚拟 DOM 树，然后新旧 DOM 进行比较，找出差异，再更新到 DOM 树上。</p>
+<p>框架的意义在于为你掩盖底层的 DOM 操作，让你用更声明式的方式来描述你的目的，从而让你的代码更容易维护。没有任何框架可以比纯手动的优化 DOM 操作更快，因为框架的 DOM 操作层需要应对任何上层 API 可能产生的操作，它的实现必须是普适的。</p>
+<p>如果你想了解更多的虚拟 DOM 与性能的关系，请看下面公众号里面的两篇文章和那个知乎话题，会让你对虚拟 DOM 又更深层次的理解。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/XR3-3MNCYY2pg6yVwVQohQ">别再说虚拟 DOM 快了，要被打脸的</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cz5DBpqFiadL4IQofiWY3A">深入理解虚拟 DOM，它真的不快</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31809713">网上都说操作真实 DOM 慢，但测试结果却比 React 更快，为什么</a></li>
+</ul>
+<blockquote>
+<p>另外再提一个点，很多人会把 Diff 、数据更新、提升性能等概念绑定起来，但是你想想这个问题：React 由于只触发更新,而不能知道精确变化的数据,所以需要 diff 来找出差异然后 patch 差异队列。Vue 采用数据劫持的手段可以精准拿到变化的数据,为什么还要用虚拟DOM？</p>
+</blockquote>
+<h2 id="虚拟DOM-的作用"><a href="#虚拟DOM-的作用" class="headerlink" title="虚拟DOM 的作用"></a>虚拟DOM 的作用</h2><p>要想回答上面那个问题，真的不要仅仅以为虚拟 DOM 或者 React 是来解决性能问题的，好处可还有很多呢。下面我总结了一些虚拟 DOM 好作用。</p>
+<ul>
+<li><strong>Virtual DOM 在牺牲(牺牲很关键)部分性能</strong>的前提下，增加了可维护性，这也是很多框架的通性。</li>
+<li>实现了对 DOM 的集中化操作，在数据改变时先对虚拟 DOM 进行修改，再反映到真实的 DOM中，用最小的代价来更新DOM，提高效率(提升效率要想想是跟哪个阶段比提升了效率，别只记住了这一条)。</li>
+<li>打开了函数式 UI 编程的大门。</li>
+<li>可以渲染到 DOM 以外的端，使得框架跨平台，比如 ReactNative，React VR 等。</li>
+<li>可以更好的实现 SSR，同构渲染等。这条其实是跟上面一条差不多的。</li>
+<li>组件的高度抽象化。</li>
+</ul>
+<p>既然虚拟 DOM 有这么多作用，那么上面的问题，Vue 采用虚拟 DOM 的原因是什么呢？</p>
+<blockquote>
+<p>Vue 2.0 引入 vdom 的主要原因是 vdom 把渲染过程抽象化了，从而使得组件的抽象能力也得到提升，并且可以适配 DOM 以外的渲染目标。 来自尤大文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23752826">Vue 的理念问题</a></p>
+</blockquote>
+<h2 id="虚拟-DOM-的缺点"><a href="#虚拟-DOM-的缺点" class="headerlink" title="虚拟 DOM 的缺点"></a>虚拟 DOM 的缺点</h2><ul>
+<li>首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。</li>
+<li>虚拟 DOM 需要在内存中的维护一份 DOM 的副本(更上面一条其实也差不多，上面一条是从速度上，这条是空间上)。</li>
+<li>如果虚拟 DOM 大量更改，这是合适的。但是单一的，频繁的更新的话，虚拟 DOM 将会花费更多的时间处理计算的工作。所以，如果你有一个DOM 节点相对较少页面，用虚拟 DOM，它实际上有可能会更慢。但对于大多数单页面应用，这应该都会更快。</li>
+</ul>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>本文在介绍虚拟 DOM 并没有像其他文章一样去解释它的实现以及相关的 Diff 算法，关于 Diff 算法可以看这篇 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/oAlVmZ4Hbt2VhOwFEkNEhw">虚拟 DOM 到底是什么？</a>文中介绍了很多库的 diff 算法，可见其实 React 的 diff 算法并不算太快。</p>
+<p>而是通过历史来得出他的价值体现，从历史怎么看大牛们是怎么一步一步的去解决问题，从历史中看为什么别人能做出这么伟大的东西，而我们不能？</p>
+<p>每个伟大的产品都会有非常多的背景支持，都是一步一步发展而来的。</p>
+<p>另外洗清了一个错误观念：<strong>很多人认为虚拟 DOM 最大的优势是 diff 算法，减少 JavaScript 操作真实 DOM 的带来的性能消耗。</strong></p>
+<p>虽然这一个虚拟 DOM 带来的一个优势，但并不是全部。虚拟 DOM 最大的优势在于抽象了原本的渲染过程，实现了跨平台的能力，而不仅仅局限于浏览器的 DOM，可以是安卓和 IOS 的原生组件，可以是近期很火热的小程序，也可以是各种 GUI。</p>
+<p>最后希望大家多思考，跟随者浪潮站在浪潮之巅。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/hjc256/article/details/97135687">虚拟DOM为何出现以及性能问题？</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013365426">React 是怎样炼成的</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/">观点与感想</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/294/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端桃园周刊第六期</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/292/">
+                        <span class="hidden-mobile">前端桃园周刊第五期</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

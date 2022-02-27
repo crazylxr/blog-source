@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>国外服务器如何选择以及搭建ShadowSocks教程 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="国外服务器如何选择以及搭建ShadowSocks教程">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-06-25 21:41" pubdate>
+        Monday, June 25th 2018, 9:41 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">国外服务器如何选择以及搭建ShadowSocks教程</h1>
+            
+            <div class="markdown-body">
+              <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>就在前几天，阿里云给我发了短信，还给我打了电话，告诉我我的学生认证已经过期，请尽快续费，要是停了意味着我的博客就不能用了，运营了这么久的博客还是舍不得丢。我是用的阿里云的学生机，1 核 2G的内存 40 个 G 的 SSD，去续费的时候发现一个月 120 多，对于我来说还是太贵了，所以准备买个便宜的国外的服务器，国内的相对比较贵，而且国外的还可以用来搭 SS。</p>
+<p>下面就记录我选择服务器商家，以及怎么使用 vultr，然后再服务器上搭建基础服务和 搭建 SS 的过程。</p>
+<h2 id="VPS-商家如何选择"><a href="#VPS-商家如何选择" class="headerlink" title="VPS 商家如何选择"></a>VPS 商家如何选择</h2><p>在国内比较畅销的海外 VPS 就是搬瓦工和 Vultr了，基本占据中低端VPS的半壁江山了。</p>
+<p>但是对于新手不知道该如何选择，今天在这里给大家做个介绍和推荐</p>
+<h3 id="搬瓦工"><a href="#搬瓦工" class="headerlink" title="搬瓦工"></a>搬瓦工</h3><p>  <strong>搬瓦工</strong>，因其官网网站标识是 BandwagonHost，有点类似 BanWaGong 的拼写，所以我们国内的站长喜欢称作为搬瓦工 VPS。搬瓦工 VPS 是一款性价比较高（据我所知是最高的）的便宜 VPS 主机，且适合入门级网友学习Linux和建站用途。</p>
+<p>下面是一些搬瓦工的选择方案。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2974893-c5d9df695a04567b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload><br><img src="https://upload-images.jianshu.io/upload_images/2974893-075c1c3042b972d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload><br><img src="https://upload-images.jianshu.io/upload_images/2974893-281d3cc5c03f9898.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload><br><img src="https://upload-images.jianshu.io/upload_images/2974893-54a7bcda4cad9c0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到搬瓦工的 VPS 是相当高的，最低的年付 ￥19.99，一年差不多才 130 多点，一个月十块多，如果是用来科学上网，或者用来学习 linux 操作，那是相当划算的。</p>
+<h3 id="Vultr"><a href="#Vultr" class="headerlink" title="Vultr"></a>Vultr</h3><p>Vultr 是美国知名云服务提供商 Choopa.com 旗下的 VPS 服务，Vultr 母公司 Choopa 一直在为游戏公司提供全球支撑服务，因此该公司在全球 14 个国家及地区部署数据中心，包括日本东京、新加坡、美国洛杉矶、西雅图、英国伦敦、德国等地。可谓公司资金雄厚，体验和服务一流，最重要的是价格亲民。当前最低仅需 $2.5/月，在这个价位的 VPS，单论性价比来说，基本没有对手。唯一能抗衡的也就只有<a target="_blank" rel="noopener" href="https://banwagong.haokoucai.top/?f=vultr">搬瓦工</a>了。</p>
+<p>*<strong>配置价格表</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2974893-4193f7257ac6d7e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="pei"></p>
+<h3 id="对比结论"><a href="#对比结论" class="headerlink" title="对比结论"></a>对比结论</h3><p>根据自己的理解做出的简单结论</p>
+<h4 id="1-价格对比"><a href="#1-价格对比" class="headerlink" title="1. 价格对比"></a>1. 价格对比</h4><p><a target="_blank" rel="noopener" href="http://buy.haokoucai.top/bwg/buy.html?f=vultr&k=sec">搬瓦工</a>以年为付费单位，<strong>最低 19.99 美元/年</strong>(目前有新货)，<strong>常以 29.99/年美元为主</strong>。</p>
+<p><strong><a target="_blank" rel="noopener" href="http://buy.haokoucai.top/vultr/?k=sec">Vultr</a>以小时计费</strong>，最低 2.5 美元每月(该方案已经长期缺货，<strong>可以理解没有</strong>)，通常是** 5 美元/月**，一年就 60 美元。</p>
+<p><strong>价格结论搬瓦工比Vultr便宜一半的价格，并且国内连接速度比Vultr快。</strong></p>
+<h4 id="2-简单的使用-VPS"><a href="#2-简单的使用-VPS" class="headerlink" title="2. 简单的使用 VPS"></a>2. 简单的使用 VPS</h4><p>简单的使用指什么呢？就是不常在 VPS 上操作或者对 VPS 性能要求不是很高，比如用来科学上网（用来逛 youtube、fb、google 等）；在 linux 上学习基本操作。</p>
+<p>如果使用场景是这样的话，就可以选择搬瓦工，因为搬瓦工最低的便宜，年付 ￥19.99，而且有 CN2线路（CN2线路为电信海外精品网络线路，ping下来在160ms~180ms左右，速度相对稳定）。Vultr 虽然有月付 $2.5 的，但是基本抢不到。</p>
+<h4 id="3-建站"><a href="#3-建站" class="headerlink" title="3. 建站"></a>3. 建站</h4><p>面向中国用户的网站选择搬瓦工或 Vultr；面向海外用户的网站必选 Vultr。</p>
+<p>搬瓦工在网络连接速度上有较大优势，中国用户访问速度较快且稳定，但 VPS 功能较弱，可以称之为 VPS 提供商。而 Vultr 是一个十足的云厂商，并且在海外用户上优势十分明显，在全球拥有 14 个机房，支持打快照镜像、防火墙策略、私有网络、多IP和IPV6、自定义镜像等诸多功能。</p>
+<h4 id="4-高性能计算-大数据、机器学习"><a href="#4-高性能计算-大数据、机器学习" class="headerlink" title="4. 高性能计算(大数据、机器学习)"></a>4. 高性能计算(大数据、机器学习)</h4><p>这方面毫无疑问，直接 Vultr。</p>
+<h4 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h4><p>想国内访问速度快选<a target="_blank" rel="noopener" href="http://buy.haokoucai.top/bwg/buy.html?f=vultr&k=sec">搬瓦工 CN2 服务器</a>，想要 VPS 高品质服务就选 <a target="_blank" rel="noopener" href="http://buy.haokoucai.top/vultr/?k=sec">Vultr</a>！</p>
+<h2 id="如何使用-Vultr"><a href="#如何使用-Vultr" class="headerlink" title="如何使用 Vultr"></a>如何使用 Vultr</h2><p>我的需求是搭建博客，同时科学上网，说不定以后会部署其他服务，所以选择了 Vultr 的月付 $5 的方案。</p>
+<h3 id="优惠活动"><a href="#优惠活动" class="headerlink" title="优惠活动"></a>优惠活动</h3><p>目前新用户注册是有优惠的，充 10 美元送 25 美元，如果抢到了 $2.5 / 月的，可以用一年呢，如果你换算成人民币来算这笔账，发现送得挺多的。</p>
+<blockquote>
+<p>注意：本次活动仅支持 Paypal 和信用卡付款，不支持支付宝付款！如果不享受这个活动是支付支付宝付款的。没有 Paypal 账户的去注册一个然后绑定下银行卡就行，10 分钟之内就能搞定。</p>
+</blockquote>
+<h3 id="具体使用方法"><a href="#具体使用方法" class="headerlink" title="具体使用方法"></a>具体使用方法</h3><ol>
+<li>进入这个网址：<a target="_blank" rel="noopener" href="https://www.vultr.com/promo25b/?service=promo25b">https://www.vultr.com/promo25b/?service=promo25b</a> 注册用户。<br><img src="https://upload-images.jianshu.io/upload_images/2974893-5f9b679a24a6e9e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="注册页面"></li>
+<li>必须充值10刀，用于激活账户(如果没有右侧信息，则代表活动已经结束)<br><img src="https://upload-images.jianshu.io/upload_images/2974893-c5bdc2c2bd692123.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="image.png"></li>
+<li>右上角加号创建VPS，14个地区可以选择，优先选择北美和日本地区。 Los Angeles/Seattle/Silicon Valley/ Tokyo。我选的是洛杉矶的，据说相对较好。<br><img src="https://upload-images.jianshu.io/upload_images/2974893-b2ae58d942e55b03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ol>
+<li>选选择服务器系统的时候尽量选择 linux</li>
+<li>Vultr 计算费用的方式是按小时计费的，可以看到我产生的费用还有零点零几刀，所以你其实可以同时购买多台 VPS，只是费用会相应增加倍数。如果你选择错了地区也可以销毁了重新新建一个。我觉得这种方式比一次把费用全部扣完好多了，因为如果你一段时间不想用服务器了，你可以随时停掉，然后费用不会扣。<br><img src="https://upload-images.jianshu.io/upload_images/2974893-04c3e53e93c9c68a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<h3 id="快速安装宝塔面板"><a href="#快速安装宝塔面板" class="headerlink" title="快速安装宝塔面板"></a>快速安装宝塔面板</h3><h4 id="1-通过-SSH-登录链接到-VPS"><a href="#1-通过-SSH-登录链接到-VPS" class="headerlink" title="1. 通过 SSH 登录链接到 VPS"></a>1. 通过 SSH 登录链接到 VPS</h4><h4 id="2-执行命令安装宝塔面板"><a href="#2-执行命令安装宝塔面板" class="headerlink" title="2. 执行命令安装宝塔面板"></a>2. 执行命令安装宝塔面板</h4><ul>
+<li>CentOS安装命令：<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> -y wget &amp;&amp; wget -O <span class="hljs-keyword">install</span>.sh http://download.bt.cn/<span class="hljs-keyword">install</span>/<span class="hljs-keyword">install</span>.sh &amp;&amp; sh <span class="hljs-keyword">install</span>.sh<br></code></pre></td></tr></table></figure></li>
+<li>Ubuntu/Deepin安装命令：<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall-ubuntu.sh &amp;&amp; sudo bash install.sh<br></code></pre></td></tr></table></figure></li>
+<li>Debian安装命令：<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall-ubuntu.sh &amp;&amp; bash install.sh<br></code></pre></td></tr></table></figure></li>
+<li>Fedora安装命令:<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -O install.sh http:<span class="hljs-regexp">//</span>download.bt.cn<span class="hljs-regexp">/install/i</span>nstall.sh &amp;&amp; bash install.sh<br></code></pre></td></tr></table></figure>
+根据提示输入 “y” 或者自定义目录，新手不了解的情况下最好不要动。</li>
+</ul>
+<p>等待完成安装过程，出现“安装成功”字样则说明成功安装。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2974893-24fed73bccb5f2fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload></p>
+<h4 id="3-登录面板后台"><a href="#3-登录面板后台" class="headerlink" title="3. 登录面板后台"></a>3. 登录面板后台</h4><p>根据安装成功的提示信息，使用对应的用户名和密码访问面板后台。通常是 <a target="_blank" rel="noopener" href="http://ip:8888/">http://IP:8888/</a> ，成功登录后可以将用户名和密码进行修改，避免黑客进行攻击。</p>
+<h4 id="4-安装Web运行环境"><a href="#4-安装Web运行环境" class="headerlink" title="4. 安装Web运行环境"></a>4. 安装Web运行环境</h4><p>这里我们以当前最为流程的Web架构进行演示，即LNMP(Linux + Nginx + MySQL + PHP)或LAMP(Linux + Apache + MySQL + PHP)，这里我们推荐使用LNMP，目前从各方面来看均优于Apache。稍等几分钟即可完成全部安装，建议使用极速安装，速度快，新手友好。</p>
+<h3 id="科学上网，搭建-Shadowsocks-服务"><a href="#科学上网，搭建-Shadowsocks-服务" class="headerlink" title="科学上网，搭建 Shadowsocks 服务"></a>科学上网，搭建 Shadowsocks 服务</h3><h4 id="安装组件"><a href="#安装组件" class="headerlink" title="安装组件"></a>安装组件</h4><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$ </span>yum install m2crypto python-setuptools<br><span class="hljs-variable">$ </span>easy_install pip<br><span class="hljs-variable">$ </span>pip install shadowsocks<br></code></pre></td></tr></table></figure>
+<h4 id="安装完成后配置服务器参数"><a href="#安装完成后配置服务器参数" class="headerlink" title="安装完成后配置服务器参数"></a>安装完成后配置服务器参数</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ vi  <span class="hljs-regexp">/etc/</span>shadowsocks.json<br></code></pre></td></tr></table></figure>
+<p>写入如下配置:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">&#123;<br>    &quot;server&quot;:&quot;0.0.0.0&quot;,<br>    &quot;server_port&quot;:443,<br>    &quot;local_address&quot;: &quot;127.0.0.1&quot;,<br>    &quot;local_port&quot;:1080,<br>    &quot;password&quot;:&quot;123456&quot;,<br>    &quot;timeout&quot;:300,<br>    &quot;method&quot;:&quot;aes-256-cfb&quot;,<br>    &quot;fast_open&quot;: false<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>多端口配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;server&quot;</span>:<span class="hljs-string">&quot;0.0.0.0&quot;</span>,<br>    <span class="hljs-attr">&quot;local_address&quot;</span>: <span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>    <span class="hljs-attr">&quot;local_port&quot;</span>:<span class="hljs-number">1080</span>,<br>    <span class="hljs-attr">&quot;port_password&quot;</span>: &#123;<br>         <span class="hljs-attr">&quot;443&quot;</span>: <span class="hljs-string">&quot;443&quot;</span>,<br>         <span class="hljs-attr">&quot;8888&quot;</span>: <span class="hljs-string">&quot;8888&quot;</span><br>     &#125;,<br>    <span class="hljs-attr">&quot;timeout&quot;</span>:<span class="hljs-number">300</span>,<br>    <span class="hljs-attr">&quot;method&quot;</span>:<span class="hljs-string">&quot;aes-256-cfb&quot;</span>,<br>    <span class="hljs-attr">&quot;fast_open&quot;</span>: <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>其中server字段与local_address填写之前的IP Address。password是自己用于连接这个shadow socks的密码，自定义就好。</p>
+<h4 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 安装防火墙</span><br><span class="hljs-variable">$</span> yum install firewalld<br><span class="hljs-comment"># 启动防火墙</span><br><span class="hljs-variable">$</span> systemctl <span class="hljs-built_in">start</span> firewalld<br></code></pre></td></tr></table></figure>
+<h4 id="开启防火墙相应的端口"><a href="#开启防火墙相应的端口" class="headerlink" title="开启防火墙相应的端口"></a>开启防火墙相应的端口</h4><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># 开启端口号 443</span><br>$ firewall-cmd <span class="hljs-params">--permanent</span> <span class="hljs-params">--zone=public</span> <span class="hljs-params">--add-port=443/tcp</span><br>$ firewall-cmd <span class="hljs-params">--reload</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="启动-Shadowsocks-服务"><a href="#启动-Shadowsocks-服务" class="headerlink" title="启动 Shadowsocks 服务"></a>启动 Shadowsocks 服务</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ ssserver -c <span class="hljs-regexp">/etc/</span>shadowsocks.json<br></code></pre></td></tr></table></figure>
+<p>后台运行应用</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ nohup ssserver -c <span class="hljs-regexp">/etc/</span>shadowsocks.json &amp;<br></code></pre></td></tr></table></figure>
+<p>完成服务端的搭建之后，客户端就很容易了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">基础教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/VPS/">VPS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/100/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">毕业记—我的大学无憾了</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/96/">
+                        <span class="hidden-mobile">为什么javascript经常被黑？</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

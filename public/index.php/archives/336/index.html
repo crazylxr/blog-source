@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>如何应用 SOLID 原则在 React 中整理代码之开闭原则 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="如何应用 SOLID 原则在 React 中整理代码之开闭原则">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-24 08:27" pubdate>
+        Monday, May 24th 2021, 8:27 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">如何应用 SOLID 原则在 React 中整理代码之开闭原则</h1>
+            
+            <div class="markdown-body">
+              <p>SOLID 是一套原则。它们主要是关心代码质量和可维护性的软件专业人员的指导方针。</p>
+<p>React 不是面向对象，但这些原则背后的主要思想可能是有帮助的。在本文中，我将尝试演示如何应用这些原则来编写更好的代码。</p>
+<p>在前一篇文章中，我们讨论了单一责任原则。今天，我们将讨论 SOLID 的第二个原则: 开闭原则。</p>
+<h2 id="本系列其他文章"><a href="#本系列其他文章" class="headerlink" title="本系列其他文章"></a>本系列其他文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/oOcoy5rJwqH939MIOrgaiA">如何应用 SOLID 原则在 React 中整理代码之单一原则</a></li>
+</ul>
+<h2 id="什么是开闭原则？"><a href="#什么是开闭原则？" class="headerlink" title="什么是开闭原则？"></a>什么是开闭原则？</h2><blockquote>
+<p>Robert c. Martin 认为这个原则是面向对象设计最重要的原则。但他不是第一个定义这个概念的人。Bertrand Meyer 于1988年在他的《面向对象软件构造》一书中写到了这一点。他解释了开放/封闭原则:</p>
+<p>软件实体(类、模块、功能等)应该对扩展开放，但对修改关闭。</p>
+</blockquote>
+<p>这个原则告诉您以这样一种方式来编写代码，即您<strong>能够在不更改现有代码的情况下添加其他功能。</strong></p>
+<p>让我们看看我们在哪里可以应用这个原则。</p>
+<h2 id="让我们从一个例子开始"><a href="#让我们从一个例子开始" class="headerlink" title="让我们从一个例子开始"></a>让我们从一个例子开始</h2><p>假设我们有一个 <code>User</code> 组件，其中我们传递用户的详细信息，这个类的主要目的是显示该特定用户的详细信息。</p>
+<p>这是一个很简单的开始。但是我们的生活并不是那么简单。几天后，我们的经理告诉我们系统中有三种类型的用户: <code>SuperAdmin</code>、 <code>Admin</code> 等等。</p>
+<p>它们每个都有不同的信息和功能。</p>
+<h2 id="一个糟糕的解决方案"><a href="#一个糟糕的解决方案" class="headerlink" title="一个糟糕的解决方案"></a>一个糟糕的解决方案</h2><p>第一个也是显而易见的解决方案：在组件中包含一个条件，并根据不同的用户类型呈现不同的信息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> User = <span class="hljs-function">(<span class="hljs-params">&#123;user&#125;</span>) =&gt;</span> &#123;<br><br>    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Name: &#123;user.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Email: &#123;user.email&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        &#123;</span><br><span class="xml">            user.type === &#x27;SUPER_ADMIN&#x27; &amp;&amp;</span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Details about super admin<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        &#125;</span><br><span class="xml">        &#123;</span><br><span class="xml">            user.type === &#x27;ADMIN&#x27; &amp;&amp;</span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> Details about admin<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        &#125;</span><br><span class="xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>你知道这里出了什么问题吗？</p>
+<p>首先，我们的代码现在是凌乱的。</p>
+<p>其次，如果我们需要其他类型的用户怎么办？</p>
+<p>然后，我们需要进入 User.js，为特定类型的用户添加另一个条件。</p>
+<p>这明显违反了开闭原则，因为我们不允许更改 User 组件内部的代码。</p>
+<h2 id="解决方案是什么？"><a href="#解决方案是什么？" class="headerlink" title="解决方案是什么？"></a>解决方案是什么？</h2><p>在这个场景中我们可以应用两种主要的技术:</p>
+<ol>
+<li>高阶组件(HOC)</li>
+<li>组件组合(Component composition)</li>
+</ol>
+<p>在可能的情况下，最好采用第二种方法，但是在某些情况下，有必要使用 HOC。</p>
+<p>现在，我们将使用 Facebook 推荐的一种技术，称为<strong>组件组合</strong>。</p>
+<h2 id="让我们创建单独的用户组件"><a href="#让我们创建单独的用户组件" class="headerlink" title="让我们创建单独的用户组件"></a>让我们创建单独的用户组件</h2><p>现在，我们需要以这样一种方式设计代码，即不需要在 <code>User.js</code> 组件中添加条件。让我们为 <code>SuperAdmin</code> 创建一个单独的组件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123;User&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./User&quot;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SuperAdmin = <span class="hljs-function">(<span class="hljs-params">&#123;user&#125;</span>) =&gt;</span> &#123;<br><br>    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">User</span> <span class="hljs-attr">user</span>=<span class="hljs-string">&#123;user&#125;</span> /&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> This is super admin user details<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>类似地，另一个是针对 <code>Admin</code> 用户的:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123;User&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./User&quot;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Admin = <span class="hljs-function">(<span class="hljs-params">&#123;user&#125;</span>) =&gt;</span> &#123;<br><br>    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">User</span> <span class="hljs-attr">user</span>=<span class="hljs-string">&#123;user&#125;</span> /&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span> This is admin user details<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在我们的 App.js 文件变成了:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> Admin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Admin&#x27;</span><br><span class="hljs-keyword">import</span> SuperAdmin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./SuperAdmin&#x27;</span><br><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span> = (<span class="hljs-params"></span>) =&gt;</span>&#123;<br>  <br>  <span class="hljs-keyword">const</span> user = &#123;&#125;<br>  <br>  <span class="hljs-keyword">const</span> userByTypes = &#123;<br>    <span class="hljs-string">&#x27;admin&#x27;</span> : <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Admin</span> /&gt;</span></span> ,<br>    <span class="hljs-string">&#x27;superadmin&#x27;</span> : <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">SuperAdmin</span> /&gt;</span></span><br>  &#125;<br>  <br>  <span class="hljs-keyword">return</span> &lt;div&gt;<br>    &#123;userByTypes[<span class="hljs-string">`<span class="hljs-subst">$&#123;user.type&#125;</span>`</span>]&#125;<br>  &lt;div/&gt;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在我们可以根据需要创建尽可能多的用户类型。我们针对特定用户的逻辑是封装的，因此我们不需要为了任何额外的修改而重新检查代码。</p>
+<p>有些人可能会说，我们正在不必要地增加文件数量。当然，您可以暂时保持原样，但是随着应用程序的复杂性增加，您肯定会感到痛苦。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>SOLID 是一套原则。它们并不是强制性的，您必须应用于每个场景。作为一个经验丰富的开发人员，您应该在代码长度和可读性之间找到一个很好的平衡。</p>
+<p>要过分执着于这些原则。事实上，有一句名言可以解释这些情况:</p>
+<blockquote>
+<p>Too Much SOLID</p>
+</blockquote>
+<p>所以知道这些原则是好的，但是你必须保持平衡。对于一个或两个额外的字段，您可能不需要这些组合，但是将它们分开肯定会有长远的帮助。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>了解这些原则会让你走很长的路，因为在一天结束的时候，一段好的代码才是最重要的，而且没有单一的方法来做事情。</p>
+<blockquote>
+<p>本文为译文，原文链接：<a target="_blank" rel="noopener" href="https://betterprogramming.pub/applying-the-open-closed-principle-to-write-clean-react-components-4e4514963e40">https://betterprogramming.pub/applying-the-open-closed-principle-to-write-clean-react-components-4e4514963e40</a></p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%91%E6%96%87/">译文</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%91%E6%96%87/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/337/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">聊聊关于如何选择offer</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/335/">
+                        <span class="hidden-mobile">理清业务团队开发和业务的关系</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>git commit 规范和 如何在 commit 里使用 emoji - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="git commit 规范和 如何在 commit 里使用 emoji">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-05 15:30" pubdate>
+        Sunday, September 5th 2021, 3:30 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">git commit 规范和 如何在 commit 里使用 emoji</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>大家好，我是桃翁，今天给大家带来的是关于 git commit 那些事儿，希望大家喜欢。</p>
+<p>对于规范 git commit message 我是分成了两种类型去看待。</p>
+<ul>
+<li><p>对于通用库、开源项目这类多人维护，而且极大可能别人会来看这份代码的，一定要规范，特别是对于开源项目，往往会要列 Change Log，规范好 commit 节省自己整理 log 的时间，也方便了用户。</p>
+</li>
+<li><p>对于业务代码，特别是那种一个人维护的，其实不搞问题也不大，因为极小可能会有人来看你的 commit message。但是我依然还是建议规范一下，不然一旦后面想去看就会花费很多的力气，毕竟规范一下也不麻烦。</p>
+</li>
+</ul>
+<p>通过本篇文章你讲了解到三部分内容：</p>
+<ol>
+<li>了解 git commit 规范</li>
+<li>学到用工具 Commitizen 来规范 commit</li>
+<li>学到如何在 commit message 里加上好看的 emoji</li>
+</ol>
+<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><p>现在主流的 commit message 规范就是 <a target="_blank" rel="noopener" href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines">Angular 团队所用的准则</a>，继而衍生了 <a href="https://link.zhihu.com/?target=https://conventionalcommits.org/">Conventional Commits specification</a>. 很多工具也是基于此规范。</p>
+<p>每次提交，Commit message 都包括三个部分：header，body 和 footer，其中 header 有一个特殊的格式，包括了 type、scope、subject。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">type</span>&gt;</span>(<span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>): <span class="hljs-tag">&lt;<span class="hljs-name">subject</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">BLANK</span> <span class="hljs-attr">LINE</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">BLANK</span> <span class="hljs-attr">LINE</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>其中 header 是必选的，但是 header 里的 scope 是可选的，另外提交的 message 长度不要超过 100 个字符，太长了不易阅读。</p>
+<p><strong>对于我个人来说，我觉得只要把 header 部分规范其实基本能满足绝大部分需要了，强制去规范 body 和 footer 对于团队的同学来说简直是折磨，所以我这里仅介绍 header 的几部分</strong></p>
+<h3 id="type"><a href="#type" class="headerlink" title="type"></a>type</h3><p>type 指明 git commit 的类别，应该使用以下类型</p>
+<ul>
+<li>『feat』: 新增功能</li>
+<li>『fix』: 修复 bug</li>
+<li>『docs』: 仅仅修改了文档，比如 README, CHANGELOG等等</li>
+<li>『test』: 增加/修改测试用例，包括单元测试、集成测试等</li>
+<li>『style』: 修改了空行、缩进格式、引用包排序等等（不改变代码逻辑）</li>
+<li>『perf』: 优化相关内容，比如提升性能、体验、算法等</li>
+<li>『refactor』: 代码重构，「没有新功能或者bug修复」</li>
+<li>『chore』: 改变构建流程、或者增加依赖库、工具等</li>
+<li>『revert』: 回滚到上一个版本</li>
+<li>『merge』: 代码合并</li>
+</ul>
+<blockquote>
+<p>这里面有些 angular 团队没有，自己可以自行增减</p>
+</blockquote>
+<h3 id="scope（可选）"><a href="#scope（可选）" class="headerlink" title="scope（可选）"></a><strong>scope（可选）</strong></h3><p>scope用于说明 commit 影响的范围，根据不同项目有不同层次描述。若没有特殊规定，也可以描述影响的哪些功能等。</p>
+<h3 id="subject"><a href="#subject" class="headerlink" title="subject"></a><strong>subject</strong></h3><p>subject 是 commit 目的的简短描述，不超过50/80个字符，一般 git 提交的时候会有颜色提示。</p>
+<ul>
+<li>若英文用不惯，那么推荐使用中文</li>
+<li>若是开源代码，一律推荐统一英文，英文不行可以翻译软件用起来</li>
+<li>若是开源代码，可以再附加对应的issue地址</li>
+<li>结尾不加标点符号</li>
+</ul>
+<h2 id="工具：Commitizen"><a href="#工具：Commitizen" class="headerlink" title="工具：Commitizen"></a>工具：Commitizen</h2><p>Commitizen是一个撰写合格 Commit message 的工具,（详细说明<a target="_blank" rel="noopener" href="https://github.com/commitizen/cz-cli">见 github 地址</a>），用于代替 git commit 指令，而 cz-conventional-changelog 适配器提供 conventional-changelog 标准（约定式提交标准）。基于不同需求，也可以使用不同适配器。</p>
+<p><strong>1. 全局安装 commitizen cz-conventional-changelog</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g commitizen cz-conventional-changelog<br></code></pre></td></tr></table></figure>
+
+<p><strong>2. git cz 取代 git commit</strong></p>
+<p>安装完毕后，可直接使用 git cz 来取代 git commit。</p>
+<p><img src="http://imgs.taoweng.site/mweb/2021-09-05-16308510363184.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到当你 cz 之后，下面有很多的 type 让你选择，这就省掉了每次你去想应该用哪种 type，非常方便。</p>
+<blockquote>
+<p>全局模式下，需要 <code>~/.czrc</code> 配置文件, 为commitizen 指定 Adapter, 如果你不需要生成 Change Log 可以不用去处理。</p>
+</blockquote>
+<p>只要用了 Commitizen ，就很方便的就规范的大家的 message 。</p>
+<h2 id="在-commit-message-里用-emoji"><a href="#在-commit-message-里用-emoji" class="headerlink" title="在 commit message 里用 emoji"></a>在 commit message 里用 emoji</h2><p>在 git commit 上使用 emoji 提供了一种简单的方法，仅通过查看所使用的表情符号来确定提交的目的或意图, 得提交记录非常好理解，阅读体验非常棒。</p>
+<p><img src="http://imgs.taoweng.site/mweb/2021-09-05-16308316508371.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>git commit 时直接在注释中写入表情符号的代码部分即可完成表情 emoji 的提交。</p>
+<p><strong>举个栗子：</strong></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$ </span>git commit -m <span class="hljs-string">&#x27;:tada: init commit&#x27;</span><br><span class="hljs-variable">$ </span>git commit -m <span class="hljs-string">&#x27;added image to repo :art:&#x27;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你用 Commitizen，可能不太好把 emoji 放在最前面，因为咱们操作的空间，就在 git cz 后第三次交互提示，也就是在输入 header 的 subject 的时候填入，如果是这样，可以选择把表情放到最后。 </p>
+</blockquote>
+<p>效果展示：<br><img src="http://imgs.taoweng.site/mweb/2021-09-05-16308323105662.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>如果你们团队是一个喜欢用 emoji 的团队，其实可以不用遵循上面的一节的规范，因为 emoji 已经可以表达出 header 的 type 的作用了，直接在 emoji 后面加描述即可。</p>
+<h3 id="emoji-表情库"><a href="#emoji-表情库" class="headerlink" title="emoji 表情库"></a>emoji 表情库</h3><table>
+<thead>
+<tr>
+<th align="left">emoji</th>
+<th align="left">emoji 代码</th>
+<th align="left">commit 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:tada: (庆祝)</td>
+<td align="left"><code>:tada:</code></td>
+<td align="left">初次提交</td>
+</tr>
+<tr>
+<td align="left">:new: (全新)</td>
+<td align="left"><code>:new:</code></td>
+<td align="left">引入新功能</td>
+</tr>
+<tr>
+<td align="left">:bookmark: (书签)</td>
+<td align="left"><code>:bookmark:</code></td>
+<td align="left">发行/版本标签</td>
+</tr>
+<tr>
+<td align="left">:bug: (bug)</td>
+<td align="left"><code>:bug:</code></td>
+<td align="left">修复 bug</td>
+</tr>
+<tr>
+<td align="left">:ambulance: (急救车)</td>
+<td align="left"><code>:ambulance:</code></td>
+<td align="left">重要补丁</td>
+</tr>
+<tr>
+<td align="left">:globe_with_meridians: (地球)</td>
+<td align="left"><code>:globe_with_meridians:</code></td>
+<td align="left">国际化与本地化</td>
+</tr>
+<tr>
+<td align="left">:lipstick: (口红)</td>
+<td align="left"><code>:lipstick:</code></td>
+<td align="left">更新 UI 和样式文件</td>
+</tr>
+<tr>
+<td align="left">:clapper: (场记板)</td>
+<td align="left"><code>:clapper:</code></td>
+<td align="left">更新演示/示例</td>
+</tr>
+<tr>
+<td align="left">:rotating_light: (警车灯)</td>
+<td align="left"><code>:rotating_light:</code></td>
+<td align="left">移除 linter 警告</td>
+</tr>
+<tr>
+<td align="left">:wrench: (扳手)</td>
+<td align="left"><code>:wrench:</code></td>
+<td align="left">修改配置文件</td>
+</tr>
+<tr>
+<td align="left">:heavy_plus_sign: (加号)</td>
+<td align="left"><code>:heavy_plus_sign:</code></td>
+<td align="left">增加一个依赖</td>
+</tr>
+<tr>
+<td align="left">:heavy_minus_sign: (减号)</td>
+<td align="left"><code>:heavy_minus_sign:</code></td>
+<td align="left">减少一个依赖</td>
+</tr>
+<tr>
+<td align="left">:arrow_up: (上升箭头)</td>
+<td align="left"><code>:arrow_up:</code></td>
+<td align="left">升级依赖</td>
+</tr>
+<tr>
+<td align="left">:arrow_down: (下降箭头)</td>
+<td align="left"><code>:arrow_down:</code></td>
+<td align="left">降级依赖</td>
+</tr>
+<tr>
+<td align="left">:zap: (闪电)<br>:racehorse: (赛马)</td>
+<td align="left"><code>:zap:</code><br><code>:racehorse:</code></td>
+<td align="left">提升性能</td>
+</tr>
+<tr>
+<td align="left">:chart_with_upwards_trend: (上升趋势图)</td>
+<td align="left"><code>:chart_with_upwards_trend:</code></td>
+<td align="left">添加分析或跟踪代码</td>
+</tr>
+<tr>
+<td align="left">:rocket: (火箭)</td>
+<td align="left"><code>:rocket:</code></td>
+<td align="left">部署功能</td>
+</tr>
+<tr>
+<td align="left">:white_check_mark: (白色复选框)</td>
+<td align="left"><code>:white_check_mark:</code></td>
+<td align="left">增加测试</td>
+</tr>
+<tr>
+<td align="left">:memo: (备忘录)<br>:book: (书)</td>
+<td align="left"><code>:memo:</code><br><code>:book:</code></td>
+<td align="left">撰写文档</td>
+</tr>
+<tr>
+<td align="left">:hammer: (锤子)</td>
+<td align="left"><code>:hammer:</code></td>
+<td align="left">重大重构</td>
+</tr>
+<tr>
+<td align="left">:art: (调色板)</td>
+<td align="left"><code>:art:</code></td>
+<td align="left">改进代码结构/代码格式</td>
+</tr>
+<tr>
+<td align="left">:fire: (火焰)</td>
+<td align="left"><code>:fire:</code></td>
+<td align="left">移除代码或文件</td>
+</tr>
+<tr>
+<td align="left">:pencil2: (铅笔)</td>
+<td align="left"><code>:pencil2:</code></td>
+<td align="left">修复 typo</td>
+</tr>
+<tr>
+<td align="left">:construction: (施工)</td>
+<td align="left"><code>:construction:</code></td>
+<td align="left">工作进行中</td>
+</tr>
+<tr>
+<td align="left">:wastebasket: (垃圾桶)</td>
+<td align="left"><code>:wastebasket:</code></td>
+<td align="left">废弃或删除</td>
+</tr>
+<tr>
+<td align="left">:wheelchair: (轮椅)</td>
+<td align="left"><code>:wheelchair:</code></td>
+<td align="left">可访问性</td>
+</tr>
+<tr>
+<td align="left">:construction_worker: (工人)</td>
+<td align="left"><code>:construction_worker:</code></td>
+<td align="left">添加 CI 构建系统</td>
+</tr>
+<tr>
+<td align="left">:green_heart: (绿心)</td>
+<td align="left"><code>:green_heart:</code></td>
+<td align="left">修复 CI 构建问题</td>
+</tr>
+<tr>
+<td align="left">:lock: (锁)</td>
+<td align="left"><code>:lock:</code></td>
+<td align="left">修复安全问题</td>
+</tr>
+<tr>
+<td align="left">:whale: (鲸鱼)</td>
+<td align="left"><code>:whale:</code></td>
+<td align="left">Docker 相关工作</td>
+</tr>
+<tr>
+<td align="left">:apple: (苹果)</td>
+<td align="left"><code>:apple:</code></td>
+<td align="left">修复 macOS 下的问题</td>
+</tr>
+<tr>
+<td align="left">:penguin: (企鹅)</td>
+<td align="left"><code>:penguin:</code></td>
+<td align="left">修复 Linux 下的问题</td>
+</tr>
+<tr>
+<td align="left">:checkered_flag: (旗帜)</td>
+<td align="left"><code>:checkered_flag:</code></td>
+<td align="left">修复 Windows 下的问题</td>
+</tr>
+<tr>
+<td align="left">:twisted_rightwards_arrows: (交叉箭头)</td>
+<td align="left"><code>:twisted_rightwards_arrows:</code></td>
+<td align="left">分支合并</td>
+</tr>
+</tbody></table>
+<h3 id="如何在命令行中显示-emoji"><a href="#如何在命令行中显示-emoji" class="headerlink" title="如何在命令行中显示 emoji"></a>如何在命令行中显示 emoji</h3><p>默认情况下，在命令行中并不会显示出 emoji, 仅显示 emoji 代码。不过可以使用 emojify 使得在命令行也可显示 emoji, 它是一个 shell 脚本，安装与使用都很简单，在<a target="_blank" rel="noopener" href="https://github.com/mrowa44/emojify">这里</a> 查看更详细的如何安装与使用。</p>
+<h4 id="安装-emojify"><a href="#安装-emojify" class="headerlink" title="安装 emojify"></a>安装 emojify</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo sh -c <span class="hljs-string">&quot;curl https://raw.githubusercontent.com/mrowa44/emojify/master/emojify -o /usr/local/bin/emojify &amp;&amp; chmod +x /usr/local/bin/emojify&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="使用-emojify"><a href="#使用-emojify" class="headerlink" title="使用 emojify"></a>使用 emojify</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ emojify <span class="hljs-string">&quot;Hey, I just :raising_hand: you, and this is :scream: , but here&#x27;s my :calling: , so :telephone_receiver: me, maybe?&quot;</span><br></code></pre></td></tr></table></figure>
+<p>显示效果：<br><img src="http://imgs.taoweng.site/mweb/2021-09-05-16308498280794.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>在使用 git bash 的时候，设置替换日志中的表情符号代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git <span class="hljs-built_in">log</span> --oneline --color | emojify | less -r<br></code></pre></td></tr></table></figure>
+
+<p>或者设置git log命令别名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">alias</span> gitlog=<span class="hljs-string">&#x27;git log --oneline --color | emojify | less -r&#x27;</span><br><br>$ gitlog <br></code></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="http://imgs.taoweng.site/mweb/2021-09-05-16308499434082.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><strong>是不是很好玩，快去试试吧！</strong></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://hooj0.github.io/git-emoji-guide/">git-emoji-guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/29764863">git commit 时使用 Emoji ?</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/">计算机相关</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/git/">git</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/341/">
+                        <span class="hidden-mobile">img 和 picture 的区别和使用场景</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

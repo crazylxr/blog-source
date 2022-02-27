@@ -1,0 +1,587 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>看到这段话，真的觉得现在的读者要求比较高 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="看到这段话，真的觉得现在的读者要求比较高">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-09 21:35" pubdate>
+        Monday, September 9th 2019, 9:35 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">看到这段话，真的觉得现在的读者要求比较高</h1>
+            
+            <div class="markdown-body">
+              <p>最近看到这样一段文字，然后掘金的运营还发了一个<a target="_blank" rel="noopener" href="https://juejin.im/pin/5d73b51cf265da1975253cf1">沸点</a>，看了心理觉得真不是滋味呀。</p>
+<p><img src="http://imgs.taoweng.site/2019-09-08-161633.jpg" srcset="/img/loading.gif" lazyload alt="image-20190908235905303"></p>
+<p>图片具体内容如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/9/7/16d0bfb71f60c0c4?w=990&h=2400&f=png&s=694482" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<p>如果你在阅读文章的过程中，觉得有不同意的，请憋住，把文章看完再说。</p>
+</blockquote>
+<p>现在的作者写个文章太难了呀。</p>
+<p>写个文章还要被喷写得不好，写得不够有深度要被说没有干货；</p>
+<p>写得有深度的又有人说看不懂，这怪作者吗？</p>
+<p>咋不怪读者要求太多，自己看不适合自己的水平的文章，自己知道的东西就觉得人人都知道，却不知道在中国随便一个你觉得理所当然的小知识点，或者说常识，都会有至少 1 亿人不知道。</p>
+<p>很多人在评论里说现在很多面试文章，或者 list 文章没啥质量，然后获赞很多，然后自己辛辛苦苦的写的干货没人点赞，在这个社会不是很正常么，想想马云工作的强度和在工地里工作的工人相比，工人不努力吗，难道不是辛辛苦苦吗？但是赚钱的差距就是这么大，这个社会就是这么现实，归根到底工人所做的工作价值太少了，为什么有些干货价值少，请继续阅读。</p>
+<p>##面试题和 list 文章 VS “所谓的干货” </p>
+<p>说说为什么面试题和 list 文章，面试题和 list 解决了什么问题？</p>
+<p>为什么会有这么多人习惯给这些文章点赞，我觉得最主要的一个原因是<strong>缓解了读者的焦</strong>虑，第二个原因是仅仅是<strong>为了收藏</strong>。</p>
+<p><strong>缓解了读者的焦虑</strong></p>
+<p>对于面试，肯定是永恒的话题，总想着换个好公司，涨工资，但是自己又太菜，想着有没有什么捷径，想了想，刷面经吧，刷了就等于会了，会了就等于能进大公司了。这种心理就跟买课一样，买了就觉得会了，然后生怕错过什么技术，买了一大堆，结果每个课程就只看了前面的开篇就没下文了，你能说这些卖课的不对吗？是你自己不看，能怪别人么？</p>
+<p>然后说道别人发面试题，就想分享给大家，毕竟面试题往往都是对于前端开发来说比较重要的东西，是可以给你不仅是面经方面的东西，而且对于刚入坑前端的来说，不知道应该学啥，什么东西重要，什么东西应该先学什么的一个方向。</p>
+<p><strong>收藏</strong></p>
+<p>list 愿意点赞的往往是想收藏，然后可能是设计的原因，不管是哪个平台都一样，把点赞这个功能做得特别的容易，而收藏就要繁琐或者说不那么让用户想去点。</p>
+<p>然后给大家一个建议，收藏这功能真的比点赞好用，可以对文章进行分类，自己可以梳理你的知识体系，然后建好分类，然后再分类收藏文章，这比起你点赞了，然后后面想去看的时候发现太乱了，又不好找，就给你不看文章找了个借口，导致点赞了一大堆，最终有收获的并不多。</p>
+<p>我觉得在收藏这方便来说，个人觉得思否做得比掘金好(思否小姐姐是不是要给我广告费了)。</p>
+<p><strong>所谓的干货</strong></p>
+<p><strong>干货</strong>这个词我的理解就是有价值，如果这篇文章对你有价值，那么就是干货，没有价值，你可能就会觉得是水文。</p>
+<p>注意，我这里说的是对你有价值，才算是干货。因为一篇简单的文章，对于新手来说有价值，那么他觉得这篇文章就是干货，对于一个老手来说，几年前都会的东西，那么他可能就会觉得是水文。</p>
+<p>所以，上面说到什么「浅谈」、「说说」都是没有干货的理论，根本是个人主观臆断，这些文章对于刚入门的同学来说，可能是带来了非常大的帮助。</p>
+<p>注意，绝大部分人是知识的搬运工，传播者，而不是创造者，官网文档上有的东西，如果能用一种一部分人觉得通俗易懂的方式写出来也是有价值的，官方文章是普适的，但并不一定是最好的教程，而一些作者就是知识的传播者，可以理解为老师，把一些枯燥，正统的知识，通过一种针对特定人群的方式传达出来，然后学生能理解，那么就是一个好老师，好作者。这就跟你学牛顿三大定律不是去看他发布的论文一样。</p>
+<p><strong>总结</strong></p>
+<p>所以我觉得现在这样的面试题和 list 文章，并没有什么问题，有问题的是读者对于『点赞』可能理解得不够深刻以及没有正确的认识面试和 list 文章的价值。然后就是没有绝对的干货，一篇文章对于不同水平的人所得到的的价值是不一样的，当然我也更喜欢稀缺资源的文章，这样能给整个社区带来更大的价值。</p>
+<blockquote>
+<p>声明下，我基本上是不写面试题和 list 文章的，所以我并不是为了自己写了这种文章而强词夺理。</p>
+</blockquote>
+<h2 id="给掘金说的"><a href="#给掘金说的" class="headerlink" title="给掘金说的"></a>给掘金说的</h2><p>再给掘金提一点建议把，想让作者给你们带来更好的内容，这确实是双赢的局面。</p>
+<p>你们对于用户的非常的关心，这是应该的， 但是，是不是应该给作者一些关心呢？</p>
+<p>比如，对于评论的控制功能，对于投诉的功能，我看到有些作者写个文章被喷得很惨，心里真的很为她们难过，但是作为作者，一个删除评论的功能都没有，或者说不允许评论。</p>
+<p>一些负面的评论真的会给作者带来很大影响，其实作为作者非常的希望大家友善的提出自己的建议，当有人说一些恶意伤人的话，有时候会影响到他上班工作的心情，甚至退出掘金平台，我已经看到过好几个优秀的作者，由于受不了掘金用户的评论，然后退出了掘金。</p>
+<p>或者说除了赞，有一个踩的功能也挺好的，这样读者知道这篇文章写得不够好，然后自己会去改进，而不是一些「键盘侠」进行语言暴力。</p>
+<p>作者和读者是一个双向的关系，维持双方的利益才是正确之道，不是作者把文章写的好就能改善整个社区的，反思的不仅仅是作者，用户也应该反省一下。</p>
+<p>我见过最好的社区就是 Emacs 的社区，社区文章质量很高，社区里面基本上不会出现「娱乐化」，也没看到过「键盘侠」，也许是 Emcas 太难学了，导致过滤了很多不符合 Emcas 社区理念的人吧，所以 Emcas 社区不管是作者，还是仅仅是个社区的读者，都有非常高的素质，以至于社区环境很好。<strong>再次强调，不是作者写得好，社区就能搞得好的，好的作者也可能被读者被迫离开社区。</strong></p>
+<p>由于我做公众号，也在掘金写文章，所以和很多的作者进行交流过，非常多的作者会以给读者带来了帮助而激发自己写更好、更多的文章，我觉得用户给到作者的不是<strong>意见</strong>而应该是<strong>建议</strong>。这样双方处于和谐、和平的状态，才更有利于社区的发展。</p>
+<h2 id="我的看法"><a href="#我的看法" class="headerlink" title="我的看法"></a>我的看法</h2><p>说说这位掘金用户说的东西，我相信你的初心是让社区变得更好，您说的也没有毛病，我也很赞同。</p>
+<p>不过您是站在道德的制高点去要求作者，要有深度，要有独立思考能力，要有干货等等<strong>要求</strong>，但是您又没有给作者钱，他并没有义务按照每个人的要求来写文章。</p>
+<p>这不就是白嫖要求还多的表现么。难道您说的这些要求，难道写文章的作者不知道吗，别人也许只想写下来做个笔记，好心随便分享给大家看一下。</p>
+<p>这就跟朋友请你到他家吃饭，亲手做菜给你吃，然后你嫌弃这个咸了，那个淡了，这个不好吃，那个卖相太丑了，白吃白喝还要色香味俱全。</p>
+<p>在掘金这个平台上，除了小册，没人有责任和义务把文章写得要满足所有的读者。如果小册写得不好，那确实应该要求作者改改，毕竟你花了钱，你就是『爸爸』，你就是顾客，顾客是上帝。</p>
+<p>所以，我觉得现在社区不仅要控制文章的质量，还要控制社员的质量，比如像之前创建小号来喷京东小姐姐刘小夕，以及小生方勤的，这种文章就不应该出现在首页，这样会给作者带来了巨大的创伤。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/">观点与感想</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9A%8F%E6%83%B3/">随想</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/271/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何让 useEffect 只在依赖变化的时候执行</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/257/">
+                        <span class="hidden-mobile">新手学习 React 迷惑的点</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

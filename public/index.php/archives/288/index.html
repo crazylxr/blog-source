@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>css计数器教程 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="css计数器教程">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-12-10 23:45" pubdate>
+        Tuesday, December 10th 2019, 11:45 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">css计数器教程</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>CSS 里面的伪元素其实是非常好用的，但是经常容易被大家忽略，伪元素里面常用到的 <code>content</code> 属性，可能现在很多人仅仅以为 <code>content</code> 属性的值只支持字符串，除了字符串外常用到的还有 <code>uri</code>、<code>counter</code> ，今天所要介绍的就是 conter(计数器)。</p>
+<p>先看如下的例子：</p>
+<p><img src="http://imgs.taoweng.site/2019-12-09-133936.jpg" srcset="/img/loading.gif" lazyload alt="905B9F15-6D46-463D-812C-17545A17516C"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>桃翁<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>介绍<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>css 计数器<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>根据如上的 HTML 你是否有办法不通过 JavaScript ，仅仅用 CSS 在 title 前面增加 <code>Title number:</code> 呢？</p>
+<h2 id="CSS-计数器基本概念"><a href="#CSS-计数器基本概念" class="headerlink" title="CSS 计数器基本概念"></a>CSS 计数器基本概念</h2><p>如果仅仅增加一个 <strong>Title</strong>，大家都知道通过伪元素(:before或者:after)，设置 content 为 Title，但是如何自动根据 h3 出现的顺序来展示自动编号可能很多人就不知道了。</p>
+<p>自动编号在 CSS 2.1 中是通过两个属性控制的，<a target="_blank" rel="noopener" href="http://www.ayqy.net/doc/css2-1/generate.html#propdef-counter-increment">‘counter-increment’</a>和<a target="_blank" rel="noopener" href="http://www.ayqy.net/doc/css2-1/generate.html#propdef-counter-reset">‘counter-reset’</a>。通过这些属性定义的计数器用于<a target="_blank" rel="noopener" href="http://www.ayqy.net/doc/css2-1/generate.html#propdef-content">‘content’</a>属性的 counter() 和 counters() 函数</p>
+<h3 id="初始化计数器"><a href="#初始化计数器" class="headerlink" title="初始化计数器"></a>初始化计数器</h3><p>在使用计数器的时候需要先初始化这个计数器，并且设置一个计数器的名字(变量)。下面是例子，title 就是名字，conter-reset 就是用来初始化的，这个属性是必须设置的，否则没办法用计数器。</p>
+<p><a target="_blank" rel="noopener" href="http://www.ayqy.net/doc/css2-1/generate.html#propdef-counter-reset">‘counter-reset’</a>属性也含有一列一个或多个计数器，每个后面可以跟一个可选的整数。该整数给定了每次出现该元素时给计数器设置的值，默认为 0</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">counter-reset</span>: 计数器名称[, 默认值number];           <span class="hljs-comment">/* 重置计数器成0 */</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="计数器自增"><a href="#计数器自增" class="headerlink" title="计数器自增"></a>计数器自增</h3><p>有了一个计数器的变量后，然后可以让这个变量进行自增：</p>
+<p><a target="_blank" rel="noopener" href="http://www.ayqy.net/doc/css2-1/generate.html#propdef-counter-increment">‘counter-increment’</a>属性接受一个或多个计数器名（标识符），每个后面都可以跟一个可选的整数。这个整数表示每次出现该元素时计数器递增几。默认增量是 1，可以接受 0 和负数</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">counter-increment</span>: 计数器名称[, 增量];      <span class="hljs-comment">/* 增加计数器值 */</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="显示计数器"><a href="#显示计数器" class="headerlink" title="显示计数器"></a>显示计数器</h3><p>最后就是现实计数器的值，获取计数器的值有两个函数：counter() 和 counters() ，如上面的例子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">content</span>: <span class="hljs-built_in">counter</span>(计数器名称[, 显示的风格]) /* 显示计数器 */<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">counters(计数器名称, 嵌套时拼接字符串<span class="hljs-selector-attr">[, 可选的显示风格]</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>学完了基本概念，然后就可以解决上面的问题了。按照步骤来，三步：</p>
+<ol>
+<li>初始化计时器</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">counter-reset</span>: title;           <span class="hljs-comment">/* 重置计数器成0 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>计数器自增</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">h3</span>:before &#123;<br>  counter-increment: title;      <span class="hljs-comment">/* 增加计数器值 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>显示计数器</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">h3</span>:before &#123;<br>  content: <span class="hljs-string">&quot;Title &quot;</span> <span class="hljs-built_in">counter</span>(title) <span class="hljs-string">&quot;: &quot;</span>; <span class="hljs-comment">/* 显示计数器 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>合起来的解决方案如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">counter-reset</span>: title;           <span class="hljs-comment">/* 重置计数器成0 */</span><br>&#125;<br><span class="hljs-selector-tag">h3</span>:before &#123;<br>  counter-increment: title;      <span class="hljs-comment">/* 增加计数器值 */</span><br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;Title &quot;</span> <span class="hljs-built_in">counter</span>(title) <span class="hljs-string">&quot;: &quot;</span>; <span class="hljs-comment">/* 显示计数器 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h2><h3 id="嵌套计数器与作用域"><a href="#嵌套计数器与作用域" class="headerlink" title="嵌套计数器与作用域"></a>嵌套计数器与作用域</h3><p>计数器是“自嵌套的（self-nesting）”，如果重置一个位于后代元素或者伪元素中的计数器，会自动创建一个新的计数器实例。这对 HTML 中的列表之类的场景来说很重要，这种场景下，元素自身可以嵌套任意深度，不用为每一层定义唯一命名的计数器</p>
+<blockquote>
+<p>计数器的作用域从文档中具有<a target="_blank" rel="noopener" href="http://www.ayqy.net/doc/css2-1/generate.html#propdef-counter-reset">‘counter-reset’</a>该计数器的第一个元素开始，包括该元素的后代、后续兄弟及其后代。</p>
+</blockquote>
+<p>官方套话比较难懂，用大白话说就是设置了 <code>counter-reset</code> ，那么这个元素的的子元素都属于这个作用域下。</p>
+<p>想要完全理解作用域，就得把下面这个 图看懂：</p>
+<img src="http://imgs.taoweng.site/2019-12-09-142219.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<p>上面的这个 HTML 代码，再加上这段 CSS 代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">OL</span> &#123; <span class="hljs-attribute">counter-reset</span>: item &#125;<br><span class="hljs-selector-tag">LI</span> &#123; <span class="hljs-attribute">display</span>: block &#125;<br><span class="hljs-selector-tag">LI</span>:before &#123; <br>  counter-increment: item <br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>OL 将会创建一个计数器，并且 OL 的所有子级将引用该计数器，如果我们用item[n]表示”item”计数器的第 n个实例，用”{“和”}”表示一个作用域的开始和结束，那么上面 HTML 片段将使用标注的计数器。</p>
+<p>注意看 2.3.1 的两个元素，由于他们都在 2.3 下面，有两个同名的计数器，那么这两个同名计数器会分别创建实例，所有会得到两个 2.3.1。</p>
+<p>如果懂了作用域的关系，接下来就可以通过 <code>counter()</code> 或者 <code>counters()</code> 函数进行展示。</p>
+<p><strong>counter</strong></p>
+<p>Counter 显示代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">OL</span> &#123; <span class="hljs-attribute">counter-reset</span>: item &#125;<br><span class="hljs-selector-tag">LI</span> &#123; <span class="hljs-attribute">display</span>: block &#125;<br><span class="hljs-selector-tag">LI</span>:before &#123; <br>  content: <span class="hljs-built_in">counter</span>(item) <span class="hljs-string">&quot;. &quot;</span>; <br>  <span class="hljs-attribute">counter-increment</span>: item <br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://imgs.taoweng.site/2019-12-09-143411.png" srcset="/img/loading.gif" lazyload alt="image-20191209223410101"></p>
+<p>可以看到 counter 只会显示当前作用域下计数器的值，如果要生成嵌套作用域的计数器就得用 counters 函数。</p>
+<p><strong>counters</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">OL</span> &#123; <span class="hljs-attribute">counter-reset</span>: item &#125;<br><span class="hljs-selector-tag">LI</span> &#123; <span class="hljs-attribute">display</span>: block &#125;<br><span class="hljs-selector-tag">LI</span>:before &#123; <br>  content: <span class="hljs-built_in">counters</span>(item, <span class="hljs-string">&#x27;.&#x27;</span>) <span class="hljs-string">&quot; &quot;</span>; <br>  <span class="hljs-attribute">counter-increment</span>: item;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://imgs.taoweng.site/2019-12-09-143518.png" srcset="/img/loading.gif" lazyload alt="image-20191209223516878"></p>
+<h3 id="更换格式"><a href="#更换格式" class="headerlink" title="更换格式"></a>更换格式</h3><p>在显示计数器部分 counter 和 counters 都有一个可选参数，显示风格，这个显示风格跟 <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_list-style-type.asp">list-style-type</a> 是一样的，比如我们将文章开头的例子拿来举例，默认是 decimal 风格，比如换成字母(type 是 lower-latin)形式，css 如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">counter-reset</span>: title;           <span class="hljs-comment">/* 重置计数器成0 */</span><br>&#125;<br><span class="hljs-selector-tag">h3</span>:before &#123;<br>  counter-increment: title;      <span class="hljs-comment">/* 增加计数器值 */</span><br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;Title &quot;</span> <span class="hljs-built_in">counter</span>(title, lower-latin) <span class="hljs-string">&quot;: &quot;</span>; <span class="hljs-comment">/* 显示计数器 */</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>效果如下，list-style-type 有很多种，甚至还有中文(list-style-type 是 cjk-ideographic)的。</p>
+<p><img src="http://imgs.taoweng.site/2019-12-10-140955.png" srcset="/img/loading.gif" lazyload alt="image-20191210220952021"></p>
+<h3 id="自定义起始值"><a href="#自定义起始值" class="headerlink" title="自定义起始值"></a>自定义起始值</h3><p>起始值订为 5</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">counter-reset</span>: title <span class="hljs-number">5</span>;           <span class="hljs-comment">/*起始值订为 5 */</span><br>&#125;<br><span class="hljs-selector-tag">h3</span>:before &#123;<br>  counter-increment: title;      <br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;Title &quot;</span> <span class="hljs-built_in">counter</span>(title) <span class="hljs-string">&quot;: &quot;</span>; <br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://imgs.taoweng.site/2019-12-10-151858.png" srcset="/img/loading.gif" lazyload alt="image-20191210231857008"></p>
+<h3 id="自定义每次递增的值"><a href="#自定义每次递增的值" class="headerlink" title="自定义每次递增的值"></a>自定义每次递增的值</h3><p>每次递增的值为 2</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">counter-reset</span>: title <span class="hljs-number">5</span>;       <br>&#125;<br><span class="hljs-selector-tag">h3</span>:before &#123;<br>  counter-increment: title <span class="hljs-number">2</span>;      <span class="hljs-comment">/* 每次递增的值为 2 */</span><br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;Title &quot;</span> <span class="hljs-built_in">counter</span>(title) <span class="hljs-string">&quot;: &quot;</span>; <br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://imgs.taoweng.site/2019-12-10-152028.jpg" srcset="/img/loading.gif" lazyload alt="D94591E0-4122-4212-957E-348ED5D0CBDA"></p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景-1：-嵌套列表"><a href="#场景-1：-嵌套列表" class="headerlink" title="场景 1： 嵌套列表"></a>场景 1： 嵌套列表</h3><p>比如要生成一个文章的大纲：</p>
+<p><img src="http://imgs.taoweng.site/2019-12-10-153647.png" srcset="/img/loading.gif" lazyload alt="image-20191210233643948"></p>
+<h3 id="场景2：-计算已经勾选的复选框"><a href="#场景2：-计算已经勾选的复选框" class="headerlink" title="场景2： 计算已经勾选的复选框"></a>场景2： 计算已经勾选的复选框</h3><p>使用输入框的：checked 伪类，我们可以检查复选框是否被选中，选中的话，我们计数器的数值就会增加。</p>
+<p>下面的这个 2 种菜系直接就是可以通过计数器来实现的，不需要使用 js</p>
+<p><img src="http://imgs.taoweng.site/2019-12-10-154028.png" srcset="/img/loading.gif" lazyload alt="image-20191210234026403"></p>
+<h3 id="场景3：-自动追踪文档条目"><a href="#场景3：-自动追踪文档条目" class="headerlink" title="场景3： 自动追踪文档条目"></a>场景3： 自动追踪文档条目</h3><p>当你需要处理一些重复元素的时候，并且你同样想统计他们的数量，那么这个方案会很好用。</p>
+<p><img src="http://imgs.taoweng.site/2019-12-10-154341.png" srcset="/img/loading.gif" lazyload alt="image-20191210234338534"></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuxianan/p/css-counters.html">css计数器详解</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/289/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端桃园周刊第四期</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/284/">
+                        <span class="hidden-mobile">通过fetch发送 post 请求下载文件</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

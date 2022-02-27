@@ -1,0 +1,871 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>拼多多和酷家乐面试经历总结 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="拼多多和酷家乐面试经历总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-07 13:17" pubdate>
+        Thursday, May 7th 2020, 1:17 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">拼多多和酷家乐面试经历总结</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>离职原因看我这篇文章吧：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/v8aSfpxPfuKSXS99jV5jaw">离开蘑菇街后，我最近的一些想法</a>，然后不得不去找工作恰饭呀。</p>
+<p>我目前面了五家公司：滴滴、蚂蚁、拼多多、酷家乐、字节跳动，拼多多和酷家乐基本已拿到 offer，蚂蚁二面完了，滴滴和字节即将三面，我先把我已经面过的面经先总结出来，其他的不管过没过，这周内我都会总结出来，希望能给到正在找工作同学的帮助。</p>
+<p>在文章里我不仅会列出面试题，还会给到一些答题建议，个人能力有限，也不能保证我回答都正确，<strong>如果有错误，希望能纠正我。</strong></p>
+<h2 id="酷家乐"><a href="#酷家乐" class="headerlink" title="酷家乐"></a>酷家乐</h2><p>酷家乐是我最早面的一家公司，还没被裁的那周二刚好面完，结果周五就被裁了，可能这就是冥冥之中吧。</p>
+<p>面试的部门是工具组，是酷家乐最核心的部门，四面面试官跟我说我面的组是工具团队中的最核心组，会涉及到一些图像相关的技术，比如 Tree.js、WebGL等，所以这个组其实也挺好的，感觉能学到不少技术。</p>
+<h3 id="一面-电话面"><a href="#一面-电话面" class="headerlink" title="一面(电话面)"></a>一面(电话面)</h3><ul>
+<li><p>你在项目如何优化的</p>
+<blockquote>
+<p>我在简历里面写到了性能优化相关的，所以这个问题。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>你做的项目有什么值得说的</p>
+<blockquote>
+<p>基本上就是考察项目的亮点，可以说一些项目难点是如何解决的，或者介绍一些项目中用到的牛逼的技术。</p>
+</blockquote>
+</li>
+<li><p>Ts 有什么优势</p>
+<blockquote>
+<p>讲道理所有现在在网上能查到的优势都是得益于<strong>静态语言</strong>的优势。</p>
+</blockquote>
+</li>
+<li><p>type 和 interface 的区别</p>
+<blockquote>
+<p>这是一个高频题，如果考察 TS，这应该是最容易考察的，网上也都能查到相关的资料，但是很可能忽略一个点：<strong>type 只是一个类型别名，并不会产生类型</strong>。所以其实 type 和 interface 其实不是同一个概念，其实他们俩不应该用来比较的，只是有时候用起来看着类似。</p>
+</blockquote>
+</li>
+<li><p>React 事件机制</p>
+<blockquote>
+<p>我觉得需要答的点：</p>
+<ol>
+<li>React 为什么要用合成事件</li>
+<li>事件机制：注册和分发的过程。这里面至少要说出事件注册都是在元素的最顶层 <code>document</code> 节点上。</li>
+</ol>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://toutiao.io/posts/28of14w/preview">一文吃透 React 事件机制原理</a></p>
+</blockquote>
+</li>
+<li><p>聊聊 React 的 diff </p>
+<blockquote>
+<p>聊 diff 建议先看看我之前写过的一篇关于虚拟 DOM 的文章：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/zCGQEpEGJYQWMMvZfyUYHg">从 React 历史的长河里聊虚拟DOM及其价值</a>，有助于理解 diff 的意义。</p>
+<p>diff 的细节可以看我之前写的：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_jAW4Z3VR-uW0AEnjHgAEw">详解 React 16 的 Diff 策略</a></p>
+</blockquote>
+</li>
+<li><p>React 优化</p>
+<blockquote>
+<p>可以看之前我写的 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mpL1MxLjBqSO49TRijeyeg">React 函数式组件性能优化指南</a>，对于类组件也有对应的 API。</p>
+</blockquote>
+</li>
+<li><p>怎么理解闭包</p>
+<blockquote>
+<p>基础中的基础，虽然社招考得不多，但是如果连闭包都理解不了，应该会减分不少。闭包由于在规范里没有定义，所以很多人下的定义不一样，理解的角度也不同，但是自己要有一套正确的理解方式，如果按照我的理解 JavaScript 里面所有的函数都是闭包，因为有全局环境，所有的函数都可以访问全局变量。</p>
+</blockquote>
+</li>
+<li><p>节流怎么实现的</p>
+<blockquote>
+<p>防抖和节流的代码还是需要会手写的，这也是一个闭包的例子，</p>
+</blockquote>
+</li>
+<li><p>原型，class B 继承 class A 翻译成 es5 应该是什么样子</p>
+<blockquote>
+<p>说实话，我觉得这道题其实蛮有水平的，即考察了如何写出一个好的继承方式，也对 new 过程进行了考察，还对考察了对 Class 的理解。</p>
+<p>注意的点：<code>class</code> 是有重载功能的，怎么在子类的构造函数里面调用 <code>super</code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="二面-现场面"><a href="#二面-现场面" class="headerlink" title="二面(现场面)"></a>二面(现场面)</h3><ul>
+<li><p>react 的基本原理</p>
+<blockquote>
+<p>UI = f(state) ，虚拟 DOM、diff 策略、setState</p>
+</blockquote>
+</li>
+<li><p>react 如何做性能优化</p>
+<blockquote>
+<p>这个题也是高频，见一面回答</p>
+</blockquote>
+</li>
+<li><p>redux 的重点概念</p>
+<blockquote>
+<p>store、reduce、action、actionCreater、dispatch</p>
+</blockquote>
+</li>
+<li><p>聊一聊 React 的生命周期</p>
+<blockquote>
+<p>尽量把 React 15 和 16 的进行对比，然后 16 为什么要准备废除那几个生命周期，以及新增的生命周期可以进行替代。</p>
+<p>这个图好好的理解一下</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gejro09e6qj31j70u0ah0.jpg" srcset="/img/loading.gif" lazyload alt="react 生命周期"></p>
+</blockquote>
+</li>
+<li><p>聊一聊 hooks 怎么处理生命周期</p>
+<blockquote>
+<p>讲道理函数式组件是没有生命周期的，但是如何去模拟类组件的生命周期的作用，都是在 <code>useEffect</code> 里面进行操作的，因为生命周期里面所做的基本都是副作用，放到 <code>useEffect</code> 里是最合适的，专门用来处理副作用。</p>
+</blockquote>
+</li>
+<li><p>笔试题一</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> a = &#123; b ： <span class="hljs-number">3</span>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">obj</span>) </span>&#123;<br>  obj.b = <span class="hljs-number">5</span><br><br>  <span class="hljs-keyword">return</span> obj<br>&#125;<br><br><span class="hljs-keyword">const</span> aa = foo(a)<br><br><span class="hljs-built_in">console</span>.log(a.b)<br><br><span class="hljs-built_in">console</span>.log(aa.b)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>笔试题二：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Ofo</span>(<span class="hljs-params"></span>) </span>&#123;&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Bick</span>(<span class="hljs-params"></span>) </span>&#123;<br>	<span class="hljs-built_in">this</span>.name = <span class="hljs-string">&#x27;mybick&#x27;</span><br>&#125;<br><br><span class="hljs-keyword">var</span> myBick = <span class="hljs-keyword">new</span> Ofo()<br><br>Ofo.prototype = <span class="hljs-keyword">new</span> Bick()<br><br><span class="hljs-keyword">var</span> youbick = <span class="hljs-keyword">new</span> Bick()<br><br><span class="hljs-built_in">console</span>.log(myBick.name)<br><br><span class="hljs-built_in">console</span>.log(youbick.name)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>笔试题三：考察盒子模型和 <code>box-sizing</code> 属性，判断元素的尺寸和颜色。</p>
+</li>
+<li><p>实现一个 fill 函数，不能用循环。</p>
+<blockquote>
+<p>考察递归</p>
+</blockquote>
+</li>
+<li><p>用 ES5 实现私有变量</p>
+<blockquote>
+<p>考察闭包的使用</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="三面-现场面"><a href="#三面-现场面" class="headerlink" title="三面(现场面)"></a>三面(现场面)</h3><ul>
+<li><p>简历里面的性能优化是如何做的</p>
+<blockquote>
+<p>减少请求频率、图片压缩、<code>React.memo</code>、<code>React.useMemo</code></p>
+</blockquote>
+</li>
+<li><p>class 组件里面如何做性能优化(因为前面我说了用 React.memo 做了性能优化)</p>
+<blockquote>
+<p>shouldComponentUpdate(简称 SCU)。SCU 跟 immutable 强相关，一定要好好理解 react 的 immutable，否则很可能理解不了为什么不能直接去修改 state，然后再去 setState，以及 redux 的 reducer 要返回一个新的对象。</p>
+</blockquote>
+</li>
+<li><p>实现一个 Typescript 里的 Pick</p>
+<blockquote>
+<p><code>type Pick&lt;T, K extends keyof T&gt; = &#123; [P in K]: T[P] &#125;</code></p>
+</blockquote>
+</li>
+<li><p>手写 Promise.all</p>
+</li>
+<li><p>手写并发只能 10 个</p>
+</li>
+<li><p>算法题，怎么判断单链表相交。</p>
+<blockquote>
+<p>很多种方法，我当时说的是最后一个节点如果相同，那么就代表相交。</p>
+</blockquote>
+</li>
+<li><p>算法题，怎么找到第一个相交的节点。</p>
+<blockquote>
+<p>同时遍历两个链表到尾部，同时记录两个链表的长度。若两个链表最后的一个节点相同，则两个链表相交。有两个链表的长度后，我们就可以知道哪个链表长，设较长的链表长度为len1,短的链表长度为len2。则先让较长的链表向后移动(len1-len2)个长度。然后开始从当前位置同时遍历两个链表，当遍历到的链表的节点相同时，则这个节点就是第一个相交的节点。</p>
+<p>这是我刚想到的一种方式，不过当时面试的时候我记得好像更简单，但是想不起来了。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="四面-现场面"><a href="#四面-现场面" class="headerlink" title="四面(现场面)"></a>四面(现场面)</h3><ul>
+<li><p>你觉得你在公司人缘怎么样</p>
+</li>
+<li><p>你觉得你为你们小组做了什么贡献</p>
+</li>
+<li><p>为什么要离职</p>
+</li>
+<li><p>除了我们公司还投了其他公司吗</p>
+</li>
+<li><p>薪资和层级有什么要求</p>
+</li>
+<li><p>如何垂直水平居中</p>
+</li>
+<li><p>你看过开源库的源码吗？</p>
+</li>
+<li><p>那你聊聊 React 的源码，把你记得起的讲一讲</p>
+<blockquote>
+<p>我看过 React 的一部分源码的，所以关于 React 源码更新部分的东西，应该基本都能说个大概。</p>
+</blockquote>
+</li>
+<li><p>FiberNode 有哪些属性</p>
+</li>
+<li><p>stadeNode 有什么用？</p>
+</li>
+<li><p>还有一些技术问题想不起来了</p>
+</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>酷家乐面试体验还是不错的，我是一面电话面，面完觉得 OK 之后就叫到公司去现场面试，6 点半下班了就骑车去了酷家乐，七点开始面试，一口气面完了三面，饭都没来得及吃，不过面试官很好给我倒了水。</p>
+<p>感觉面试官对我的项目似乎不太敢兴趣，很少问项目的东西，可能由于他们是工具组，连我简历里面组件库相关的也没面，考察基础的比较多，基础考察得比较全面。</p>
+<p>但是由于考虑到我之前做的项目复杂性不够，以及工作年限的问题，给到的评级不高，导致薪资也不是特别高，但是已经是这个评级的顶峰了，要是没有更好的 offer 酷家乐还是非常值得去的，特别是工具组。</p>
+<h2 id="拼多多"><a href="#拼多多" class="headerlink" title="拼多多"></a>拼多多</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><ul>
+<li><p>react 16 生命周期有什么改变</p>
+<blockquote>
+<p><code>componentWillMount</code>，<code>componentWillReceiveProps</code>，<code>componentWillUpdate</code> 准备废除，新增了 <code>static getDerivedStateFromProps</code> 和 <code>getSnapshotBeforeUpdate</code></p>
+<p>我还详细的介绍了为什么要用 <code>getDerivedStateFromProps</code> 来代替即将废除的三个生命周期，主要是16 版本 render 之前的生命周期可能会被多次执行，具体的可看我的这篇文章：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/dONYc-Y96baiXBXpwh1w3A">Deep In React之浅谈 React Fiber 架构(一)</a></p>
+</blockquote>
+</li>
+<li><p>详细的介绍一下 <code>getDerivedStateFromProps</code></p>
+</li>
+<li><p>你在项目中如何做性能优化的</p>
+</li>
+<li><p><code>flex: 0 1 auto;</code> 是什么意思？</p>
+<blockquote>
+<p>flex 这个属性常考题，好好把阮老师的那篇 <a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">flex 语法篇</a>看完 flex 的面试题基本没问题。</p>
+</blockquote>
+</li>
+<li><p>less 的 &amp; 代表什么？</p>
+</li>
+<li><p>算法题：求最大公共前缀，如 <code>[&#39;aaafsd&#39;, &#39;aawwewer&#39;, &#39;aaddfff&#39;] =&gt; &#39;aa&#39;</code></p>
+<blockquote>
+<p>不能调试，全靠编程素养，只能面试官才能运行。</p>
+</blockquote>
+</li>
+<li><p>interface 和 type 的区别</p>
+<blockquote>
+<p>又考了，上面有回答</p>
+</blockquote>
+</li>
+<li><p>有用状态管理吗？</p>
+<blockquote>
+<p>我常用的是 redux 和 dva，然后再聊了聊区别已经 redux 的理念</p>
+</blockquote>
+</li>
+<li><p>有用 ssr 吗？</p>
+<blockquote>
+<p>没用过</p>
+</blockquote>
+</li>
+<li><p>node 熟悉吗？</p>
+<blockquote>
+<p>写得少</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><ul>
+<li><p>class 组件与函数式组件的区别</p>
+<blockquote>
+<p>生命周期、设计理念，感觉这道题比较开发，可以看看 dan 的这篇：<a target="_blank" rel="noopener" href="https://overreacted.io/zh-hans/how-are-function-components-different-from-classes/">函数式组件与类组件有何不同？</a></p>
+</blockquote>
+</li>
+<li><p>css 优先级</p>
+<blockquote>
+<p>important &gt; 内联 &gt; ID选择器 &gt; 类选择器 &gt; 标签选择器</p>
+</blockquote>
+</li>
+<li><p>避免 css 全局污染。</p>
+<blockquote>
+<p>我常用的 css modules</p>
+</blockquote>
+</li>
+<li><p>css modules 的原理</p>
+<blockquote>
+<p>生成唯一的类名</p>
+</blockquote>
+</li>
+<li><p>有一个a标签，如何动态的决定他的样式。</p>
+<blockquote>
+<p>我说了先写几个 css，然后外部传一个前缀的方式。面试官问了都要这样吗？我说可以通过 context 的方式，就不需要每个组件都传了。</p>
+</blockquote>
+</li>
+<li><p>import 和 require 导入的区别</p>
+<blockquote>
+<p>高频题，考察 ES6 模块和 CommonJS 模块 的区别。关键点：1. 前者是值的引用，后者是值的拷贝。 2.前者编译时输出接口，后者运行时加载。</p>
+<p>推荐文章：<a target="_blank" rel="noopener" href="https://juejin.im/post/5aaa37c8f265da23945f365c">前端模块化：CommonJS,AMD,CMD,ES6</a></p>
+</blockquote>
+</li>
+<li><p>require 有什么性能问题</p>
+<blockquote>
+<p>好好想想上一个题的区别就能想到了</p>
+</blockquote>
+</li>
+<li><p>组件库如何做按需加载</p>
+<blockquote>
+<p>我常用的是<code>babel-plugin-import</code> </p>
+</blockquote>
+</li>
+<li><p>webpack 如何实现动态加载</p>
+<blockquote>
+<p>讲道理 webpack 动态加载就两种方式：<code>import()</code>和 <code>require.ensure</code>，不过他们实现原理是相同的。</p>
+<p>我觉得这道题的重点在于动态的创建 script 标签，以及通过 <code>jsonp</code> 去请求 <strong>chunk</strong>，推荐的文章是：<a target="_blank" rel="noopener" href="https://juejin.im/post/5d26e7d1518825290726f67a">webpack是如何实现动态导入的</a></p>
+</blockquote>
+</li>
+<li><p>react 里有动态加载的 api 吗？</p>
+<blockquote>
+<p>React.lazy</p>
+</blockquote>
+</li>
+<li><p>React.lazy 的原理是啥？</p>
+</li>
+<li><p>webpack 能动态加载 require 引入的模块吗？</p>
+<blockquote>
+<p>应该是不能的，前面说了，webpack 支持动态导入基本上只能用<code> import()</code> 和<code>require.ensure</code>。</p>
+</blockquote>
+</li>
+<li><p>require 引入的模块 webpack 能做 Tree Shaking 吗？</p>
+<blockquote>
+<p>不能，Tree Shaking 需要静态分析，只有 ES6 的模块才支持。</p>
+</blockquote>
+</li>
+<li><p>设计一个input 组件需要哪些属性。我说了 value 、defaultValue、onChange</p>
+</li>
+<li><p>value 的类型是什么？</p>
+</li>
+<li><p>onChange 怎么规定 value 的类型</p>
+</li>
+<li><p>interface 和 type 的区别</p>
+</li>
+<li><p>写一个 promise 重试函数，可以设置时间间隔和次数。<code>function foo(fn, interval, times) &#123;&#125;</code></p>
+<blockquote>
+<p>常规题，网上有参考答案的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="三面"><a href="#三面" class="headerlink" title="三面"></a>三面</h3><ul>
+<li><p>组件平台有哪些功能？</p>
+<blockquote>
+<p>详细的跟我讨论组件平台的设计，因为他们也想做一个组件平台。</p>
+</blockquote>
+</li>
+<li><p>实现一个 redux</p>
+<blockquote>
+<p>实现 <code>createStore</code> 的功能，关键点发布订阅的功能，以及取消订阅的功能。</p>
+</blockquote>
+</li>
+<li><p>用 ts 实现一个 redux</p>
+<blockquote>
+<p>简单的加上类型，我写的类型没有 redux 源码那么复杂，当时写得比较简单。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="小节"><a href="#小节" class="headerlink" title="小节"></a>小节</h3><p>一面的时候其实我自己感觉答得不是特别好，连 less 的语法都忘记了，当时面下来感觉要凉了，平时写 样式的时间确实太少了。</p>
+<p>很幸运的时候还是给我过了，二面面试官我觉得面得很专业，基本都是从浅入深的考察知识的深度，我感觉答得还可以，因为我是属于那种会的就尽量深一点，暂时不用的就很少花时间，所以我目前知识的广度很有欠缺，对于 node、ssr、移动端、小程序这些方面我的能力都很薄弱，但是面试的时候如果你不熟悉，直接说不熟悉就行，他就不会面了。</p>
+<p>我准备面试之前对我自己的要求就是，我会的尽量不会很快就被问倒，所以我重点复习了我擅长的知识。</p>
+<p>面下来感觉拼多多也没有想象中那么难，虽然拼多多薪资算行业内高的，不过拼多多在上海，我在杭州，另外就是强制上 6 天班，我比较忌惮这点。考虑到我和女朋友本来就是异地，要是单休，而且节假日也会比正常的少，见面的机会就更少了。</p>
+<p>反正选 offer 这种事还是尽量综合考虑吧，团队、薪资、个人生活都应该考虑进去。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><blockquote>
+<p>我是桃翁，一个爱思考的前端er，期待你的关注。</p>
+</blockquote>
+<p>如果你最近也在找工作，欢迎找我交流，下面是我公众号。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/11/19/16e81112420c2ff3?w=344&h=344&f=jpeg&s=3371" srcset="/img/loading.gif" lazyload></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0%E6%9C%AC/">笔记本</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/319/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mac写作环境搭建</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/317/">
+                        <span class="hidden-mobile">离开蘑菇街后，我最近的一些想法</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

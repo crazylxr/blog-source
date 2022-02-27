@@ -1,0 +1,697 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>函数式编程之组合 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="函数式编程之组合">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-02-21 20:48" pubdate>
+        Thursday, February 21st 2019, 8:48 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      62
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">函数式编程之组合</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p>该系列文章不是针对前端新手，需要有一定的编程经验，而且了解 JavaScript 里面作用域，闭包等概念</p>
+</blockquote>
+<h2 id="组合函数"><a href="#组合函数" class="headerlink" title="组合函数"></a>组合函数</h2><p>组合是一种为软件的行为，进行清晰建模的一种简单、优雅而富于表现力的方式。通过组合小的、确定性的函数，来创建更大的软件组件和功能的过程，会生成更容易组织、理解、调试、扩展、测试和维护的软件。</p>
+<p>对于组合，我觉得是函数式编程里面最<strong>精髓</strong>的地方之一，所以我迫不及待的把这个概念拿出来先介绍，因为在整个学习函数式编程里，所遇到的基本上都是以组合的方式来编写代码，这也是改变你从一个面向对象，或者结构化编程思想的一个关键点。</p>
+<p>我这里也不去证明组合比继承好，也不说组合的方式写代码有多好，我希望你看了这篇文章能知道<strong>以组合的方式去抽象代码</strong>，这会扩展你的视野，在你想重构你的代码，或者想写出更易于维护的代码的时候，提供一种思路。</p>
+<p>组合的概念是非常直观的，并不是函数式编程独有的，在我们生活中或者前端开发中处处可见。</p>
+<p>比如我们现在流行的 SPA (单页面应用)，都会有组件的概念，为什么要有组件的概念呢，因为它的目的就是想让你<strong>把一些通用的功能或者元素组合抽象成可重用的组件</strong>，就算不通用，你在构建一个复杂页面的时候也可以拆分成一个个具有简单功能的组件，然后再组合成你满足各种需求的页面。</p>
+<p>其实我们函数式编程里面的组合也是类似，函数组合<strong>就是一种将已被分解的简单任务组织成复杂的整体过程</strong>。</p>
+<p>现在我们有这样一个需求：给你一个字符串，将这个字符串转化成大写，然后逆序。</p>
+<p>你可能会这么写。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 例 1.1</span><br><br><span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;function program&#x27;</span><br><br><span class="hljs-comment">// 一行代码搞定</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">oneLine</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> res = str.toUpperCase().split(<span class="hljs-string">&#x27;&#x27;</span>).reverse().join(<span class="hljs-string">&#x27;&#x27;</span>)<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-comment">// 或者 按要求一步一步来，先转成大写，然后逆序</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">multiLine</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> upperStr = str.toUpperCase()<br>    <span class="hljs-keyword">var</span> res = upperStr.split(<span class="hljs-string">&#x27;&#x27;</span>).reverse().join(<span class="hljs-string">&#x27;&#x27;</span>)<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(oneLine(str)) <span class="hljs-comment">// MARGORP NOITCNUF</span><br><span class="hljs-built_in">console</span>.log(multiLine(str)) <span class="hljs-comment">// MARGORP NOITCNUF</span><br></code></pre></td></tr></table></figure>
+
+<p>可能看到这里你并没有觉得有什么不对的，但是现在产品又突发奇想，改了下需求，把字符串大写之后，把每个字符拆开之后组装成一个数组，比如 ’aaa‘ 最终会变成 [A, A, A]。</p>
+<p>那么这个时候我们就需要更改我们之前我们封装的函数。这就修改了以前封装的代码，其实在设计模式里面就是破坏了开闭原则。</p>
+<p>那么我们如果把最开始的需求代码写成这个样子，以函数式编程的方式来写。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 例 1.2</span><br><br><span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;function program&#x27;</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringToUpper</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.toUpperCase()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringReverse</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;&#x27;</span>).reverse().join(<span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;<br><br><span class="hljs-keyword">var</span> toUpperAndReverse = 组合(stringReverse, stringToUpper)<br><span class="hljs-keyword">var</span> res = toUpperAndReverse(str)<br></code></pre></td></tr></table></figure>
+
+<p>那么当我们需求变化的时候，我们根本不需要修改之前封装过的东西。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 例 2</span><br><br><span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;function program&#x27;</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringToUpper</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.toUpperCase()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringReverse</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;&#x27;</span>).reverse().join(<span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;<br><br><span class="hljs-comment">// var toUpperAndReverse = 组合(stringReverse, stringToUpper)</span><br><span class="hljs-comment">// var res = toUpperAndReverse(str)</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringToArray</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;<br><br><span class="hljs-keyword">var</span> toUpperAndArray = 组合(stringReverse, stringToUpper)<br>toUpperAndArray(str)<br></code></pre></td></tr></table></figure>
+
+<p>可以看到当变更需求的时候，我们没有打破以前封装的代码，只是新增了函数功能，然后把函数进行重新组合。</p>
+<blockquote>
+<p>这里可能会有人说，需求修改，肯定要更改代码呀，你这不是也删除了以前的代码么，也不是算破坏了开闭原则么。我这里声明一下，开闭原则是指一个软件实体如类、模块和函数应该对扩展开放，对修改关闭。是针对我们封装，抽象出来的代码，而是调用逻辑。所以这样写并不算破坏开闭原则。</p>
+</blockquote>
+<p>突然产品又灵光一闪，又想改一下需求，把字符串大写之后，再翻转，再转成数组。</p>
+<p>要是你按照以前的思考，没有进行抽象，你肯定心理一万只草泥马在奔腾，但是如果你抽象了，你完全可以不慌。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 例 3</span><br><br><span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;function program&#x27;</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringToUpper</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.toUpperCase()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringReverse</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;&#x27;</span>).reverse().join(<span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringToArray</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;<br><br><span class="hljs-keyword">var</span> strUpperAndReverseAndArray = 组合(stringToArray, stringReverse, stringToUpper)<br>strUpperAndReverseAndArray(str)<br></code></pre></td></tr></table></figure>
+
+<p>发现并没有更换你之前封装的代码，只是更换了函数的组合方式。可以看到，组合的方式是真的就是抽象单一功能的函数，然后再组成复杂功能。这种方式既锻炼了你的抽象能力，也给维护带来巨大的方便。</p>
+<p>但是上面的组合我只是用汉字来代替的，我们应该如何去实现这个组合呢。首先我们可以知道，这是一个函数，同时参数也是函数，返回值也是函数。</p>
+<p>我们看到例 2， 怎么将两个函数进行组合呢，根据上面说的，参数和返回值都是函数，那么我们可以确定函数的基本结构如下(顺便把组合换成英文的 compose)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">twoFuntionCompose</span>(<span class="hljs-params">fn1, fn2</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-comment">// code</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们再思考一下，如果我们不用 compose 这个函数，在例 2 中怎么将两个函数合成呢，我们是不是也可以这么做来达到组合的目的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">var</span> res = stringReverse(stringToUpper(str))<br></code></pre></td></tr></table></figure>
+
+<p>那么按照这个逻辑是不是我们就可以写出 <code>twoFuntonCompose</code> 的实现了，就是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">twoFuntonCompose</span>(<span class="hljs-params">fn1, fn2</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>) </span>&#123;<br>        <span class="hljs-keyword">return</span> fn1(fn2(arg))<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>同理我们也可以写出三个函数的组合函数，四个函数的组合函数，无非就是一直嵌套多层嘛，变成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">multiFuntionCompose</span>(<span class="hljs-params">fn1, fn2, .., fnn</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg</span>) </span>&#123;<br>        <span class="hljs-keyword">return</span> fnn(...(fn1(fn2(arg))))<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这种恶心的方式很显然不是我们程序员应该做的，然后我们也可以看到一些规律，无非就是把前一个函数的返回值作为后一个返回值的参数，当直接到最后一个函数的时候，就返回。</p>
+<p>所以按照正常的思维就会这么写。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aCompose</span>(<span class="hljs-params">...args</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> length = args.length<br>    <span class="hljs-keyword">let</span> count = length - <span class="hljs-number">1</span><br>    <span class="hljs-keyword">let</span> result<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span> (<span class="hljs-params">...arg1</span>) </span>&#123;<br>        result = args[count].apply(<span class="hljs-built_in">this</span>, arg1)<br>        <span class="hljs-keyword">if</span> (count &lt;= <span class="hljs-number">0</span>) &#123;<br>          count = length - <span class="hljs-number">1</span><br>          <span class="hljs-keyword">return</span> result<br>        &#125;<br>        count--<br>        <span class="hljs-keyword">return</span> f1.call(<span class="hljs-literal">null</span>, result)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样写没问题，underscore 也是这么写的，不过里面还有很多健壮性的处理，核心大概就是这样。</p>
+<p>但是作为一个函数式爱好者，尽量还是以函数式的方式去思考，所以就用 reduceRight 写出如下代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compose</span>(<span class="hljs-params">...args</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> args.reduceRight(<span class="hljs-function">(<span class="hljs-params">result, fn</span>) =&gt;</span> &#123;<br>          <span class="hljs-keyword">return</span> fn(result)<br>        &#125;, result)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然对于 compose 的实现还有很多种方式，在这篇<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011447164">实现 compose 的五种思路</a>中还给出了另外脑洞大开的实现方式，在我看这篇文章之前，另外三种我是没想到的，不过感觉也不是太有用，但是可以扩展我们的思路，有兴趣的同学可以看一看。</p>
+<blockquote>
+<p>注意：要传给 compose 函数是有规范的，首先函数的执行是从最后一个参数开始执行，一直执行到第一个，而且对于传给 compose 作为参数的函数也是有要求的，必须只有一个形参，而且函数的返回值是下一个函数的实参。</p>
+</blockquote>
+<p>对于 compose 从最后一个函数开始求值的方式如果你不是很适应的话，你可以通过 pipe 函数来从左到右的方式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pipe</span>(<span class="hljs-params">...args</span>) </span>&#123;<br>     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> args.reduce(<span class="hljs-function">(<span class="hljs-params">result, fn</span>) =&gt;</span> &#123;<br>          <span class="hljs-keyword">return</span> fn(result)<br>        &#125;, result)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>实现跟 compose 差不多，只是把参数的遍历方式从右到左(<strong>reduceRight</strong>)改为从左到右(<strong>reduce</strong>)。</p>
+<p>之前是不是看过很多文章写过如何实现 compose，或者柯里化，部分应用等函数，但是你可能不知道是用来干啥的，也没用过，所以记了又忘，忘了又记，看了这篇文章之后我希望这些你都可以轻松实现。后面会继续讲到柯里化和部分应用的实现。</p>
+<h2 id="point-free"><a href="#point-free" class="headerlink" title="point-free"></a>point-free</h2><p>在函数式编程的世界中，有这样一种很流行的编程风格。这种风格被称为 <strong>tacit programming</strong>，也被称作为 <strong>point-free</strong>，point 表示的就是形参，意思大概就是没有形参的编程风格。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 这就是有参的，因为 word 这个形参</span><br><span class="hljs-keyword">var</span> snakeCase = <span class="hljs-function"><span class="hljs-params">word</span> =&gt;</span> word.toLowerCase().replace(<span class="hljs-regexp">/\s+/ig</span>, <span class="hljs-string">&#x27;_&#x27;</span>);<br><br><span class="hljs-comment">// 这是 pointfree，没有任何形参</span><br><span class="hljs-keyword">var</span> snakeCase = compose(replace(<span class="hljs-regexp">/\s+/ig</span>, <span class="hljs-string">&#x27;_&#x27;</span>), toLowerCase);<br></code></pre></td></tr></table></figure>
+
+<p>有参的函数的目的是得到一个数据，而 pointfree 的函数的目的是得到另一个函数。</p>
+<p>那这 pointfree 有什么用？ 它可以让我们把注意力集中在函数上，参数命名的麻烦肯定是省了，代码也更简洁优雅。 需要注意的是，一个 pointfree 的函数可能是由众多非 pointfree 的函数组成的，也就是说底层的基础函数大都是有参的，pointfree 体现在用基础函数组合而成的高级函数上，这些高级函数往往可以作为我们的业务函数，通过组合不同的基础函数构成我们的复制的业务逻辑。</p>
+<p>可以说 pointfree 使我们的编程看起来更美，更具有声明式，这种风格算是函数式编程里面的一种追求，一种标准，我们可以尽量的写成 pointfree，但是不要过度的使用，任何模式的过度使用都是不对的。</p>
+<p>另外可以看到通过 compose 组合而成的基础函数都是只有一个参数的，但是往往我们的基础函数参数很可能不止一个，这个时候就会用到一个神奇的函数(柯里化函数)。</p>
+<h2 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h2><p>在维基百科里面是这么定义柯里化的：</p>
+<blockquote>
+<p> 在计算机科学，<strong>柯里化</strong>（英语：Currying），又译为<strong>卡瑞化</strong>或<strong>加里化</strong>，是把接受多个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E5%BD%A2%E5%BC%8F%E5%8F%82%E6%95%B0&action=edit&redlink=1">参数</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0">函数</a>变换成<strong>接受一个单一参数（最初函数的第一个参数）的函数</strong>，并且返回接受余下的参数而且<strong>返回结果的新函数</strong>的技术。</p>
+</blockquote>
+<p>在定义中获取两个比较重要的信息：</p>
+<ul>
+<li>接受一个单一参数</li>
+<li>返回结果是函数</li>
+</ul>
+<p>这两个要点不是 compose 函数参数的要求么，而且可以将多个参数的函数转换成接受单一参数的函数，岂不是可以解决我们再上面提到的基础函数如果是多个参数不能用的问题，所以这就很清楚了柯里化函数的作用了。</p>
+<p>柯里化函数可以使我们更好的去追求 pointfree，让我们代码写得更优美！</p>
+<p>接下来我们具体看一个例子来理解柯里化吧：</p>
+<p>比如你有一间士多店并且你想给你优惠的顾客给个 10% 的折扣（即打九折）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">discount</span>(<span class="hljs-params">price, discount</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> price * discount<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当一位优惠的顾客买了一间价值$500的物品，你给他打折：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> price = discount(<span class="hljs-number">500</span>, <span class="hljs-number">0.10</span>); <span class="hljs-comment">// $50 </span><br></code></pre></td></tr></table></figure>
+
+<p>你可以预见，从长远来看，我们会发现自己每天都在计算 10% 的折扣：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> price = discount(<span class="hljs-number">1500</span>,<span class="hljs-number">0.10</span>); <span class="hljs-comment">// $150</span><br><span class="hljs-keyword">const</span> price = discount(<span class="hljs-number">2000</span>,<span class="hljs-number">0.10</span>); <span class="hljs-comment">// $200</span><br><span class="hljs-comment">// ... 等等很多</span><br></code></pre></td></tr></table></figure>
+
+<p>我们可以将 discount 函数柯里化，这样我们就不用总是每次增加这 0.01 的折扣。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 这个就是一个柯里化函数，将本来两个参数的 discount ，转化为每次接收单个参数完成求职</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">discountCurry</span>(<span class="hljs-params">discount</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">price</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> price * discount;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">const</span> tenPercentDiscount = discountCurry(<span class="hljs-number">0.1</span>);<br></code></pre></td></tr></table></figure>
+
+<p>现在，我们可以只计算你的顾客买的物品都价格了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">tenPercentDiscount(<span class="hljs-number">500</span>); <span class="hljs-comment">// $50</span><br><br></code></pre></td></tr></table></figure>
+
+<p>同样地，有些优惠顾客比一些优惠顾客更重要-让我们称之为超级客户。并且我们想给这些超级客户提供20%的折扣。<br>可以使用我们的柯里化的discount函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> twentyPercentDiscount = discountCurry(<span class="hljs-number">0.2</span>);<br><br></code></pre></td></tr></table></figure>
+
+<p>我们通过这个柯里化的 discount 函数折扣调为 0.2（即20%），给我们的超级客户配置了一个新的函数。<br>返回的函数 twentyPercentDiscount 将用于计算我们的超级客户的折扣：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">twentyPercentDiscount(<span class="hljs-number">500</span>); <span class="hljs-comment">// 100</span><br><br></code></pre></td></tr></table></figure>
+
+<p>我相信通过上面的 **discountCurry **你已经对柯里化有点感觉了，这篇文章是谈的柯里化在函数式编程里面的应用，所以我们再来看看在函数式里面怎么应用。</p>
+<p>现在我们有这么一个需求：给定的一个字符串，先翻转，然后转大写，找是否有<code>TAOWENG</code>，如果有那么就输出 yes，否则就输出 no。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringToUpper</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.toUpperCase()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringReverse</span>(<span class="hljs-params">str</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;&#x27;</span>).reverse().join(<span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">find</span>(<span class="hljs-params">str, targetStr</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> str.includes(targetStr)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">judge</span>(<span class="hljs-params">is</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(is ? <span class="hljs-string">&#x27;yes&#x27;</span> : <span class="hljs-string">&#x27;no&#x27;</span>)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>我们很容易就写出了这四个函数，前面两个是上面就已经写过的，然后 find 函数也很简单，现在我们想通过 compose 的方式来实现 pointfree，但是我们的 find 函数要接受两个参数，不符合 compose 参数的规定，这个时候我们像前面一个例子一样，把 find 函数柯里化一下，然后再进行组合：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 柯里化 find 函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findCurry</span>(<span class="hljs-params">targetStr</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">str</span> =&gt;</span> str.includes(targetStr)<br>&#125;<br><br><span class="hljs-keyword">const</span> findTaoweng = findCurry(<span class="hljs-string">&#x27;TAOWENG&#x27;</span>)<br><br><span class="hljs-keyword">const</span> result = compose(judge, findTaoweng, stringReverse, stringToUpper)<br><br></code></pre></td></tr></table></figure>
+
+<p>看到这里是不是可以看到柯里化在达到 pointfree 是非常的有用，较少参数，一步一步的实现我们的组合。</p>
+<p>但是通过上面那种方式柯里化需要去修改以前封装好的函数，这也是破坏了<strong>开闭原则</strong>，而且对于一些基础函数去把源码修改了，其他地方用了可能就会有问题，所以我们应该写一个函数来手动柯里化。</p>
+<p>根据定义之前对柯里化的定义，以及前面两个柯里化函数，我们可以写一个二元(参数个数为 2)的通用柯里化函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">twoCurry</span>(<span class="hljs-params">fn</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">firstArg</span>) </span>&#123; <span class="hljs-comment">// 第一次调用获得第一个参数</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">secondArg</span>) </span>&#123; <span class="hljs-comment">// 第二次调用获得第二个参数</span><br>            <span class="hljs-keyword">return</span> fn(firstArg, secondArg) <span class="hljs-comment">// 将两个参数应用到函数 fn 上</span><br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>所以上面的 findCurry 就可以通过 twoCurry 来得到：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> findCurry = twoCurry(find)<br><br></code></pre></td></tr></table></figure>
+
+<p>这样我们就可以不更改封装好的函数，也可以使用柯里化，然后进行函数组合。不过我们这里只实现了二元函数的柯里化，要是三元，四元是不是我们又要要写三元柯里化函数，四元柯里化函数呢，其实我们可以写一个通用的 n 元柯里化。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">currying</span>(<span class="hljs-params">fn, ...args</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (args.length &gt;= fn.length) &#123;<br>        <span class="hljs-keyword">return</span> fn(...args)<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...args2</span>) </span>&#123;<br>        <span class="hljs-keyword">return</span> currying(fn, ...args, ...args2)<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>我这里采用的是递归的思路，当获取的参数个数大于或者等于 fn 的参数个数的时候，就证明参数已经获取完毕，所以直接执行 fn 了，如果没有获取完，就继续递归获取参数。</p>
+<p>可以看到其实一个通用的柯里化函数核心思想是非常的简单，代码也非常简洁，而且还支持在一次调用的时候可以传多个参数(但是这种传递多个参数跟柯里化的定义不是很合，所以可以作为一种柯里化的变种)。</p>
+<blockquote>
+<p>我这里重点不是讲柯里化的实现，所以没有写得很健壮，更强大的柯里化函数可见羽讶的：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000010608477">JavaScript专题之函数柯里化</a>。</p>
+</blockquote>
+<h2 id="部分应用"><a href="#部分应用" class="headerlink" title="部分应用"></a>部分应用</h2><p>部分应用是一种通过将函数的不可变参数子集，初始化为固定值来创建更小元数函数的操作。简单来说，如果存在一个具有五个参数的函数，给出三个参数后，就会得到一个、两个参数的函数。</p>
+<p>看到上面的定义可能你会觉得这跟柯里化很相似，都是用来缩短函数参数的长度，所以如果理解了柯里化，理解部分应用是非常的简单：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debug</span>(<span class="hljs-params">type, firstArg, secondArg</span>) </span>&#123;<br>    <span class="hljs-keyword">if</span>(type === <span class="hljs-string">&#x27;log&#x27;</span>) &#123;<br>        <span class="hljs-built_in">console</span>.log(firstArg, secondArg)<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type === <span class="hljs-string">&#x27;info&#x27;</span>) &#123;<br>        <span class="hljs-built_in">console</span>.info(firstArg, secondArg)<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type === <span class="hljs-string">&#x27;warn&#x27;</span>) &#123;<br>        <span class="hljs-built_in">console</span>.warn(firstArg, secondArg)<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">console</span>.error(firstArg, secondArg)<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> logDebug = 部分应用(debug, <span class="hljs-string">&#x27;log&#x27;</span>)<br><span class="hljs-keyword">const</span> infoDebug = 部分应用(debug, <span class="hljs-string">&#x27;info&#x27;</span>)<br><span class="hljs-keyword">const</span> warnDebug = 部分应用(debug, <span class="hljs-string">&#x27;warn&#x27;</span>)<br><span class="hljs-keyword">const</span> errDebug = 部分应用(debug, <span class="hljs-string">&#x27;error&#x27;</span>)<br><br>logDebug(<span class="hljs-string">&#x27;log:&#x27;</span>, <span class="hljs-string">&#x27;测试部分应用&#x27;</span>)<br>infoDebug(<span class="hljs-string">&#x27;info:&#x27;</span>, <span class="hljs-string">&#x27;测试部分应用&#x27;</span>)<br>warnDebug(<span class="hljs-string">&#x27;warn:&#x27;</span>, <span class="hljs-string">&#x27;测试部分应用&#x27;</span>)<br>errDebug(<span class="hljs-string">&#x27;error:&#x27;</span>, <span class="hljs-string">&#x27;测试部分应用&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p><code>debug</code>方法封装了我们平时用 console 对象调试的时候各种方法，本来是要传三个参数，我们通过<strong>部分应用</strong>的封装之后，我们只需要根据需要调用不同的方法，传必须的参数就可以了。</p>
+<p>我这个例子可能你会觉得没必要这么封装，根本没有减少什么工作量，但是如果我们在 debug 的时候不仅是要打印到控制台，还要把调试信息保存到数据库，或者做点其他的，那是不是这个封装就有用了。</p>
+<p>因为部分应用也可以减少参数，所以他在我们进行编写组合函数的时候也占有一席之地，而且可以更快传递需要的参数，留下为了 compose 传递的参数，这里是跟柯里化比较，因为柯里化按照定义的话，一次函数调用只能传一个参数，如果有四五个参数就需要:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">a, b, c, d</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> a + b + c +d<br>&#125;<br><br><span class="hljs-comment">// 使用柯里化方式来使 add 转化为一个一元函数</span><br><span class="hljs-keyword">let</span> addPreThreeCurry = currying(add)(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>)<br>addPreThree(<span class="hljs-number">4</span>) <span class="hljs-comment">// 10</span><br><br></code></pre></td></tr></table></figure>
+
+<p> 这种连续调用(这里所说的柯里化是按照定义的柯里化，而不是我们写的柯里化变种)，但是用部分应用就可以:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 使用部分应用的方式使 add 转化为一个一元函数</span><br><span class="hljs-keyword">const</span> addPreThreePartial = 部分应用(add, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br>addPreThree(<span class="hljs-number">4</span>) <span class="hljs-comment">// 10</span><br><br></code></pre></td></tr></table></figure>
+
+<p>既然我们现在已经明白了部分应用这个函数的作用了，那么还是来实现一个吧，真的是非常的简单：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 通用的部分应用函数的核心实现</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">partial</span>(<span class="hljs-params">fn, ...args</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">..._arg</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> fn(...args, ..._arg);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>另外不知道你有没有发现，这个部分应用跟 JavaScript 里面的 bind 函数很相似，都是把第一次穿进去的参数通过闭包存在函数里，等到再次调用的时候再把另外的参数传给函数，只是部分应用不用指定 this，所以也可以用 bind 来实现一个部分应用函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 通用的部分应用函数的核心实现</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">partial</span>(<span class="hljs-params">fn, ...args</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> fn.bind(<span class="hljs-literal">null</span>, ...args)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>另外可以看到实际上柯里化和部分应用确实很相似，所以这两种技术很容易被混淆。它们主要的区别在于参数传递的内部机制与控制：</p>
+<ul>
+<li>柯里化在每次分布调用时都会生成嵌套的一元函数。在底层 ，函数的最终结果是由这些一元函数<strong>逐步组合</strong>产生的。同时，curry 的变体允许同时传递一部分参数。因此，可以完全控制函数<strong>求值的时间与方式</strong>。</li>
+<li>部分应用将函数的参数与一些预设值绑定(赋值)，从而产生一个拥有<strong>更少参数的新函数</strong>。改函数的闭包中包含了这些已赋值的参数，在之后的调用中被完全求值。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这篇文章里我重点想介绍的是函数以组合的方式来完成我们的需求，另外介绍了一种函数式编程风格：pointfree，让我们在函数式编程里面有了一个最佳实践，尽量写成 pointfree 形式(尽量，不是都要)，然后介绍了通过柯里化或者部分应用来减少函数参数，符合 compose 或者 pipe 的参数要求。</p>
+<p>所以这种文章的重点是理解我们如何去组合函数，如何<strong>去抽象复杂的函数为颗粒度更小，功能单一的函数</strong>。这将使我们的代码更容易维护，更具声明式的特点。</p>
+<blockquote>
+<p>对于这篇文章里面提到的其他概念：闭包、作用域，然后柯里化的其他用途我希望是在番外篇里面更深入的去理解，而这篇文章主要掌握函数组合就行了。</p>
+</blockquote>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/617808">JavaScript函数式编程之pointfree与声明式编程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.bitsrc.io/understanding-currying-in-javascript-ceb2188c339">Understanding Currying in JavaScript</a></li>
+<li>《JavaScript 函数式编程指南》</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/268/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">为什么现在面试都是面试造火箭</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/238/">
+                        <span class="hidden-mobile">pm2 使用教程</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

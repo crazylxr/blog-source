@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>img 和 picture 的区别和使用场景 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="img 和 picture 的区别和使用场景">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-01 15:12" pubdate>
+        Thursday, July 1st 2021, 3:12 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">img 和 picture 的区别和使用场景</h1>
+            
+            <div class="markdown-body">
+              <h2 id="img"><a href="#img" class="headerlink" title="img"></a>img</h2><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">img</a> 是 HTML4 时就有的标签， 至今仍然是在网页中嵌入图片的最常用的方式。 与 <code>&lt;span&gt;</code>, <code>&lt;em&gt;</code> 等标签一样属于行内标签 （准确地说属于 <a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/#phrasing-content">Phrasing Content</a>）。下面是一个示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;favicon72.png&quot;</span></span><br><span class="hljs-tag">     <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;MDN logo&quot;</span></span><br><span class="hljs-tag">     <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;favicon144.png 2x&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>img 其实也可以控制在高清屏幕采用哪个图片，适合用在移动端</p>
+<h2 id="picture"><a href="#picture" class="headerlink" title="picture"></a>picture</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">picture</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;/media/cc0-images/surfer-240-200.jpg&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">media</span>=<span class="hljs-string">&quot;(min-width: 800px)&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/media/cc0-images/painted-hand-298-332.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">picture</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>要决定加载哪个URL，<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Glossary/User_agent">user agent</a> 检查每个 <code>&lt;source&gt;</code> 的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/source#attr-srcset"><code>srcset</code></a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/source#attr-media"><code>media</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/source#attr-type"><code>type</code></a> 属性，来选择最匹配页面当前布局、显示设备特征等的兼容图像。</p>
+<p>picture 就可以方便的控制在某种媒体类型，加载哪个图片。感觉比较适合做响应式用。</p>
+<p>相比 <code>img</code> 标签，<code>picture</code> 提供了更丰富的响应式资源选择方式；</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture">picture</a> 是 HTML5 中定义新标签， 其中可以定义若干个 <code>&lt;source&gt;</code>，浏览器会匹配 <code>&lt;source&gt;</code> 的 <code>type</code>, <code>media</code>, <code>srcset</code> 等属性， 来找到最适合当前布局、<a target="_blank" rel="noopener" href="https://harttle.land/2016/04/21/viewport.html">视口宽度</a>、<em>设备像素密度</em> 的一个去下载。 为了向下兼容不识别 <code>&lt;picture&gt;</code> 和 <code>&lt;source&gt;</code> 的浏览器，<code>&lt;picture&gt;</code> 中还可以写一个 <code>&lt;img&gt;</code> 作为 fallback。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">picture</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;harttle-land-avatar.png&quot;</span> <span class="hljs-attr">media</span>=<span class="hljs-string">&quot;(min-width: 750px)&quot;</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;harttle-land-banner.png&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;a banner for harttle.land&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">picture</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="图片如何做响应式"><a href="#图片如何做响应式" class="headerlink" title="图片如何做响应式"></a>图片如何做响应式</h2><h3 id="响应式：基于视口宽度"><a href="#响应式：基于视口宽度" class="headerlink" title="响应式：基于视口宽度"></a>响应式：基于视口宽度</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Responsive_web_design">响应式设计</a> 是一种 Web 页面设计方式， 使得不同 <a target="_blank" rel="noopener" href="https://harttle.land/2016/04/21/viewport.html">视口宽度</a> 和 <em>设备像素密度</em> 下内容都可以很好地展示，都可以保证可用性和用户满足。</p>
+<p>提到响应式多数开发者都会想到 CSS 媒体查询，但 HTML5 中还定义了元素属性的媒体查询。 这使得可以通过媒体查询来根据元素渲染宽度 <em>选择资源</em> 和 <em>图片占位</em>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;avatar.png&quot;</span> </span><br><span class="hljs-tag">     <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;avatar-200.png 200w, avatar-400.png 400w&quot;</span></span><br><span class="hljs-tag">     <span class="hljs-attr">sizes</span>=<span class="hljs-string">&quot;(max-width: 600px) 200px, 50vw&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>浏览器会根据 <code>sizes</code> 的媒体查询来决定渲染大小；此后根据实际的渲染大小来决定选择哪个资源。 比如屏幕宽度为 <code>500px</code>，那么就会调整图片大小为 <code>200px</code>， 然后选择 <code>srcset</code> 中最匹配这个大小的 <code>avatar-200.png</code> 去下载。</p>
+<h3 id="响应式：基于设备像素比"><a href="#响应式：基于设备像素比" class="headerlink" title="响应式：基于设备像素比"></a>响应式：基于设备像素比</h3><p>支持 HTML5 的浏览器中还可以基于 <em>设备像素比</em> 来选择资源。 在刚出现 Retina 屏幕时有些网页图片展现模糊， 就是因为在高像素密度（比如 2 倍设备像素比）的屏幕上仍然显示 1 倍大小的图片。 <code>&lt;img&gt;</code> 元素的 src 和 srcset 属性都支持 x 描述符来提供不同大小的图片。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;avatar-1.0.png&quot;</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;avatar-1.5.png 1.5x, avatar-2.0.png 2x&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>用户代理可以根据用户屏幕像素密度、缩放级别，甚至用户的网络条件选择任何一个给出的资源。 这里同时给出 <code>src</code> 也是为了向后兼容。</p>
+<h3 id="响应式：基于媒体查询"><a href="#响应式：基于媒体查询" class="headerlink" title="响应式：基于媒体查询"></a>响应式：基于媒体查询</h3><p>上文提到在 <code>&lt;img&gt;</code> 元素的 <code>sizes</code> 中可以写媒体查询来计算宽高。 <code>&lt;picture&gt;</code> 中也可以通过媒体查询来选择 <code>&lt;source&gt;</code> 可以给不同的设备大小下载不同的图片。 区别在于 <strong>基于视口宽度</strong> 的资源选择侧重于对不同大小的屏幕选择宽度适合的，同样内容的图片。 <strong>基于媒体查询</strong> 的资源选择侧重于对不同的屏幕选择不同内容的图片。</p>
+<p>比如在移动设备上只显示头像，在大屏幕显示器上则显示完整的大图。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">picture</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;avatar.png&quot;</span> <span class="hljs-attr">media</span>=<span class="hljs-string">&quot;(max-width: 640px)&quot;</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;avatar-with-background.png&quot;</span> <span class="hljs-attr">media</span>=<span class="hljs-string">&quot;(min-width: 640px)&quot;</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;avatar.png&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;smiling harttle&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">picture</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>基于媒体查询的选择在 HTML5 标准中称为 <a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/images.html#art-direction">Art Direction</a>。</p>
+<h3 id="响应式：基于图片格式"><a href="#响应式：基于图片格式" class="headerlink" title="响应式：基于图片格式"></a>响应式：基于图片格式</h3><p><code>&lt;source&gt;</code> 元素的 <code>type</code> 属性可以指定图片格式，浏览器可以选择自己支持的去下载。 基于图片格式的选择可以用于性能优化，有些格式我们知道压缩比非常好但并非所有浏览器都支持。 这时就可以提供多种格式的图片让浏览器来选择。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">picture</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;avatar.webp&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;image/webp&quot;</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">srcset</span>=<span class="hljs-string">&quot;avatar.jxr&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;image/vnd.ms-photo&quot;</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;avatar.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;150&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">picture</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，如果用户代理支持 WebP 就会选择第一个 <code>&lt;source&gt;</code> 元素。 如果不支持 WebP，但支持 JPEG XR 就会选择第二个 source 元素。 如果这两种都不支持，就会选择 img 元素。（这个例子来自 <a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/images.html#image-format-based-selection">HTML Standard</a>）</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://harttle.land/2018/05/30/responsive-img-picture.html">正确使用 HTML5 标签：img, picture, figure 的响应式设计</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/%E7%AC%94%E8%AE%B0%E6%9C%AC/">笔记本</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC/">笔记本</a>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/20210905/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">git commit 规范和 如何在 commit 里使用 emoji</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/339/">
+                        <span class="hidden-mobile">4个你从未听说过的强大的 JavaScript 运算符</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

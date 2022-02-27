@@ -1,0 +1,595 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>JavaScript数据结构之数组栈队列 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JavaScript数据结构之数组栈队列">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-03-14 09:53" pubdate>
+        Wednesday, March 14th 2018, 9:53 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript数据结构之数组栈队列</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-数组"><a href="#1-数组" class="headerlink" title="1. 数组"></a>1. 数组</h2><p>数组是平时使用最常用的数据结构，在JavaScript中数组是动态的分配大小,在这里我不会介绍JavaScript里面数组的所有的方法，而是针对数据结构这个方向谈谈所用到的方法。</p>
+<h3 id="1-1-创建和初始化数组"><a href="#1-1-创建和初始化数组" class="headerlink" title="1.1 创建和初始化数组"></a>1.1 创建和初始化数组</h3><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs smali">//创建空数组<br>var<span class="hljs-built_in"> array </span>=<span class="hljs-built_in"> new </span>Array();<br>//[]<br><br>//初始化数组<br>var<span class="hljs-built_in"> array </span>=<span class="hljs-built_in"> new </span>Array(1,2,3); <br>var<span class="hljs-built_in"> array </span>= Array.of(1,2,3);//ES6的方法<br>//[1,2,3]<br><br>//创建大小为5的数组<br>var<span class="hljs-built_in"> array </span>=<span class="hljs-built_in"> new </span>Array();//ES6的方法<br>//[undefined,undefined,undefined,undefined,undefined]<br><br>//给数组赋值<br>var<span class="hljs-built_in"> array </span>=<span class="hljs-built_in"> new </span>Array();<br>array[0] = 1 ;<br>array[1] = 2 ;<br>array[2] = 3 ;<br>//[1,2,3]<br></code></pre></td></tr></table></figure>
+<h3 id="1-2-添加元素"><a href="#1-2-添加元素" class="headerlink" title="1.2 添加元素"></a>1.2 添加元素</h3><h4 id="1-2-1往数组后添加元素"><a href="#1-2-1往数组后添加元素" class="headerlink" title="1.2.1往数组后添加元素"></a>1.2.1往数组后添加元素</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];<br><span class="hljs-built_in">number</span>[<span class="hljs-built_in">number</span>.length] = <span class="hljs-number">4</span>;<br><span class="hljs-comment">//[1,2,3,4]</span><br><br><span class="hljs-comment">//或者</span><br><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];<br><span class="hljs-built_in">number</span>.push(<span class="hljs-number">4</span>);<br><span class="hljs-comment">//[1,2,3,4]</span><br></code></pre></td></tr></table></figure>
+<h4 id="1-2-2往数组前面添加元素"><a href="#1-2-2往数组前面添加元素" class="headerlink" title="1.2.2往数组前面添加元素"></a>1.2.2往数组前面添加元素</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];<br><span class="hljs-built_in">number</span>.unshift(<span class="hljs-number">0</span>);<br><span class="hljs-comment">//[0,1,2,3]</span><br><span class="hljs-built_in">number</span>.unshift(-<span class="hljs-number">2</span>,-<span class="hljs-number">1</span>);<br><span class="hljs-comment">//[-2,-1,0,1,2,3]</span><br><br></code></pre></td></tr></table></figure>
+<h4 id="1-2-3往数组的任意位置插入元素"><a href="#1-2-3往数组的任意位置插入元素" class="headerlink" title="1.2.3往数组的任意位置插入元素"></a>1.2.3往数组的任意位置插入元素</h4><p>运用splice方法</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">//在索引1后面添加2，3，4</span><br><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>];<br><span class="hljs-built_in">number</span>.splice(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>);<br><span class="hljs-comment">//[1,2,3,4,5,6]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-3-删除元素"><a href="#1-3-删除元素" class="headerlink" title="1.3 删除元素"></a>1.3 删除元素</h3><h4 id="1-3-1-删除第一位"><a href="#1-3-1-删除第一位" class="headerlink" title="1.3.1 删除第一位"></a>1.3.1 删除第一位</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];<br><span class="hljs-built_in">number</span>.shift();<br><span class="hljs-comment">//[2,3]</span><br></code></pre></td></tr></table></figure>
+<h4 id="1-3-2-删除任意位置"><a href="#1-3-2-删除任意位置" class="headerlink" title="1.3.2 删除任意位置"></a>1.3.2 删除任意位置</h4><p>使用splice方法删除数组任意位置的元素</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">var numebr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>];<br><span class="hljs-regexp">//</span>如果想删除元素<span class="hljs-number">3</span><br>number.splice(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>);<br><span class="hljs-regexp">//</span>[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]<br><br><span class="hljs-regexp">//</span>如果想删除元素<span class="hljs-number">4</span>，<span class="hljs-number">5</span><br>number.splice(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>);<br></code></pre></td></tr></table></figure>
+<h3 id="1-4-排序"><a href="#1-4-排序" class="headerlink" title="1.4 排序"></a>1.4 排序</h3><h4 id="1-4-1-反序"><a href="#1-4-1-反序" class="headerlink" title="1.4.1 反序"></a>1.4.1 反序</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>];<br><span class="hljs-built_in">number</span>.reverse();<br><span class="hljs-comment">//[1,2,3]</span><br><br></code></pre></td></tr></table></figure>
+<h4 id="1-4-2-自然排序"><a href="#1-4-2-自然排序" class="headerlink" title="1.4.2 自然排序"></a>1.4.2 自然排序</h4><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">var</span> numebr = [2,3,4,1,3,7];<br>number.<span class="hljs-keyword">sort</span>();<br><span class="hljs-comment">//[1,2,3,3,4,7]</span><br></code></pre></td></tr></table></figure>
+<h4 id="1-4-3-自定义排序"><a href="#1-4-3-自定义排序" class="headerlink" title="1.4.3 自定义排序"></a>1.4.3 自定义排序</h4><p>这个自定义排序跟java里面实现comparator接口一个意思。用处可大了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>];<br><span class="hljs-built_in">number</span>.sort();<br><span class="hljs-comment">//[1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9]</span><br></code></pre></td></tr></table></figure>
+<p>仿佛看起有点不对啊，我们应该想要的是<br>[1,2,3,4,5,6,7,8,9,10,11,12,13],这个时候我们就用自定义排序来解决这个问题</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>];<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compare</span>(<span class="hljs-params">a,b</span>)</span>&#123;<br>    <span class="hljs-keyword">if</span>(a &lt; b)&#123;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(a &gt; b)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-built_in">number</span>.sort(compare);<br><span class="hljs-comment">//[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]</span><br></code></pre></td></tr></table></figure>
+<p>这还只是最简单的，也可以对任何对象类型进行数组排序。例如，对象Person有名字和年龄属性，我们希望根据年龄排序</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xquery">var friends = [<span class="hljs-built_in">&#123;name</span>:<span class="hljs-string">&#x27;李晨&#x27;</span>,age:<span class="hljs-number">40</span>&#125;,<span class="hljs-built_in">&#123;name</span>:<span class="hljs-string">&#x27;范冰冰&#x27;</span>,age:<span class="hljs-number">35</span>&#125;];<br><br><span class="hljs-keyword">function</span> comparePerson(a,b)&#123;<br>    <span class="hljs-keyword">if</span>(a.age &lt; b.age)&#123;<br>        <span class="hljs-keyword">return</span>  -<span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(a.age &gt; b.age)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br>friends<span class="hljs-built_in">.sort</span>(comparePerson);<br>//[<span class="hljs-built_in">&#123;name</span>:<span class="hljs-string">&#x27;范冰冰&#x27;</span>,age:<span class="hljs-number">35</span>&#125;,<span class="hljs-built_in">&#123;name</span>:<span class="hljs-string">&#x27;李晨&#x27;</span>,age:<span class="hljs-number">40</span>&#125;]<br></code></pre></td></tr></table></figure>
+<h3 id="1-5-搜索"><a href="#1-5-搜索" class="headerlink" title="1.5 搜索"></a>1.5 搜索</h3><p>搜索有两个方法：indexOf方法返回与参数匹配的第一个元素的索引，lastIndexOf返回与参数匹配的最后一个元素的索引。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">var</span> <span class="hljs-built_in">number</span> = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">56</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">4</span>];<br><span class="hljs-built_in">number</span>.indexOf(<span class="hljs-number">3</span>);<span class="hljs-comment">//1</span><br><span class="hljs-built_in">number</span>.lastIndexOf(<span class="hljs-number">3</span>)<span class="hljs-comment">//3</span><br></code></pre></td></tr></table></figure>
+<h2 id="2-栈"><a href="#2-栈" class="headerlink" title="2. 栈"></a>2. 栈</h2><p>栈是一种遵循后进先出(LIFO)原则的有序集合。新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端就叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。在JavaScript中变量保存和函数调用都是用栈存储的。</p>
+<p>首先创建一个类来表示一个栈，需要一种数据结构来保存栈里的元素。这里我们就选择刚学的数组：var items = [];<br>接下来，为我们的栈声明一些方法：</p>
+<ul>
+<li>push(elements(s)):添加一个（或几个）新元素到栈顶</li>
+<li>pop():移除栈顶的元素，同时返回被移除的元素</li>
+<li>peek():获取栈顶的元素，不对栈做出任何修改</li>
+<li>isEmpty():如果栈里没有任何元素就返回true,否则返回false；</li>
+<li>clear():清空栈</li>
+<li>size():返回栈元素的个数</li>
+</ul>
+<p>如果上一节数组认真看了，我相信用JavaScript实现一个栈是非常简单的。在这里就直接来代码了，不用一个方法一个方法去解释了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Stack</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> items = [];<br>    <br>    <span class="hljs-built_in">this</span>.push = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>)</span>&#123;<br>        items.push(element);<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.pop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items.pop();<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.peek = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items[items.length-<span class="hljs-number">1</span>];<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.isEmpty = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items.length === <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items.length;<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.clear = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        items = [];<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.print = <span class="hljs-function"><span class="hljs-title">funciton</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(items.toString());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="3-队列"><a href="#3-队列" class="headerlink" title="3. 队列"></a>3. 队列</h2><p>队列是遵循先来先服务(FIFO)原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素排在队列的末尾。</p>
+<p>在现实生活中常见的例子就是排队。<br>在计算机科学中，一个常见的例子就是打印队列，先点击打印的文档会被先打印。</p>
+<h3 id="3-1-创建队列"><a href="#3-1-创建队列" class="headerlink" title="3.1 创建队列"></a>3.1 创建队列</h3><p>同样先创建一个类来表示一个队列。需要用到的数据结构同样是数组var items = [];<br>声明可用的方法：</p>
+<ul>
+<li>enqueue(element(s)):向队尾添加一个（或多个）新的项</li>
+<li>dequeue():移除队列的第一（即排在队列最前面的）项，并返回被移除的元素。</li>
+<li>front():返回队列中第一个元素</li>
+<li>isEmpty():如果队列中不包含元素返回true，否则返回false</li>
+<li>size():返回队列包含元素的个数<h4 id="完整的Queue类"><a href="#完整的Queue类" class="headerlink" title="完整的Queue类"></a>完整的Queue类</h4></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Queue</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> items = [];<br>    <br>    <span class="hljs-built_in">this</span>.enqueue = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>)</span>&#123;<br>        items.push(element);<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.dequeue = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items.shift();<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.front = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items[<span class="hljs-number">0</span>];<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.isEmpty = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items.length === <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.clear = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        items = [];<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.size = <span class="hljs-function"><span class="hljs-title">funciton</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> items.length;<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.print = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(items.toString());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="3-2-优先队列"><a href="#3-2-优先队列" class="headerlink" title="3.2 优先队列"></a>3.2 优先队列</h3><p>在优先队列中，元素被赋予优先级。当访问元素的时，具有最高优先级的元素先删除。优先队列具有最高进先出的行为特征。例如：医院的急救室为病人赋予优先级（这个优先级可以指病情严重的成程度），具有最高优先级的病人最先得到治疗。</p>
+<p>实现一个优先队列有两种选项：</p>
+<ol>
+<li>设置优先级，然后在正确的位置添加元素；</li>
+<li>用入列操作添加元素，然后按照优先级移除它们。</li>
+</ol>
+<p>我们这里采用第一种。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PriorityQueue</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">var</span> items = [];<br>    <br>    funciton <span class="hljs-function"><span class="hljs-title">QueueElement</span>(<span class="hljs-params">element,priority</span>)</span>&#123;<br>        <span class="hljs-built_in">this</span>.element = element;<br>        <span class="hljs-built_in">this</span>.priority = priority;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">comparePriority</span>(<span class="hljs-params">a,b</span>)</span>&#123;<br>        <span class="hljs-keyword">if</span>(a.priority &gt; b.priority)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>        <br>         <span class="hljs-keyword">if</span>(a.priority &lt; b.priority)&#123;<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-built_in">this</span>.enqueue = <span class="hljs-function"><span class="hljs-title">funciton</span>(<span class="hljs-params">element,priority</span>)</span>&#123;<br>        <span class="hljs-keyword">var</span> queueElement = <span class="hljs-keyword">new</span> QueueElement(element,priority);<br>        <br>        items.push(queueElement);<br>        <br>        items.sort(comparePriority);<br>    &#125;<br>    <br>    <span class="hljs-comment">//其它方法和默认的Queue实现相同</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当然，这个enqueue的实现方法很多种，我这效率不是最高的，但是容易理解。将插入的元素根据优先级排个序，那么先出去的就是优先级最高的了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/50/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vim 入门指南</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/41/">
+                        <span class="hidden-mobile">ES6之路--Symbol</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

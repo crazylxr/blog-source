@@ -1,0 +1,633 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>pm2 使用教程 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="pm2 使用教程">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-01-30 10:10" pubdate>
+        Wednesday, January 30th 2019, 10:10 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">pm2 使用教程</h1>
+            
+            <div class="markdown-body">
+              <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>PM2 是 node 进程管理工具，可以利用它来简化很多 node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g pm2<br></code></pre></td></tr></table></figure>
+
+<h2 id="快速使用"><a href="#快速使用" class="headerlink" title="快速使用"></a>快速使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 start app.js<br></code></pre></td></tr></table></figure>
+
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>参数说明：</p>
+<ul>
+<li><code>--watch</code>：监听应用目录的变化，一旦发生变化，自动重启。如果要精确监听、不见听的目录，最好通过配置文件。</li>
+<li><code>-i --instances</code>：启用多少个实例，可用于负载均衡。如果<code>-i 0</code>或者<code>-i max</code>，则根据当前机器核数确定实例数目。</li>
+<li><code>--ignore-watch</code>：排除监听的目录/文件，可以是特定的文件名，也可以是正则。比如<code>--ignore-watch=&quot;test node_modules &quot;some scripts&quot;&quot;</code></li>
+<li><code>-n --name</code>：应用的名称。查看应用信息的时候可以用到。</li>
+<li><code>-o --output &lt;path&gt;</code>：标准输出日志文件的路径。</li>
+<li><code>-e --error &lt;path&gt;</code>：错误输出日志文件的路径。</li>
+<li><code>--interpreter &lt;interpreter&gt;</code>：the interpreter pm2 should use for executing app (bash, python…)。比如你用的coffee script来编写应用。</li>
+</ul>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 restart app.js<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-停止"><a href="#3-3-停止" class="headerlink" title="3.3 停止"></a>3.3 停止</h3><p>停止特定的应用。可以先通过<code>pm2 list</code>获取应用的名字（–name指定的）或者进程id。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 stop app_name|app_id<br></code></pre></td></tr></table></figure>
+
+<p>如果要停止所有应用，可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 stop all<br></code></pre></td></tr></table></figure>
+
+<h3 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h3><p>类似<code>pm2 stop</code>，如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 stop app_name|app_id<br>pm2 stop all<br></code></pre></td></tr></table></figure>
+
+<h3 id="从进程列表删除进程"><a href="#从进程列表删除进程" class="headerlink" title="从进程列表删除进程"></a>从进程列表删除进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">// pm2 delete [appname] | id<br>pm2 delete app  // 指定进程名删除<br>pm2 delete 0    // 指定进程id删除<br></code></pre></td></tr></table></figure>
+
+<h3 id="删除进程列表中所有进程"><a href="#删除进程列表中所有进程" class="headerlink" title="删除进程列表中所有进程"></a>删除进程列表中所有进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 delete all<br></code></pre></td></tr></table></figure>
+
+<h3 id="查看进程状态"><a href="#查看进程状态" class="headerlink" title="查看进程状态"></a>查看进程状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 list<br>// 或者<br>pm2 ls<br></code></pre></td></tr></table></figure>
+
+<h3 id="查看某个进程的信息"><a href="#查看某个进程的信息" class="headerlink" title="查看某个进程的信息"></a>查看某个进程的信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 describe 0<br></code></pre></td></tr></table></figure>
+
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>命令如下，表示开启三个进程。如果<code>-i 0</code>，则会根据机器当前核数自动开启尽可能多的进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 start app.js -i 3 <span class="hljs-comment"># 开启三个进程</span><br>pm2 start app.js -i max <span class="hljs-comment"># 根据机器CPU核数，开启对应数目的进程 </span><br></code></pre></td></tr></table></figure>
+
+<h3 id="日志查看"><a href="#日志查看" class="headerlink" title="日志查看"></a>日志查看</h3><p>除了可以打开日志文件查看日志外，还可以通过<code>pm2 logs</code>来查看实时日志。这点对于线上问题排查非常重要。</p>
+<p>比如某个 node 服务突然异常重启了，那么可以通过 pm2 提供的日志工具来查看实时日志，看是不是脚本出错之类导致的异常重启。</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">p<span class="hljs-name">m2</span> logs<br></code></pre></td></tr></table></figure>
+
+<h3 id="开机自动启动"><a href="#开机自动启动" class="headerlink" title="开机自动启动"></a>开机自动启动</h3><p>可以通过<code>pm2 startup</code>来实现开机自启动。细节可<a target="_blank" rel="noopener" href="http://pm2.keymetrics.io/docs/usage/startup/">参考</a>。大致流程如下</p>
+<ol>
+<li>通过<code>pm2 save</code>保存当前进程状态。</li>
+<li>通过<code>pm2 startup [platform]</code>生成开机自启动的命令。（记得查看控制台输出）</li>
+<li>将步骤2生成的命令，粘贴到控制台进行，搞定。</li>
+</ol>
+<h3 id="监控-monitor-查看进程的资源消耗情况"><a href="#监控-monitor-查看进程的资源消耗情况" class="headerlink" title="监控(monitor)-查看进程的资源消耗情况"></a>监控(monitor)-查看进程的资源消耗情况</h3><p>运行如下命令，查看当前通过pm2运行的进程的状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pm2 monit<br></code></pre></td></tr></table></figure>
+
+<h2 id="通过pm2配置文件来自动部署项目"><a href="#通过pm2配置文件来自动部署项目" class="headerlink" title="通过pm2配置文件来自动部署项目"></a>通过pm2配置文件来自动部署项目</h2><h3 id="在项目根目录下新建一个-deploy-yaml-文件"><a href="#在项目根目录下新建一个-deploy-yaml-文件" class="headerlink" title="在项目根目录下新建一个 deploy.yaml 文件"></a>在项目根目录下新建一个 deploy.yaml 文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># deploy.yaml</span><br><span class="hljs-attr">apps:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">script:</span> <span class="hljs-string">./start.js</span>       <span class="hljs-comment"># 入口文件</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">&#x27;app&#x27;</span>              <span class="hljs-comment"># 程序名称</span><br>    <span class="hljs-attr">env:</span>                     <span class="hljs-comment"># 环境变量</span><br>      <span class="hljs-attr">COMMON_VARIABLE:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">env_production:</span><br>      <span class="hljs-attr">NODE_ENV:</span> <span class="hljs-string">production</span><br><br><span class="hljs-attr">deploy:</span>                     <span class="hljs-comment"># 部署脚本</span><br>  <span class="hljs-attr">production:</span>               <span class="hljs-comment"># 生产环境</span><br>    <span class="hljs-attr">user:</span> <span class="hljs-string">lentoo</span>            <span class="hljs-comment"># 服务器的用户名</span><br>    <span class="hljs-attr">host:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.2</span><span class="hljs-number">.166</span>     <span class="hljs-comment"># 服务器的ip地址</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">22</span>                <span class="hljs-comment"># ssh端口</span><br>    <span class="hljs-attr">ref:</span> <span class="hljs-string">origin/master</span>      <span class="hljs-comment"># 要拉取的git分支</span><br>    <span class="hljs-attr">ssh_options:</span> <span class="hljs-string">StrictHostKeyChecking=no</span> <span class="hljs-comment"># SSH 公钥检查</span><br>    <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/**.git</span> <span class="hljs-comment"># 远程仓库地址</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">/home</span>              <span class="hljs-comment"># 拉取到服务器某个目录下</span><br>    <span class="hljs-attr">pre-deploy:</span> <span class="hljs-string">git</span> <span class="hljs-string">fetch</span> <span class="hljs-string">--all</span> <span class="hljs-comment"># 部署前执行</span><br>    <span class="hljs-attr">post-deploy:</span> <span class="hljs-string">npm</span> <span class="hljs-string">install</span> <span class="hljs-string">&amp;&amp;</span>  <span class="hljs-string">pm2</span> <span class="hljs-string">reload</span> <span class="hljs-string">deploy.yaml</span> <span class="hljs-string">--env</span> <span class="hljs-string">production</span> <span class="hljs-comment"># 部署后执行</span><br>    <span class="hljs-attr">env:</span><br>      <span class="hljs-attr">NODE_ENV:</span> <span class="hljs-string">production</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="配置git的ssh免密认证"><a href="#配置git的ssh免密认证" class="headerlink" title="配置git的ssh免密认证"></a>配置git的ssh免密认证</h3><ol>
+<li><p>在服务器中生成rsa公钥和私钥，当前是 <strong>centos7</strong> 下进行</p>
+</li>
+<li><p>前提服务器要安装git，没有安装的先安装git，已安装的跳过</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum –y install git<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>生成秘钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -C <span class="hljs-string">&quot;xxx@xxx.com&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>在~/.ssh目录下有 id_rsa和 id_rsa.pub两个文件，其中id_rsa.pub文件里存放的即是公钥key。</p>
+<ol start="4">
+<li>登录到GitHub，点击右上方的头像，选择settings ，点击Add SSH key，把id_rsa.pub的内容复制到里面即可。</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/26/16574cdcd9ac289b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" srcset="/img/loading.gif" lazyload></p>
+<h3 id="使用pm2部署项目"><a href="#使用pm2部署项目" class="headerlink" title="使用pm2部署项目"></a>使用pm2部署项目</h3><p>每次部署前先将本地的代码提交到远程git仓库</p>
+<ul>
+<li>首次部署</li>
+</ul>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">pm2 <span class="hljs-keyword">deploy</span> <span class="hljs-keyword">deploy</span>.yaml production setup <br>复制代码<br></code></pre></td></tr></table></figure>
+
+<p>部署完成后，既可登陆服务器查看配置的目录下是否从git上拉取了项目</p>
+<ul>
+<li>再次部署</li>
+</ul>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">pm2 <span class="hljs-keyword">deploy</span> <span class="hljs-keyword">deploy</span>.yaml production upddate<br></code></pre></td></tr></table></figure>
+
+<h3 id="该部署流程同样适用前端项目"><a href="#该部署流程同样适用前端项目" class="headerlink" title="该部署流程同样适用前端项目"></a>该部署流程同样适用前端项目</h3><p>如vue-cli的项目，自动部署到服务器，自动执行npm run build 命令，生成的dist目录，指定到nginx的静态文件目录下。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chyingp/p/pm2-documentation.html">PM2实用入门指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5b823506e51d4538d517662f">使用pm2自动化部署node项目</a></li>
+</ul>
+<h2 id="其他资料"><a href="#其他资料" class="headerlink" title="其他资料"></a>其他资料</h2><p><a target="_blank" rel="noopener" href="https://pm2.io/doc/zh/runtime/overview/">https://pm2.io/doc/zh/runtime/overview/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">基础教程</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/%E7%AC%94%E8%AE%B0%E6%9C%AC/">笔记本</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/node/">node</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/253/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">函数式编程之组合</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/237/">
+                        <span class="hidden-mobile">桃园前端周刊第三期(2019-01-28)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

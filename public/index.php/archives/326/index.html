@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>桃翁2020年度总结 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="桃翁2020年度总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-24 19:19" pubdate>
+        Sunday, January 24th 2021, 7:19 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">桃翁2020年度总结</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2020 年真的是不平凡的一年， 疫情夺走了很多人的生命，还夺走了我的工作(公司因为疫情被迫裁员)，所以今年换了工作来到了蚂蚁，在蚂蚁的工作经历跟之前在蘑菇街完全不一样。。。</p>
+<h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><p>来蚂蚁这半年我觉得在工作上的成长比我之前在蘑菇街一年半的成长都还多，经历比较丰富。</p>
+<p>阿里一直都有拥抱变化的文化，我来大概五个月的时候就换了三个主管，经历了好几次的组织架构变动，我刚进来的时候同组的同事（之前组内大概 12 人）到现在还跟我一组的仅剩一名。</p>
+<p>不过随着每一次的变动，我的分工也越来越清晰，从最开始哪里缺人就去哪里，再到负责一块模糊的业务线，再到一个人带着 3 个合作伙伴负责一整个业务线，再到现在有了 3 个正式加 6 个合作伙伴的阵型。</p>
+<p>作为整个业务线的 owner 不仅要接需求还要去预测业务未来的走向，这样才能在技术上做好提前的准备，当业务真的来了，才能快速的支持。这个是我在试用期答辩的时候面试官给到我的期望，这个我在之前试用期结束后有写过。</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/AJjyGV2NG-CyvCPWUtTLFQ">原来我是个业务性选手？？？？</a></p>
+<p>只不过那个时候我只是觉得这个话说得很对，并没有体感，但是当我在负责整块业务的，以及带着一群人在做的期间，作为业务 owner 必须得去思考这些了，因为我们这里业务发展得很快，虽然我们业务团队成员变多了，但是需求也越来越多，所以如果不提前去做一些业务上的预测，技术上的沉淀，当业务发展再快点，需求再多一些我们目前的这些人就消化得很吃力，甚至吃不下，这是我今年非常大的一个收获。</p>
+<p>对于这个收获其实我之前想过我为什么可以得到，我刚开始把原因归结到了运气，因为我能有机会负责一条业务线的东西是由于我的师兄以及其他大部分同事都走了，现有的业务只能由留下来的人去承担，所以我当时想到了那些得到晋升或者 375 的同学是不是运气好，可以做到好的业务或者技术。但是又细想如果机会给你了，如果没有把它当机会，而且他这块重重的东西当做负担，或者平常心看待，可能也做不出什么优秀的成果。</p>
+<p>但是一件平凡的事情如果交给一个优秀的人去做，大概率还是会做出优秀的东西。</p>
+<p>所以最后我得出的结论是<strong>运气可以让一个准备好了，有实力的人加速成功，但不会让一个平凡的人获得成功。</strong></p>
+<h2 id="学习与写作"><a href="#学习与写作" class="headerlink" title="学习与写作"></a>学习与写作</h2><p>当我在准备写总结的时候，我本以为今年读的书(去年 20 本)会比去年要少，没想到今年还略多一点，读完的都有 29 本了，但是我明显能感觉到今年花在读书上的时间变少了，特别是在入职蚂蚁之后，属于自己的时间更少了。</p>
+<p>我想可能是渐渐的找到了读书的方法，越读越快了吧。</p>
+<p>下面是我今年读书列表：<a target="_blank" rel="noopener" href="https://book.douban.com/people/crazylxr/" title="豆瓣主页">豆瓣主页</a></p>
+<p><img src="http://imgs.taoweng.site/2021-01-24-105121.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://imgs.taoweng.site/2021-01-24-105115.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>在写作方面今年公开文章产量就很低了，只有 13 篇，基本都是上半年写的，下半年入职蚂蚁之后就基本没怎么写了，一方面是因为确实工作太忙了，另一方面需要在公司内部写不少的文档。</p>
+<p>文章列表见博客：<a target="_blank" rel="noopener" href="http://www.taoweng.site/index.php/archives.html" title="前端桃园">前端桃园</a></p>
+<p><img src="http://imgs.taoweng.site/2021-01-24-105119.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h2><p>很遗憾今年对技术没有做什么深的研究，主要是业务太忙，把我对技术的追求抹平了，整天就想着如何能把业务支持下去。</p>
+<p>来蚂蚁半年没写过 React，大部分时间写钉钉小程序和支付宝小程序，另外还写了将近两个月的云凤蝶。</p>
+<p>在我没怎么接触过小程序前，对小程序有刻板的印象，总觉得小程序限制太多，很简单，没有什么意思，当然也不知道其原理，所以对小程序比较抵触。</p>
+<p>但是当我写了两三个月之后，对小程序了解得越来越多，但是另一方面发现自己对小程序了解得越来越少，为什么这么说呢？</p>
+<p>当我还没怎么接触小程序的时候可能想到的就只有 小程序的语法是什么样的，小程序是怎么运行的，但是写得越来越久，发现自己以前的视野太小了，整个小程序生态还有很多东西可以去研究，越写越发现自己不会的越来越多，这些不知道反而让我对小程序产生了兴趣，感觉可以有新的东西值得去研究。</p>
+<p>比如小程序他是怎么运行的，跟原生、H5 之前的区别在哪里，关联是什么，view 层是怎么渲染的，逻辑部分的 js 是怎么执行的，与客户端，容器是怎么通信，怎么打包的，怎么编译的，编译出来的东西又是什么，怎么发布上架的，以及什么情况下使用小程序技术栈、什么情况下使用 h5 技术栈，等等等，这些没有搞明白的问题深深的让我对小程序产生了兴趣。</p>
+<p>所以明年在技术上的一个目标就是深入小程序。</p>
+<h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><h3 id="家人"><a href="#家人" class="headerlink" title="家人"></a>家人</h3><p>生活方面最令我开心的就是女朋友在 11 月份从上海辞职，来到了杭州，结束了 3 年的异地恋，每天下班后有个人在家里等的感觉真好！</p>
+<h3 id="旅游"><a href="#旅游" class="headerlink" title="旅游"></a>旅游</h3><p><strong>西安旅游</strong></p>
+<p>国庆去西安旅游了，在去西安之前我们还先去南京溧水参加了【咪豆音乐节】。这次是准备得最充分的一次，还做了一些<a target="_blank" rel="noopener" href="https://www.notion.so/2020-087ea699aca34c3d8e87230f3ff7f065" title="攻略">攻略</a>。</p>
+<p><img src="http://imgs.taoweng.site/2021-01-24-105120.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://imgs.taoweng.site/2021-01-24-110623.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>重庆 Outing</strong></p>
+<p>重庆三峡博物馆</p>
+<p><img src="http://imgs.taoweng.site/2021-01-24-110536.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>江景：重庆洪崖洞夜景</strong></p>
+<p><img src="http://imgs.taoweng.site/2021-01-24-110601.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="健身"><a href="#健身" class="headerlink" title="健身"></a><strong>健身</strong></h3><p>今年开始有了到健身房健身的习惯，非常感谢 yixi 带我去健身房教我健身，我以前以为健身器材是非常简单的东西，一进去就知道怎么用，接触了过后才知道健身其实还是挺有学问的，不同的健身器材有多种不同的用法，每种用法锻炼的部位还不一样，所以可以根据自己想健身的部位去筛选器材和器材的使用方式。</p>
+<p>我大概从 9 月份初的时候第一次去的吧，一直到现在也是断断续续的，有时间就天天去，没时间就偷懒了，由于我们是中午去，所以时间还挺苛刻的，如果中午有会议啥的，很可能时间上赶不上了。</p>
+<p>不过从开始第一天到现在我还是能明显得感觉到自己力量的提升，粗略的估计手 腿 肩的力量提升有 30%左右，胸部就 15-20%的样子，总感觉胸部的力量比较弱，明年多练练胸。</p>
+<h3 id="投资理财"><a href="#投资理财" class="headerlink" title="投资理财"></a>投资理财</h3><p>2020 年在投资上最大的成长是学到了<strong>「打新」</strong>，我主要打的是港股，因为港股相对于 A 股来说中签率高，打新的赚的几率会比美股的大，我大概是在 11 月份才办好香港卡，入金到了富途，才开始打新，打了十几次才中了 3 次，每次收益都超过 15% ，但是在富途现金打新每次会收 50 的手续费，新手打新还是建议找一些现金打新免手续费的，比如艾德、华泰等。</p>
+<p>其他股票、基金就没什么也没什么好总结的。</p>
+<h2 id="2021-目标"><a href="#2021-目标" class="headerlink" title="2021 目标"></a>2021 目标</h2><ul>
+<li>在社区里输出至少 10 篇文章。</li>
+<li>平均每周至少去健身房 2 次。</li>
+<li>旅游两次。</li>
+<li>列太多也完不成，不列了。。。。。。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/">观点与感想</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/%E7%AC%94%E8%AE%B0%E6%9C%AC/">笔记本</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%80%BB%E7%BB%93/">总结</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/331/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MWeb 使用体验总结</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/324/">
+                        <span class="hidden-mobile">原来我是个业务性选手</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

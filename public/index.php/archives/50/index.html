@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>vim 入门指南 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vim 入门指南">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-03-20 23:28" pubdate>
+        Tuesday, March 20th 2018, 11:28 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vim 入门指南</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p>个人站点：<a target="_blank" rel="noopener" href="http://www.taoweng.site/">桃园</a></p>
+</blockquote>
+<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><h3 id="0-1-简介"><a href="#0-1-简介" class="headerlink" title="0.1 简介"></a>0.1 简介</h3><p>vim 被誉为『编辑器之神』，与之同时代的 emacs 被誉为『神之编辑器』。可以看得出 vim 在编辑器的地位是很高的，得益于 vim 的指法，敲起代码来如行云流水。特别膜拜创始人创始出这么方便的敲代码的指法，这篇文章就是来带你入坑 vim 指法操作。</p>
+<h3 id="0-2-前端的我为什么要学习-vim"><a href="#0-2-前端的我为什么要学习-vim" class="headerlink" title="0.2 前端的我为什么要学习 vim"></a>0.2 前端的我为什么要学习 vim</h3><p>在当今前端开发工具百花齐放的时代（VS Code、Sublime、Atom 以及 IDE Webstorm），我为什么还要介绍 20 多年前开发的一个老古董呢？在这里我想说的是出身虽然老，但是所带来的价值并没有减,一旦习惯了 vim 的指法之后，你会觉得不用 vim 操作写代码会觉得很不习惯，甚至不知道怎么操作。然而用在支持 vim 指法的编辑上写代码你会觉得如行云流水，如果再配个机械键盘，简直是享受，特别符合极客的风格。</p>
+<p>一旦学会了 vim 的指法，会让你终身受益，至少在你敲代码的年代会收益，毫无夸张, 它会让你摆脱烦人的，在敲代码的时候频繁的移动鼠标，这也是 vim 的设计理念之一 – 脱离鼠标。</p>
+<h3 id="0-3-文章适用读者"><a href="#0-3-文章适用读者" class="headerlink" title="0.3 文章适用读者"></a>0.3 文章适用读者</h3><p>本篇文章比较适合前端开发者，因为我也只是用 vim 在前端领域做过一些开发，其他领域我没有发言权。</p>
+<h3 id="0-4-Q-amp-A"><a href="#0-4-Q-amp-A" class="headerlink" title="0.4 Q&amp;A"></a>0.4 Q&amp;A</h3><p>Q：你推荐 vim 是要我们完全放弃以前的编辑器而投入 vim 的怀抱吗？</p>
+<p>A：当然不是。首先 vim 的学习成本还是很高的，因为他跟平时我们用的编辑器敲代码的方式根本不同，因为它是不用鼠标的，纯键盘操作。你想想如果你在你的 vs code 上不用鼠标操作，你上下左右全靠方向键，那敲代码的速度得有多慢。而且初学者想把 vim 打造成一个自己的 IDE 还是很有难度的。所以我这里推荐的是，不管是你的 vs code、sublime等，装一个 vim 插件。我在 vs code 上试过，很爽，只不过现在投身到 emacs 的怀抱了。</p>
+<blockquote>
+<p>虽然我用 emacs 了，我还是会装 vim 插件（Evil）。如果有兴趣，下次可以推荐一下 spacemacs 。</p>
+</blockquote>
+<p>开题说了这么多，就是想吸引一下大家，觉得 vim 的指法是值得去学习的，接下来进入正题。</p>
+<h2 id="1-助记符"><a href="#1-助记符" class="headerlink" title="1 助记符"></a>1 助记符</h2><p>vim 上的所有定义的快捷键都是有一定的意义的，在这里我先把常用的一些列出来。</p>
+<h3 id="1-1-正则表达式相关"><a href="#1-1-正则表达式相关" class="headerlink" title="1.1 正则表达式相关"></a>1.1 正则表达式相关</h3><ul>
+<li>$ ： 移动光标到行尾</li>
+<li>^ :  移动光标到当前行的第一个字母位置。</li>
+</ul>
+<h3 id="1-2-移动类（motion）"><a href="#1-2-移动类（motion）" class="headerlink" title="1.2 移动类（motion）"></a>1.2 移动类（motion）</h3><p>h（左）、l（右）、j（上）、k（下）、f（front）、b（back）、u（up）</p>
+<h3 id="1-3-操作类（operator）"><a href="#1-3-操作类（operator）" class="headerlink" title="1.3 操作类（operator）"></a>1.3 操作类（operator）</h3><p>d（delete）、i（insert）、a（append）、c（change）、y（copy）、p（paste）</p>
+<h3 id="1-4-一般的缩写"><a href="#1-4-一般的缩写" class="headerlink" title="1.4 一般的缩写"></a>1.4 一般的缩写</h3><p>w（word）、s（sentence）</p>
+<h2 id="2-理解-vim-中三种常用模式"><a href="#2-理解-vim-中三种常用模式" class="headerlink" title="2 理解 vim 中三种常用模式"></a>2 理解 vim 中三种常用模式</h2><p>vim 里面有好几种模式，但是因为我这里介绍的是在目前的编辑器里面装 插件，所以像命令模式这种用来保存文件、退出文件的就不介绍了。</p>
+<ol>
+<li>Nomal mode（默认模式，因为使用该模式场景最多，所有定为默认模式）。</li>
+<li>Insert mode （插入模式–少用，用了它 vim 就成 「哑巴」了）。</li>
+<li>Visual mode（可视模式，取名叫光标模式或者选择模式可能还比较好理解）</li>
+</ol>
+<h3 id="2-1-三种模式之间的转换关系"><a href="#2-1-三种模式之间的转换关系" class="headerlink" title="2.1 三种模式之间的转换关系"></a>2.1 三种模式之间的转换关系</h3><p><img src="https://user-gold-cdn.xitu.io/2018/3/20/1624401bddd4add7?w=1068&h=1130&f=png&s=403058" srcset="/img/loading.gif" lazyload alt="图片来源参考文章"></p>
+<h2 id="3-教程篇"><a href="#3-教程篇" class="headerlink" title="3 教程篇"></a>3 教程篇</h2><p>当我们记住上面的助记符之后，我们就可以像写英文短语一样操作了。</p>
+<blockquote>
+<p>vim 快捷键语法：[operator][count][motion]，例如 删两个单词就是<br>d2w，operator 和 motion 我已经在前面给出来一些了。</p>
+</blockquote>
+<h3 id="3-1-移动光标"><a href="#3-1-移动光标" class="headerlink" title="3.1 移动光标"></a>3.1 移动光标</h3><h4 id="3-1-1-最基本的-h、j、k、l"><a href="#3-1-1-最基本的-h、j、k、l" class="headerlink" title="3.1.1 最基本的 h、j、k、l"></a>3.1.1 最基本的 h、j、k、l</h4><p>最基本的上下左右移动（跟键盘上下左右的键盘效果相同，但是往往方向键在键盘的右下方，离主键盘区较远，这个也相对比较有优势）：</p>
+<ul>
+<li>h：光标向左移动</li>
+<li>j：光标向下移动</li>
+<li>k：光标向上移动</li>
+<li>l：光标向右移动</li>
+</ul>
+<p>移动属于 motion，所以在前面加上「count」就可以移动多行了，比如向上移动 10 行，就可以 10k。往往编辑器会有行号，定位需要做个加减法，如果采用的是相对行号，用这个就比较方便。不懂相对行号的同学看下图就懂了。<br><img src="https://user-gold-cdn.xitu.io/2018/3/20/1624401bdee388e5?w=846&h=616&f=png&s=60797" srcset="/img/loading.gif" lazyload alt="相对行号"></p>
+<h4 id="3-1-2-快速移动"><a href="#3-1-2-快速移动" class="headerlink" title="3.1.2 快速移动"></a>3.1.2 快速移动</h4><p>w：光标往前移动一个词<br>b：光标向后移动一个词<br>0：移动光标到当前行首<br>^：移动光标到当前行的第一个字母位置(注意与 0 的区别)<br>$：移动光标到行尾<br>fx：移动光标到当前行的下一个 x 处（x为任意字母）<br>tx：和上面一个命令类似，移动到 x 的左边一个位置<br>)：移动光标到下一个句子<br>( ：移动光标到上一个句子<br>{：移动光标到上一段<br>}：移动光标到下一段</p>
+<h4 id="3-1-3-快速定位"><a href="#3-1-3-快速定位" class="headerlink" title="3.1.3 快速定位"></a>3.1.3 快速定位</h4><p>在刚才介绍了通过相对行号来进行移动到行的光标，还有采用绝对定位来移动的。那就是 gg。<br>语法： [num]gg</p>
+<ul>
+<li>2gg : 光标移动到第 2 行</li>
+<li>gg： 光标移动到文件首部</li>
+<li>G：移动到文件胃部</li>
+<li>H：移动到屏幕上面</li>
+<li>M：移动到屏幕中间</li>
+<li>L：移动到屏幕下面</li>
+</ul>
+<p>书签功能：这个功能也是很方便，很少有编辑器有的功能，单独列出来讲，强烈推荐。</p>
+<ul>
+<li>m<x>：给当前行加入书签，x 为任意字母（m 是 mark ）</li>
+<li>` <x>： 单引号加上刚才 m 之后的字母，就会调整到刚才标记的那一行</li>
+</ul>
+<h3 id="3-1-3-屏幕滚动"><a href="#3-1-3-屏幕滚动" class="headerlink" title="3.1.3 屏幕滚动"></a>3.1.3 屏幕滚动</h3><ul>
+<li>Ctrl + b：向上移动一屏（Foward首字母小写）</li>
+<li>Ctrl + f：向下移动一屏（Backward首字母小写）</li>
+<li>Ctrl + d：向下滚动半屏内容（Down首字母小写）</li>
+<li>Ctrl + u：向上滚动半屏内容（Up首字母小写）</li>
+</ul>
+<h3 id="3-2-剪切、复制、粘贴"><a href="#3-2-剪切、复制、粘贴" class="headerlink" title="3.2 剪切、复制、粘贴"></a>3.2 剪切、复制、粘贴</h3><ul>
+<li>d[n]w：剪切后面 n 个单词的内容，dw 是剪切当前单词</li>
+<li>[n]dd：剪切n行的内容, dd 为剪切当前行</li>
+<li>D：剪切光标后到行尾的内容</li>
+<li>yy/Y：复制当前行的内容</li>
+<li>p：粘贴到光标后</li>
+<li>P：粘贴到光标前</li>
+</ul>
+<p>在 normal 模式下是没有删除操作的，d 这种删除也是剪切。</p>
+<blockquote>
+<p>以上全是 normal 模式</p>
+</blockquote>
+<h3 id="3-3-编辑模式"><a href="#3-3-编辑模式" class="headerlink" title="3.3 编辑模式"></a>3.3 编辑模式</h3><p>在前面也说了，进入编辑模式也就变成了「哑巴」vim 了，就跟一般的编辑器没什么区别了。很多人就知道用 i 可以进入，还有很多命令可以让你聪明的进入。</p>
+<ul>
+<li>i：在光标处插入（insert首字母小写）</li>
+<li>I：在行首插入（insert首字母大写）</li>
+<li>a：在光标处后一个字符插入（append首字母小写）</li>
+<li>A：在行尾插入（append首字母大写）</li>
+<li>o：在上一行插入</li>
+<li>O：在下一行插入</li>
+<li>s：清除当前字符并进入插入模式</li>
+<li>cc/S：清除当前行并进入插入模式</li>
+<li>cw: 清除当前单词并进入插入模式<h3 id="3-4-可视模式"><a href="#3-4-可视模式" class="headerlink" title="3.4 可视模式"></a>3.4 可视模式</h3>要是前面都学会了，可视模式就比较简单了，而且你将会经常用到这个模式。我会把这个模式称做「选择模式」，接下来我们就来探索一下是如果选择的。</li>
+</ul>
+<p>其实也就两个关键的点：v（字符选择）、V（行选择）</p>
+<h4 id="3-4-1-v（小写-v）"><a href="#3-4-1-v（小写-v）" class="headerlink" title="3.4.1 v（小写 v）"></a>3.4.1 v（小写 v）</h4><p>在 normal 模式下，按一下 v，然后可以按 l，重复按 l，你会发现右边的在一直被选中（高亮的部分）。同样的操作，按了 v，然后再练习一下按 h、j、k。</p>
+<p>选中的目的是什么呢？就是为了进行一些编辑操作，比如删除 d (实质是剪切)、复制 y。</p>
+<blockquote>
+<p>小提示，常常选中之后用 c 也是比较好的选择哦，剪切并进入插入模式。</p>
+</blockquote>
+<h4 id="3-4-2-V（大写-V）"><a href="#3-4-2-V（大写-V）" class="headerlink" title="3.4.2 V（大写 V）"></a>3.4.2 V（大写 V）</h4><p>V 就是选中行，也很简单。按了 V 之后，然后按 j、k，就可以上下选择行了，然后一次性删除 d、复制 y，就比较方便。</p>
+<h3 id="3-5-组合操作"><a href="#3-5-组合操作" class="headerlink" title="3.5 组合操作"></a>3.5 组合操作</h3><p>这个功能就比较强悍了，很适用，强烈推荐。<br>先来记公式：operator + i|a + scope</p>
+<blockquote>
+<p>operator 就是我们前面提到的插入（c）、剪切（d）、复制（y）以及选择（v），i 表示 scope 范围内，a 表示包含 scope 标签，scope 就是操作的范围了。</p>
+</blockquote>
+<p>实例：<br>以下如果将 i 换成 a，则会将符号也包含进去</p>
+<ul>
+<li>vib（选中小括号内的内容）</li>
+<li>viB（选中大括号内的内容）</li>
+<li>vi”（选中双引号内的内容）</li>
+<li>vi’（选中单引号内的内容）</li>
+<li>vi&lt;（选中尖括号内的内容）</li>
+</ul>
+<h3 id="3-6-撤回、查找、替换"><a href="#3-6-撤回、查找、替换" class="headerlink" title="3.6 撤回、查找、替换"></a>3.6 撤回、查找、替换</h3><ul>
+<li>u： 撤回上次操作(效果跟 command + z 效果一样)</li>
+<li>/|?xxx：表示在整篇文档中搜索匹配xxx的字符串, / 表示向下查找, ? 表示向上查找.其中xxx可以是正规表达式。查找到以后, 再输入 n 查找下一个匹配处, 输入 N 反方向查找.</li>
+<li>:%s/original/replacement：检索第一个 “original” 字符串并将其替换成 “replacement”</li>
+<li>:%s/original/replacement/g： 检索并将所有的 “original” 替换为 “replacement”</li>
+<li>:%s/original/replacement/gc：检索出所有的 “original” 字符串，但在替换成 “replacement” 前，先询问是否替换</li>
+</ul>
+<p>这些操作一般编辑器都自带有很好的快捷键，记不住也没啥。</p>
+<h2 id="4-结束语"><a href="#4-结束语" class="headerlink" title="4 结束语"></a>4 结束语</h2><p>我写这篇文章的目的不是为了总结什么知识点（其实当你 vim 用熟了，这些命令完全形成肌肉记忆了，根本不用记下来），或者说想发篇文章之类的，仅仅是想给 vim 做一个宣传，让更多的人接触 vim，让更多的开发者在开发上效率更高。如果你觉得这篇文章对你有帮助，请转发给更多的人让他们都了解了解。</p>
+<p>最后想提醒的就是，对于这些快捷键，死记是很难记完的，根据我总结的一些语义话的方式去记，有公式的记公式，可能要快一点，然后就是多实践，敲多了自己就记住了。我刚开始学的时候，还不知道有那些助记符，基本完全靠死记硬背，我就是用一张纸，然后把命令手写抄到纸上，放在我的电脑旁，忘了就马上拿来看看，别说，效果还挺好的。</p>
+<p>祝你们好运！</p>
+<blockquote>
+<p>大家好，我是桃翁，我为自己代言！</p>
+</blockquote>
+<p>个人微信公众号<br><img src="https://user-gold-cdn.xitu.io/2018/3/20/1624401bdefb8018?w=430&h=430&f=jpeg&s=22318" srcset="/img/loading.gif" lazyload alt="个人微信公众号"></p>
+<p>参考文章：<br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Vim/60410">VIM 百度百科</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI4MDEwNzAzNg==&mid=2649444567&idx=1&sn=98d69cb0005e80312b1f126afe790aed&chksm=f3a271a4c4d5f8b2fa1fb343e641292df4a5295d26f6c7ad1583bbf44ee4f352035586416ef8&mpshare=1&scene=23&srcid=0103o58Y5CLe1jrliq7AoD9s%23rd">如何用Vim提高开发效率</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/">计算机相关</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/vim/">vim</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/51/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何将多个 maven 项目统一管理</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/42/">
+                        <span class="hidden-mobile">JavaScript数据结构之数组栈队列</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

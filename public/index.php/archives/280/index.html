@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>如何对 React 函数式组件进行优化 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="如何对 React 函数式组件进行优化">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-11-19 08:32" pubdate>
+        Tuesday, November 19th 2019, 8:32 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">如何对 React 函数式组件进行优化</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>本文只介绍函数式组件特有的性能优化方式，类组件和函数式组件都有的不介绍，比如 key 的使用。另外本文不详细的介绍 API 的使用，后面也许会写，其实想用好 hooks 还是蛮难的。</p>
+<h3 id="面向读者"><a href="#面向读者" class="headerlink" title="面向读者"></a>面向读者</h3><p>有过 React 函数式组件的实践，并且对 hooks  有过实践，对 useState、useCallback、useMemo API 至少看过文档，如果你有过对类组件的性能优化经历，那么这篇文章会让你有种熟悉的感觉。</p>
+<h3 id="React-性能优化思路"><a href="#React-性能优化思路" class="headerlink" title="React 性能优化思路"></a>React 性能优化思路</h3><p>我觉得React 性能优化的理念的主要方向就是这两个：</p>
+<ol>
+<li><p>减少重新 render 的次数。因为在 React 里最重(花时间最长)的一块就是 reconction(简单的可以理解为 diff)，如果不 render，就不会 reconction。</p>
+</li>
+<li><p>减少计算的量。主要是减少重复计算，对于函数式组件来说，每次 render 都会重新从头开始执行函数调用。</p>
+</li>
+</ol>
+<p>在使用类组件的时候，使用的 React 优化 API 主要是：<code>shouldComponentUpdate </code>和  <code>PureComponent</code>，这两个 API 所提供的解决思路都是为了<strong>减少重新 render 的次数</strong>，主要是减少父组件更新而子组件也更新的情况，虽然也可以在 state 更新的时候阻止当前组件渲染，如果要这么做的话，证明你这个属性不适合作为 state，而应该作为静态属性或者放在 class 外面作为一个简单的变量 。</p>
+<p>但是在函数式组件里面没有声明周期也没有类，那如何来做性能优化呢？</p>
+<h2 id="React-memo"><a href="#React-memo" class="headerlink" title="React.memo"></a>React.memo</h2><p>首先要介绍的就是 <code>React.memo</code>，这个 API 可以说是对标类组件里面的 <code>PureComponent</code>，这是可以减少重新 render 的次数的。</p>
+<h3 id="可能产生性能问题的例子"><a href="#可能产生性能问题的例子" class="headerlink" title="可能产生性能问题的例子"></a>可能产生性能问题的例子</h3><p>举个例子，首先我们看两段代码：</p>
+<p>在根目录有一个 index.js，代码如下，实现的东西大概就是：上面一个 title，中间一个 button(点击 button 修改 title)，下面一个木偶组件，传递一个 name 进去。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">import</span> React, &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-dom&quot;</span>;<br><span class="hljs-keyword">import</span> Child <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./child&#x27;</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">&quot;这是一个 title&quot;</span>)<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123; title &#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setTitle(&quot;title 已经改变&quot;)&#125;&gt;改名字<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Child</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;桃桃&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Child</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">const</span> rootElement = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;root&quot;</span>);<br>ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, rootElement);<br><br></code></pre></td></tr></table></figure>
+
+<p>在同级目录有一个  child.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// child.js</span><br><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params">props</span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(props.name)<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;props.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Child<br></code></pre></td></tr></table></figure>
+
+<p>当首次渲染的时候的效果如下：</p>
+<p><img src="http://imgs.taoweng.site/2019-10-30-141225.png" srcset="/img/loading.gif" lazyload alt="image-20191030221223045"></p>
+<p>并且控制台会打印<code>&quot;桃桃”</code>，证明 Child 组件渲染了。</p>
+<p>接下来点击<strong>改名字</strong>这个 button，页面会变成：</p>
+<p><img src="http://imgs.taoweng.site/2019-10-30-142024.png" srcset="/img/loading.gif" lazyload alt="image-20191030222021717"></p>
+<p>title 已经改变了，而且控制台也打印出<code>&quot;桃桃&quot;</code>，可以看到虽然我们改的是父组件的状态，父组件重新渲染了，并且子组件也重新渲染了。你可能会想，传递给 Child 组件的 props 没有变，要是 Child 组件不重新渲染就好了，为什么会这么想呢？</p>
+<p>我们假设 Child 组件是一个非常大的组件，渲染一次会消耗很多的性能，那么我们就应该尽量减少这个组件的渲染，否则就容易产生性能问题，所以子组件如果在 props 没有变化的情况下，就算父组件重新渲染了，子组件也不应该渲染。</p>
+<p>那么我们怎么才能做到在 props 没有变化的时候，子组件不渲染呢？</p>
+<p>答案就是用 <code>React.memo</code> 在给定相同 props 的情况下渲染相同的结果，并且通过记忆组件渲染结果的方式来提高组件的性能表现。</p>
+<h3 id="React-memo-的基础用法"><a href="#React-memo-的基础用法" class="headerlink" title="React.memo 的基础用法"></a>React.memo 的基础用法</h3><p>把声明的组件通过<code>React.memo</code>包一层就好了，<code>React.memo</code>其实是一个高阶函数，传递一个组件进去，返回一个可以记忆的组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params">props</span>) </span>&#123;<br>   <span class="hljs-comment">/* 使用 props 渲染 */</span><br>&#125;<br><span class="hljs-keyword">const</span> MyComponent = React.memo(Component);<br></code></pre></td></tr></table></figure>
+
+<p>那么上面例子的 Child 组件就可以改成这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params">props</span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(props.name)<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;props.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> React.memo(Child)<br></code></pre></td></tr></table></figure>
+
+<p>通过 <code>React.memo</code> 包裹的组件在 props 不变的情况下，这个被包裹的组件是不会重新渲染的，也就是说上面那个例子，在我点击改名字之后，仅仅是 title 会变，但是 Child 组件不会重新渲染（表现出来的效果就是 Child 里面的 log 不会在控制台打印出来），会直接复用最近一次渲染的结果。</p>
+<p>这个效果基本跟类组件里面的 <code>PureComponent</code>效果极其类似，只是前者用于函数组件，后者用于类组件。</p>
+<h3 id="React-memo-高级用法"><a href="#React-memo-高级用法" class="headerlink" title="React.memo 高级用法"></a>React.memo 高级用法</h3><p>默认情况下其只会对 props 的复杂对象做浅层对比(浅层对比就是只会对比前后两次 props 对象引用是否相同，不会对比对象里面的内容是否相同)，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyComponent</span>(<span class="hljs-params">props</span>) </span>&#123;<br>  <span class="hljs-comment">/* 使用 props 渲染 */</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">areEqual</span>(<span class="hljs-params">prevProps, nextProps</span>) </span>&#123;<br>  <span class="hljs-comment">/*</span><br><span class="hljs-comment">  如果把 nextProps 传入 render 方法的返回结果与</span><br><span class="hljs-comment">  将 prevProps 传入 render 方法的返回结果一致则返回 true，</span><br><span class="hljs-comment">  否则返回 false</span><br><span class="hljs-comment">  */</span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> React.memo(MyComponent, areEqual);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此部分来自于 <a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/react-api.html#reactmemo">React 官网</a>。</p>
+</blockquote>
+<p>如果你有在类组件里面使用过  <a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/react-component.html#shouldcomponentupdate"><code>shouldComponentUpdate()</code></a> 这个方法，你会对 <code>React.memo</code> 的第二个参数非常的熟悉，不过值得注意的是，如果 props 相等，<code>areEqual</code> 会返回 <code>true</code>；如果 props 不相等，则返回 <code>false</code>。这与 <code>shouldComponentUpdate</code> 方法的返回值相反。</p>
+<h2 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h2><p>现在根据上面的例子，再改一下需求，在上面的需求上增加一个副标题，并且有一个修改副标题的 button，然后把修改标题的 button 放到 Child 组件里。</p>
+<blockquote>
+<p>把修改标题的 button 放到 Child 组件的目的是，将修改 title 的事件通过 props 传递给 Child 组件，然后观察这个事件可能会引起性能问题。</p>
+</blockquote>
+<p><strong>首先看代码：</strong></p>
+<p>父组件 index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">import</span> React, &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-dom&quot;</span>;<br><span class="hljs-keyword">import</span> Child <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./child&quot;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">&quot;这是一个 title&quot;</span>);<br>  <span class="hljs-keyword">const</span> [subtitle, setSubtitle] = useState(<span class="hljs-string">&quot;我是一个副标题&quot;</span>);<br><br>  <span class="hljs-keyword">const</span> callback = <span class="hljs-function">() =&gt;</span> &#123;<br>    setTitle(<span class="hljs-string">&quot;标题改变了&quot;</span>);<br>  &#125;;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;subtitle&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setSubtitle(&quot;副标题改变了&quot;)&#125;&gt;改副标题<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Child</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;callback&#125;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;桃桃&quot;</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">const</span> rootElement = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;root&quot;</span>);<br>ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, rootElement);<br><br></code></pre></td></tr></table></figure>
+
+<p>子组件 child.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params">props</span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(props);<br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;props.onClick&#125;</span>&gt;</span>改标题<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;props.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> React.memo(Child);<br></code></pre></td></tr></table></figure>
+
+<p><strong>首次渲染的效果</strong></p>
+<p><img src="http://imgs.taoweng.site/2019-10-31-155607.png" srcset="/img/loading.gif" lazyload alt="image-20191031235605228"></p>
+<p>这段代码在首次渲染的时候会显示上图的样子，并且控制台会打印出<code>桃桃</code>。</p>
+<p>然后当我点击<strong>改副标题</strong>这个 button 之后，副标题会变为「副标题改变了」，并且控制台会再次打印出<code>桃桃</code>，这就证明了子组件又重新渲染了，但是子组件没有任何变化，那么这次 Child 组件的重新渲染就是多余的，那么如何避免掉这个多余的渲染呢？</p>
+<h3 id="找原因"><a href="#找原因" class="headerlink" title="找原因"></a>找原因</h3><p>我们在解决问题的之前，<strong>首先要知道这个问题是什么原因导致的？</strong></p>
+<p>咱们来分析，一个组件重新重新渲染，一般三种情况：</p>
+<ol>
+<li><p>要么是组件自己的状态改变</p>
+</li>
+<li><p>要么是父组件重新渲染，导致子组件重新渲染，但是父组件的 props 没有改版</p>
+</li>
+<li><p>要么是父组件重新渲染，导致子组件重新渲染，但是父组件传递的 props 改变</p>
+</li>
+</ol>
+<p>接下来用排除法查出是什么原因导致的：</p>
+<p>第一种很明显就排除了，当点击<strong>改副标题</strong> 的时候并没有去改变 Child 组件的状态；</p>
+<p>第二种情况好好想一下，是不是就是在介绍 <code>React.memo</code> 的时候情况，父组件重新渲染了，父组件传递给子组件的 props 没有改变，但是子组件重新渲染了，我们这个时候用 <code>React.memo</code> 来解决了这个问题，所以这种情况也排除。</p>
+<p>那么就是第三种情况了，当父组件重新渲染的时候，传递给子组件的 props 发生了改变，再看传递给 Child 组件的就两个属性，一个是 <code>name</code>，一个是 <code>onClick</code> ，<code>name</code> 是传递的常量，不会变，变的就是 <code>onClick</code> 了，为什么传递给 onClick 的 callback 函数会发生改变呢？在文章的开头就已经说过了，在函数式组件里每次重新渲染，函数组件都会重头开始重新执行，那么这两次创建的 callback 函数肯定发生了改变，所以导致了子组件重新渲染。 </p>
+<h3 id="如何解决"><a href="#如何解决" class="headerlink" title="如何解决"></a>如何解决</h3><p>找到问题的原因了，那么解决办法就是在函数没有改变的时候，重新渲染的时候保持两个函数的引用一致，这个时候就要用到 <code>useCallback</code> 这个 API 了。</p>
+<h4 id="useCallback-使用方法"><a href="#useCallback-使用方法" class="headerlink" title="useCallback 使用方法"></a>useCallback 使用方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> callback = <span class="hljs-function">() =&gt;</span> &#123;<br>  doSomething(a, b);<br>&#125;<br><br><span class="hljs-keyword">const</span> memoizedCallback = useCallback(callback, [a, b])<br></code></pre></td></tr></table></figure>
+
+<p>把函数以及依赖项作为参数传入 <code>useCallback</code>，它将返回该回调函数的 memoized 版本，这个 memoizedCallback 只有在依赖项有变化的时候才会更新。</p>
+<p>那么可以将 index.js 修改为这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">import</span> React, &#123; useState, useCallback &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;<br><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-dom&quot;</span>;<br><span class="hljs-keyword">import</span> Child <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./child&quot;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [title, setTitle] = useState(<span class="hljs-string">&quot;这是一个 title&quot;</span>);<br>  <span class="hljs-keyword">const</span> [subtitle, setSubtitle] = useState(<span class="hljs-string">&quot;我是一个副标题&quot;</span>);<br><br>  <span class="hljs-keyword">const</span> callback = <span class="hljs-function">() =&gt;</span> &#123;<br>    setTitle(<span class="hljs-string">&quot;标题改变了&quot;</span>);<br>  &#125;;<br><br>  <span class="hljs-comment">// 通过 useCallback 进行记忆 callback，并将记忆的 callback 传递给 Child</span><br>  <span class="hljs-keyword">const</span> memoizedCallback = useCallback(callback, [])<br>  <br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;subtitle&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setSubtitle(&quot;副标题改变了&quot;)&#125;&gt;改副标题<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Child</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;memoizedCallback&#125;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;桃桃&quot;</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">const</span> rootElement = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;root&quot;</span>);<br>ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, rootElement);<br><br></code></pre></td></tr></table></figure>
+
+<p>这样我们就可以看到只会在首次渲染的时候打印出<strong>桃桃</strong>，当点击改副标题和改标题的时候是不会打印<strong>桃桃</strong>的。</p>
+<p>如果我们的 callback 传递了参数，当参数变化的时候需要让它重新添加一个缓存，可以将参数放在 useCallback 第二个参数的数组中，作为依赖的形式，使用方式跟 useEffect 类似。</p>
+<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><p>在文章的开头就已经介绍了，React 的性能优化方向主要是两个：一个是减少重新 render 的次数(或者说减少不必要的渲染)，另一个是减少计算的量。</p>
+<p>前面介绍的 <strong>React.memo</strong> 和 <strong>useCallback</strong> 都是为了减少重新 render 的次数。对于如何减少计算的量，就是 useMemo 来做的，接下来我们看例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [num, setNum] = useState(<span class="hljs-number">0</span>);<br><br>  <span class="hljs-comment">// 一个非常耗时的一个计算函数</span><br>  <span class="hljs-comment">// result 最后返回的值是 49995000</span><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expensiveFn</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> result = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++) &#123;<br>      result += i;<br>    &#125;<br>    <br>    <span class="hljs-built_in">console</span>.log(result) <span class="hljs-comment">// 49995000</span><br>    <span class="hljs-keyword">return</span> result;<br>  &#125;<br><br>  <span class="hljs-keyword">const</span> base = expensiveFn();<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>count：&#123;num&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setNum(num + base)&#125;&gt;+1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>首次渲染的效果如下：</p>
+<p><img src="http://imgs.taoweng.site/2019-11-13-124545.png" srcset="/img/loading.gif" lazyload alt="useMemo"></p>
+<p>这个例子功能很简单，就是点击 <strong>+1</strong> 按钮，然后会将现在的值(num) 与 计算函数 (expensiveFn) 调用后的值相加，然后将和设置给 num 并显示出来，在控制台会输出 <code>49995000</code>。</p>
+<h3 id="可能产生性能问题"><a href="#可能产生性能问题" class="headerlink" title="可能产生性能问题"></a>可能产生性能问题</h3><p>就算是一个看起来很简单的组件，也有可能产生性能问题，通过这个最简单的例子来看看还有什么值得优化的地方。</p>
+<p>首先我们把 expensiveFn 函数当做一个计算量很大的函数(比如你可以把 i 换成 10000000)，然后当我们每次点击 <strong>+1</strong> 按钮的时候，都会重新渲染组件，而且都会调用 expensiveFn 函数并输出 <code>49995000</code>。由于每次调用 expensiveFn 所返回的值都一样，所以我们可以想办法将计算出来的值缓存起来，每次调用函数直接返回缓存的值，这样就可以做一些性能优化。</p>
+<h3 id="useMemo-做计算结果缓存"><a href="#useMemo-做计算结果缓存" class="headerlink" title="useMemo 做计算结果缓存"></a>useMemo 做计算结果缓存</h3><p>针对上面产生的问题，就可以用 useMemo 来缓存 expensiveFn 函数执行后的值。</p>
+<p>首先介绍一下 useMemo 的基本的使用方法，详细的使用方法可见<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usememo">官网</a>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computeExpensiveValue</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">// 计算量很大的代码</span><br>  <span class="hljs-keyword">return</span> xxx<br>&#125;<br><br><span class="hljs-keyword">const</span> memoizedValue = useMemo(computeExpensiveValue, [a, b]);<br></code></pre></td></tr></table></figure>
+
+<p>useMemo 的第一个参数就是一个函数，这个函数返回的值会被缓存起来，同时这个值会作为 useMemo 的返回值，第二个参数是一个数组依赖，如果数组里面的值有变化，那么就会重新去执行第一个参数里面的函数，并将函数返回的值缓存起来并作为 useMemo 的返回值 。</p>
+<p>了解了 useMemo 的使用方法，然后就可以对上面的例子进行优化，优化代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [num, setNum] = useState(<span class="hljs-number">0</span>);<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expensiveFn</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> result = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++) &#123;<br>      result += i;<br>    &#125;<br>    <span class="hljs-built_in">console</span>.log(result)<br>    <span class="hljs-keyword">return</span> result;<br>  &#125;<br><br>  <span class="hljs-keyword">const</span> base = useMemo(expensiveFn, []);<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>count：&#123;num&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setNum(num + base)&#125;&gt;+1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>执行上面的代码，然后现在可以观察无论我们点击 <strong>+1</strong>多少次，只会输出一次 <strong>49995000</strong>，这就代表 expensiveFn 只执行了一次，达到了我们想要的效果。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>useMemo 的使用场景主要是用来<strong>缓存计算量比较大的函数结果</strong>，可以避免不必要的重复计算，有过 vue 的使用经历同学可能会觉得跟 Vue 里面的计算属性有异曲同工的作用。</p>
+<blockquote>
+<p>不过另外提醒两点</p>
+<p>一、如果没有提供依赖项数组，<code>useMemo</code> 在每次渲染时都会计算新的值；</p>
+<p>二、计算量如果很小的计算函数，也可以选择不使用 useMemo，因为这点优化并不会作为性能瓶颈的要点，反而可能使用错误还会引起一些性能问题。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于性能瓶颈可能对于小项目遇到的比较少，毕竟计算量小、业务逻辑也不复杂，但是对于大项目，很可能是会遇到性能瓶颈的，但是对于性能优化有很多方面：网络、关键路径渲染、打包、图片、缓存等等方面，具体应该去优化哪方面还得自己去排查，本文只介绍了性能优化中的冰山一角：运行过程中 React 的优化。</p>
+<ol>
+<li>React 的优化方向：减少 render 的次数；减少重复计算。</li>
+<li>如何去找到 React 中导致性能问题的方法，见 useCallback 部分。</li>
+<li>合理的拆分组件其实也是可以做性能优化的，你这么想，如果你整个页面只有一个大的组件，那么当 props 或者 state 变更之后，需要 reconction 的是整个组件，其实你只是变了一个文字，如果你进行了合理的组件拆分，你就可以控制更小粒度的更新。</li>
+</ol>
+<blockquote>
+<p>合理拆分组件还有很多其他好处，比如好维护，而且这是学习组件化思想的第一步，合理的拆分组件又是一门艺术了，如果拆分得不合理，就有可能导致状态混乱，多敲代码多思考。</p>
+</blockquote>
+<h2 id="推荐文章"><a href="#推荐文章" class="headerlink" title="推荐文章"></a>推荐文章</h2><p>我这里只介绍了函数式组件的优化方式，更多的 React 优化技巧可以阅读下面的文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/KVE8xtRs-uPphptq5LUz">21 个 React 性能优化技巧</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5d045350f265da1b695d5bf2#heading-0">浅谈React性能优化的方向</a> </li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>我是桃翁，一个爱思考的前端er，想了解关于更多的前端相关的，请关注我的公号：「前端桃园」，如果想加入交流群关注公众号后回复「微信」拉你进群</p>
+<p><img src="http://imgs.taoweng.site/2019-11-19-002953.jpg" srcset="/img/loading.gif" lazyload></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/284/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">通过fetch发送 post 请求下载文件</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/272/">
+                        <span class="hidden-mobile">在mac上安装XAMPP并搭建 typecho 博客</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>高级程序员与初级程序员差别在哪里？ - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="高级程序员与初级程序员差别在哪里？">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-08-15 21:39" pubdate>
+        Thursday, August 15th 2019, 9:39 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">高级程序员与初级程序员差别在哪里？</h1>
+            
+            <div class="markdown-body">
+              <p>之前在公众号里有个读者给我留言：</p>
+<blockquote>
+<p>请教个问题，公司高职级和初中级，都是写业务代码，那么高职级的价值在哪里呢？</p>
+</blockquote>
+<p>由于公众号回复留言的限制，当时我就简单的回复了如下的几个点：</p>
+<ul>
+<li>  初级多在写代码，高级多在设计代码；</li>
+<li>  初级多在解决一个问题，高级多在解决一类问题；</li>
+<li>  初级多在考虑技术问题，高级还要参与业务上的需求；</li>
+<li>  初级工程师只管接需求，导致自己忙不过来，高级工程师会砍需求， 用自己得经验告诉产品这个需求不需要，告诉设计师这个交互没必要；</li>
+<li>  初级工程师可能做完一个项目就完了，高级工程师可能会封装几个组件，整理一个脚手架出来。</li>
+</ul>
+<p>还有很多很多，初级工程师和高级工程师差距不仅仅是代码质量上，而且其他能力上，解决问题的能力，抽象问题的能力！</p>
+<p>今天有时间，想详细的跟大家谈谈我所遇到的、见到的厉害的程序员，同样是写业务代码，为什么会比初级程序员拿的工资高？</p>
+<h2 id="初级多在写代码，高级多在设计代码"><a href="#初级多在写代码，高级多在设计代码" class="headerlink" title="初级多在写代码，高级多在设计代码"></a>初级多在写代码，高级多在设计代码</h2><p>一般人可能拿到需求，就开始写代码了，写着写着由于页面功能越来越多，感觉代码越来越复杂，自己都会觉得难以维护了。</p>
+<p>我拿我自己举个例子，之前有一次我写完一个页面之后，然后给另外一个同事(可以理解为高级程序员)让他帮我 Review 代码，看到我的代码之后就觉得这个写得不对呀，怎么会这么去<strong>设计</strong>呢？</p>
+<p>然后他给我理了下整个页面应该如何去设计，一个页面分为哪些块，有哪些事件，每个事件应该 <code>dispatch</code> 哪些 <code>action</code>，然后整个模块有哪些数据放在 <code>store</code> 里，哪些模块放在 <code>state</code> 里，当时反正听他理完之后，感觉自己写的代码真的很垃圾，然后花了两天时间把上周写的代码重写了一边。</p>
+<blockquote>
+<p>注意，这里是重写，不是重构，重构是对软件内部结构的一种调转，目的是不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。那么如果保证不改变软件可观察行为呢？就需要写测试用例，保证测试用例能跑通的情况下进行重新构造代码才是重构的第一步，没有测试用例的重构就是耍流氓。</p>
+</blockquote>
+<p><strong>那么如何提高设计代码的能力呢？</strong></p>
+<p>我觉得有一个方法对于提高设计代码的能力非常有帮助，那就是采用 TDD(测试驱动开发)。</p>
+<blockquote>
+<p>TDD 的原理是在开发功能代码之前，先编写单元测试用例代码，测试代码确定需要编写什么产品代码。 –来源百度百科</p>
+</blockquote>
+<p>为什么 TDD 会提高设计代码的能力呢？可以看到 TDD 的原理是要在写代码之前就要写测试用例，在写测试用例的时候你必然得去思考你的每个函数，每个模块，每个组件应该如何去设计才能使得易于测试，往往易于测试的代码都比较好维护。</p>
+<p>这就可以达到在写代码之前先去设计代码，然后才写代码，也就是先思考，后行动。</p>
+<blockquote>
+<p>我只是说 TDD 可以提高设计代码的能力，并没有说我就特别提倡 TDD，说 TDD 很麻烦，难以实施的人就不要跟我讨论了。</p>
+</blockquote>
+<h2 id="初级多在考虑技术问题，高级还要思考业务上的需求"><a href="#初级多在考虑技术问题，高级还要思考业务上的需求" class="headerlink" title="初级多在考虑技术问题，高级还要思考业务上的需求"></a>初级多在考虑技术问题，高级还要思考业务上的需求</h2><p>我们要知道，<strong>技术是为业务服务的，没有业务谈技术的好坏都是瞎扯淡！</strong></p>
+<p>常常可以看到很多实习生，或者刚来的应届生会吐槽以前的老代码用的框架老，用的技术旧，然后就去改成新的，自己觉得牛逼的，然后没有多个环境测试，发上线就挂了，这种例子很多很多，别说我们公司，就连我们组都出现过好几次这样的情况了。</p>
+<p>这种就是只考虑技术问题的，而没有去考虑为什么以前前人要这么写，前人没有用这些东西，难道仅仅是因为那个时候没有新东西，或者说认为前人比你差。</p>
+<p>很可能就是他们考虑到了业务上的需求，比如要兼容 IE、或者比如考虑到了有很多用户用 iOS，Safari 不支持 webp ，或者比如考虑到很多用户是低端机，性能不好，不能用一些新特性等等问题。</p>
+<p>对于老板来说，他根本不管你用什么新技术，新特性，也许你用了新特性确实让代码更简洁了，但是，但是，但是，发到线上挂了，那么你写的东西就是垃圾，连最基础的稳定性都保证不了，更别说流畅性，高并发。</p>
+<h2 id="初级工程师只管接需求，高级工程师会砍需求"><a href="#初级工程师只管接需求，高级工程师会砍需求" class="headerlink" title="初级工程师只管接需求，高级工程师会砍需求"></a>初级工程师只管接需求，高级工程师会砍需求</h2><p>经常看到很多初级工程师就是，不管产品、运营甚至后端提出一些需求，他也很友好，只要是需求，他都接，然后整天忙忙碌碌，还经常加班，但是实际上，很多需求做了没有什么价值，也许还有些是重复工作，还把自己搞得很辛苦，这种情况真的很多很多。</p>
+<p>然后还有一种情况是有一个产品需求来了，然后 balabala 一顿需求讨论之后，产品给出一个期限，初级工程师满打满算，可能能完成，然后就说能行，结果要么对自己能力估算错误，要么很多突发情况，然后不能按时上线。</p>
+<p>而高级工程师基本上不会出现不能按时上线的情况，我思考了几点原因：</p>
+<ol>
+<li> 会给自己留 buffer，来避免突发情况导致时间的耽搁。</li>
+<li> 在需求分析的时候会思考每个需求是否有必要，如果有些需求觉得没必要，会和产品讨论，拿出<strong>充分的理由</strong>将需求砍掉。如果都有必要，然后时间又不太够，会去和产品谈是否能使交互简单一下，一期先出个什么样子，下一期再做完整一点。</li>
+<li> 对需求的评估以及自己能力的评估更准确。</li>
+</ol>
+<p>这里我想要表达，不是所有的需求都是有必要的，不要每个需求都去接。</p>
+<p><strong>那么如果来判断一个需求是否应该接呢？</strong></p>
+<p>我觉得主要是去思考他背后的价值，为什么要做这个东西，做了能达到什么样的效果，如果产品说不出来价值，或者说产生的价值与你花费的时间不匹配，那么这个需求就是有待商讨的。</p>
+<h2 id="初级多在解决一个问题，高级多在解决一类问题"><a href="#初级多在解决一个问题，高级多在解决一类问题" class="headerlink" title="初级多在解决一个问题，高级多在解决一类问题"></a>初级多在解决一个问题，高级多在解决一类问题</h2><p>很多初级工程师可能昨晚一个项目就完了，还觉得很 OK 呀，然后也把在项目中的问题一个一个的解决了，按时按量的完成了任务。</p>
+<p>对，这就是初级工程师的标准，能完成一个项目。</p>
+<p>那么对于高级工程师除了完成项目还会做什么呢？</p>
+<p>也许会封装几个公用组件发到 npm 上大家都可以用。</p>
+<p>也许会整理一个脚手架出来大家用，比如以前公司没有用 TS，那么用 TS 写完项目之后，踩了很多坑，你就可以整理出一个脚手架，然后把踩得坑记录下来，方便后面想用 TS 的人用。</p>
+<p>也许发现前端工程师还原 UI 搞是一件枯燥无味，而且没有技术含量的事儿，我司有个大佬就写了一个 UI2Code 的工具，可以将 Sketch 文件转化为 html 代码。</p>
+<p>也许高级工程师发现一上线一个功能，小程序和 H5 都要写一套一模一样的，然后我司大佬就写了一个可以将 vue 代码转换为小程序的框架，一套 vue 代码，h5 和小程序都能用。</p>
+<p>这些都是我身边的例子，可以看到高级工程师经常解决的不是一个问题，而是解决一类通用的问题，然后给出解决方案，并且得以实施，从来不会认为吧项目做完了就完了，没有一点产出，也许你做这个项目是对自己太大的帮助，成长的。</p>
+<h2 id="初级程序员经常犯的错误集锦"><a href="#初级程序员经常犯的错误集锦" class="headerlink" title="初级程序员经常犯的错误集锦"></a>初级程序员经常犯的错误集锦</h2><p>然后我在知乎上看到了一个初级程序员经常犯的错误集锦，我觉得非常大家都可以看看，自己有没有这些毛病。</p>
+<p>1 命名不规范</p>
+<p>2 日志不规范</p>
+<p>3 拒绝写接口和假数据</p>
+<p>4 不写单元测试</p>
+<p>5 盲目集成</p>
+<p>6 逻辑不清</p>
+<p>7 不做方案</p>
+<p>8 不关注性能</p>
+<p>9 害怕重构</p>
+<p>10 做出来就好，不考虑优雅的方案</p>
+<p>11 不考虑未来需求的变化</p>
+<p>12 遇到问题的时候不会试错</p>
+<p>13 不会写伪代码</p>
+<p>14 不做数据量的预估</p>
+<p>15 提交代码不规范</p>
+<p>16 不喜欢打Tag</p>
+<p>17 不遵守发布流程</p>
+<p>18 不知道Bug修复的优先级</p>
+<p>19 总喜欢手动修改线上代码</p>
+<p>20 不做数据备份</p>
+<p>21 不做自测</p>
+<p>22 不尽力模仿真实数据，测试数据很随意</p>
+<p>23 不抽取公共代码</p>
+<p>24 不认真听需求讲解</p>
+<p>25 不看验收标准</p>
+<p>26 不主动推进项目进度</p>
+<p>27 遇到难题不主动反馈</p>
+<blockquote>
+<p>作者：暗灭链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/33578621/answer/451931102"></a><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/33578621/answer/451931102">https://www.zhihu.com/question/33578621/answer/451931102</a></p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>初级程序员主要是体现在目光短浅，缺乏思考，做完东西没有成果，不积极主动。</p>
+<p>而高级程序员不仅仅是代码写得好，写得快，确实思考得更长远，做的东西更有用。</p>
+<p>我列举我身边所遇到的高级程序员所做的事，我觉得更有说服力，不是空谈大道理，都是我从身边的大佬们身上学到的，希望能给刚入职场，或者感觉自己是个初级程序员的程序员们一些警惕。</p>
+<p>当然，上面所说的高级工程师所拥有的优点和初级工程师的缺点，都不是所有高级工程师都会有所有的这些优点，也不是所有的初级工程师都具有这些缺点，这是没办法进行定量的。</p>
+<p>你们身边还遇到什么高级工程师的特点，或者初级工程师的缺点，欢迎在评论区里面留言。</p>
+<blockquote>
+<p>最后欢迎大家关注我的公众号「前端桃园」</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/">观点与感想</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%84%9F%E6%82%9F%E5%BF%83%E5%BE%97/">感悟心得</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/257/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">新手学习 React 迷惑的点</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/261/">
+                        <span class="hidden-mobile">Deep In React 之详谈 React 16 Diff 策略(二)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

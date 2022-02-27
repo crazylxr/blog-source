@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>中肯的看待 996 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="中肯的看待 996">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-04-03 21:46" pubdate>
+        Wednesday, April 3rd 2019, 9:46 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">中肯的看待 996</h1>
+            
+            <div class="markdown-body">
+              <p>最近 <strong><a target="_blank" rel="noopener" href="http://996.icu/">996.ICU</a></strong> 太火了。我本来不太想蹭这个热点，因为我的观念与很多人可能不相同，所以担心被骂，最近有读者问我为啥最近没有更新，最近我在准备晋升的事儿，所以也没怎么准备技术上的内容，但是对于 996 这件事儿上，我最近还是有很多想法，跟大家交流下吧！</p>
+<blockquote>
+<p> 后面我会将最近晋升的一些心得总结出来跟大家交流一下，毕竟涨工资呀，所以希望对大家有帮助。</p>
+</blockquote>
+<h2 id="一、反对-996-的本质原因"><a href="#一、反对-996-的本质原因" class="headerlink" title="一、反对 996 的本质原因"></a>一、反对 996 的本质原因</h2><p>为什么要反对 996，说到底，<strong>就是钱给的不够</strong>。</p>
+<p>这句话可能说到了心坎里去，咱们来理一理这个逻辑。</p>
+<p>如果，发工资不按照一个月一个月发，不按照一天一天的算，而是按照小时、或者分钟、甚至秒来算，你会不会愿意每天多工作一阵子。<br>加入你现在工资每个月 10000，那么每天的日薪差不多是 480 左右，一天八小时，时薪就是 60。你每多工作一小时就可以多得 60 块，如果你不是三和大神(不知道三和大神的搜索一下，不然你可能不太好理解)的话，你大概率不会只工作 8 个小时。</p>
+<p>所以，我觉得说到底，反对的就是企业搞 996，加班不给加班工资导致的问题。</p>
+<p>对于头条，阿里这样的企业，虽然知道他们加班很严重，但是工资高呀，所以很多人拼了命的想去。</p>
+<blockquote>
+<p>今天我在<strong>小道消息</strong>里看到这样一个观点，加班的时候不愿意加，看到别人拿年终奖拿得多又羡慕；自己体会这句话吧。</p>
+</blockquote>
+<h2 id="二、我的一些观点"><a href="#二、我的一些观点" class="headerlink" title="二、我的一些观点"></a>二、我的一些观点</h2><p>讨论完了本质，我再说一下我的一些观点。</p>
+<p><strong>首先声明，我是极力反对 996 的。</strong>但是对于现在很多人的行为不是太赞同，所以写出来跟大家讨论下。</p>
+<h3 id="1-不喜欢就走"><a href="#1-不喜欢就走" class="headerlink" title="1. 不喜欢就走"></a>1. 不喜欢就走</h3><p>在这场革命(说得似乎有点严重了)中，不少人想到终于有机会吐槽自己的公司了，垃圾公司，压迫员工，还搞 996。</p>
+<p>对于这种行为我的观点是既然觉得在公司干得不爽，为何不走呢？</p>
+<p>心里可能想着：我也想走呀，但是没其他公司要我咋办。</p>
+<p>这种想法我感觉是一种弱者的态度，即表现出了自己弱，然后又抱怨现状。这种行为就像这样一群人，整天自己不努力，然后抱怨世界不公平，为什么我的爸爸不是王健林；为什么同一个老师教的，他的成绩那么好；为什么同一个班的，他的工作那么高；为什么一起进公司的，他为什么涨工资。</p>
+<p>如果你有能力，不喜欢这个公司的制度，不能忍受 996，选择离开就行了呗。</p>
+<blockquote>
+<p>所以，提升自己，让自己变得更强，不喜欢就走。</p>
+</blockquote>
+<h3 id="2-其实我们已经很幸运了"><a href="#2-其实我们已经很幸运了" class="headerlink" title="2. 其实我们已经很幸运了"></a>2. 其实我们已经很幸运了</h3><p>作为程序员的我们，其实已经很幸运了，还有假期，还有双休，已经很不错了。有很多行业，根本没有休息，一年可能就只有过年的那几天会放，没错，我爸爸的职业就是这样，建筑工人，他们没有周末，没有节假日。</p>
+<p>另外你在外面看到的环卫工人，外面开早餐店，饭店的，有过双休吗？</p>
+<p>我说这点其实主要是想表达，我们应该少点抱怨，我们还是不错了，咱们让自己变得更强，多为社会做点有价值的事儿，让更多的人拥有双休，拥有节假日。这肯定不是取去革命能解决的事儿，不是去抵制资本家能干的事儿。</p>
+<h3 id="3-多花时间来提升自己的工作效率"><a href="#3-多花时间来提升自己的工作效率" class="headerlink" title="3. 多花时间来提升自己的工作效率"></a>3. 多花时间来提升自己的工作效率</h3><p>说实话，大部分人工作时间的三分之一都没有为公司产生价值。</p>
+<p>这三分之一的时间你可能会早上用来刷下咨询，各大群水一下，看看各大新闻网站等待。也许还会去抽抽烟，跟同事聊聊天，以及有一些时间你无法专心工作等。</p>
+<p>当然，不可能有人做到每天都百分之百的投入，但是投入的比例就是人与人之间的差距，这是一个影响效率的地方。</p>
+<p>众所周知，在公司级别比你高的，经验比你丰富的，代码敲得比你快，完成任务比你好，这肯定嘛，别人工资拿得也高，所以干活也多。反过来也成立，活干得多，工资拿得高。你给公司创造的价值越大，那么你就应该拿更多的工资，后面我将晋升也会说到这个。</p>
+<p>所以我们已经想办法提高自己的工作效率，在一定的事件内干更多的活，那么你就需要提高自己的能力，这样你就能在规定的事件内完成任务，当然就不需要加班了。</p>
+<p>可能有人说，公司就是给你的任务是无论怎么做都做不完的，那么这种公司对于资源不合理安排，你可以选择第一点，不喜欢，咱就走。</p>
+<h2 id="三、这件事情我思考了哪些？"><a href="#三、这件事情我思考了哪些？" class="headerlink" title="三、这件事情我思考了哪些？"></a>三、这件事情我思考了哪些？</h2><p>我在跟我周围讨论相关话题的时候，我感觉我思考的问题跟他们不同。比如：</p>
+<ol>
+<li>为什么这个仓库，或者说这个网站会传播得这么快？在最开始的几十，几百颗 star 是怎么来的？为什么同样类似的项目，godie996(方应杭的项目，地址是：<a href="https://godie996.com)没有火起来呢？当时我们讨论了两个原因：一个是各大群的宣传，另一个是">https://godie996.com)没有火起来呢？当时我们讨论了两个原因：一个是各大群的宣传，另一个是</a> 996.ICU 界面做得好看。另外的原因供大家思考，欢迎在评论区给出你的答案。</li>
+<li>为什么那么多人不满意自己的公司，而不选择离开呢？</li>
+<li>为什么会这么多公司会搞 996 呢？</li>
+<li>同样是互联网公司，为什么国外的大厂不搞 996 呢？</li>
+</ol>
+<p>等等很多问题我觉得才是我们应该去思考的地方，我们只有去思源，才能从根本上解决问题，从表面现象去解决问题很多时候会走很多弯路。</p>
+<p>对于这个我举个例子，古代的铁匠都知道<strong>百炼成钢</strong>，把铁红了，然后拿出来锤，然后又拿进去烧，反复几次，就会发现做出来的铁具很硬，但是不知道为什么，其实就是因为铁里面融入了炭。所以近现代的就直接在熔铁的过程中加入炭，就不需要反复锤炼了。</p>
+<p>我们如果掌握不了一个东西的本质，掌握不了终极大道，就会在表面兜圈子。</p>
+<p>本文完，希望能与君共勉，能给你带来启发。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%A7%82%E7%82%B9%E4%B8%8E%E6%84%9F%E6%83%B3/">观点与感想</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%84%9F%E6%82%9F%E5%BF%83%E5%BE%97/">感悟心得</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/264/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每个前端工程师都应该了解的图片知识</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/268/">
+                        <span class="hidden-mobile">为什么现在面试都是面试造火箭</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

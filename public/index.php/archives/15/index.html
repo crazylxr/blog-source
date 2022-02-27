@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="demo演示多边形图">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>clip-path 实战 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="clip-path 实战">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-12-06 19:11" pubdate>
+        Wednesday, December 6th 2017, 7:11 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">clip-path 实战</h1>
+            
+            <div class="markdown-body">
+              <h3 id="demo演示"><a href="#demo演示" class="headerlink" title="demo演示"></a>demo演示</h3><h4 id="多边形图"><a href="#多边形图" class="headerlink" title="多边形图"></a>多边形图</h4><p><img src="http://upload-images.jianshu.io/upload_images/2974893-23031feaabbb7c38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<span id="more"></span>
+
+
+<p><a target="_blank" rel="noopener" href="https://crazylxr.github.io/blog-demos/css/clip-path/demo1.html">demo1</a></p>
+<h4 id="利用css-Transition制作动画"><a href="#利用css-Transition制作动画" class="headerlink" title="利用css Transition制作动画"></a>利用css Transition制作动画</h4><p><a target="_blank" rel="noopener" href="https://crazylxr.github.io/blog-demos/css/clip-path/demo2.html">demo2</a></p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>CSS 的 <strong>clip-path</strong> 属性是改变传统单调的盒子布局，走向响应式设计的通行证。可以摆脱条条框框，自由地在网页上使用六边形、星形等等等进行设计。</p>
+<h4 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h4><ul>
+<li><p>使用 CSS （ Chrome 24+, Safari 7+, Opera 15+, iOS 7.1+, Android 4.4+, Opera Mobile 24+（注意：所有目前支持的浏览器都需要一个-webkit前缀））</p>
+</li>
+<li><p>使用SVG（上面列出的所有浏览器以及Firefox3.5+）</p>
+<ul>
+<li>内敛SVG引用</li>
+<li>外部SVG文件的引用<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><a target="_blank" rel="noopener" href="http://bennettfeely.com/clippy/">http://bennettfeely.com/clippy/</a><h4 id="基础多边形"><a href="#基础多边形" class="headerlink" title="基础多边形"></a>基础多边形</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.element</span> &#123; <span class="hljs-attribute">clip-path</span>: <span class="hljs-built_in">ploygon</span>(x1 y1, x2 y2, x3 y3, ...) &#125;<br></code></pre></td></tr></table></figure>
+x y分别是每个点的坐标，点的绘制会根据顺时针的方向，然后根据直线连接起来<h4 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.element</span> &#123; <span class="hljs-attribute">clip-path</span>: <span class="hljs-built_in">circle</span>(r at x y) &#125;;<br></code></pre></td></tr></table></figure>
+r是圆的大小，x y分别是圆心的坐标。可以用百分比<h4 id="椭圆"><a href="#椭圆" class="headerlink" title="椭圆"></a>椭圆</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.element</span> &#123; <span class="hljs-attribute">clip-path</span>: <span class="hljs-built_in">ellipse</span>(w h at x y) &#125;;<br></code></pre></td></tr></table></figure>
+w为水平宽度，h为垂直高度，x y为椭圆的圆心<h4 id="矩形"><a href="#矩形" class="headerlink" title="矩形"></a>矩形</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.element</span> &#123; <span class="hljs-attribute">clip-path</span>: <span class="hljs-built_in">inset</span>(x y z p) &#125;;<br></code></pre></td></tr></table></figure>
+x为离top的距离 y为right的距离  z为bottom的距离  p为left的距离。跟多边形一样也是顺时针，跟多边形不同的是多边形是用边来使用的</li>
+</ul>
+</li>
+</ul>
+<h4 id="svg使用语法"><a href="#svg使用语法" class="headerlink" title="svg使用语法"></a>svg使用语法</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.element</span> &#123; <span class="hljs-attribute">clip-path</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;选择器&quot;</span>)&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="demo实现"><a href="#demo实现" class="headerlink" title="demo实现"></a>demo实现</h3><p><a target="_blank" rel="noopener" href="https://github.com/crazylxr/blog-demos/blob/master/css/clip-path/demo1.html">demo1</a><br><a target="_blank" rel="noopener" href="https://github.com/crazylxr/blog-demos/blob/master/css/clip-path/demo2.html">demo2</a></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p><img src="http://upload-images.jianshu.io/upload_images/2974893-00fd6d2352dc3f09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="image.png"><br>变成<br><img src="http://upload-images.jianshu.io/upload_images/2974893-a580be545d0d8815.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>思路：分别是四块，那么就先切除四块菱形的，然后通过定位定到一起<br>怎么切成四块菱形呢，先整除四块方块的然后再切成菱形的，四块方块的大小为整个图片的一半，<br>但是方块怎么弄成不一样的呢，通过background-position来设置背景图片位置就可以达到想要的结果了</p>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>四块图片代码如下：<br>html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-block&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>css</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.img-clip-wrap</span> &#123;<br>      <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;<br>      <span class="hljs-attribute">height</span>: <span class="hljs-number">300px</span>;<br>      <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;http://karenmenezes.com/shapes-polygon/clip-demo.jpg&quot;</span>);<br>      <span class="hljs-attribute">background-repeat</span>: no-repeat;<br>      <span class="hljs-attribute">margin-left</span>: auto;<br>      <span class="hljs-attribute">margin-right</span>: auto;<br>      <span class="hljs-attribute">display</span>: block;<br>      <span class="hljs-attribute">position</span>: relative;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>效果图<br><img src="http://upload-images.jianshu.io/upload_images/2974893-eecc439834e40a2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="第二步-切成菱形块，并根据backgrount-position设置成对应的位置"><a href="#第二步-切成菱形块，并根据backgrount-position设置成对应的位置" class="headerlink" title="第二步 切成菱形块，并根据backgrount-position设置成对应的位置"></a>第二步 切成菱形块，并根据backgrount-position设置成对应的位置</h4><p>效果图：<br><img src="http://upload-images.jianshu.io/upload_images/2974893-6548ee0cb7f96ee4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="image.png"><br>html代码没变，<br>css代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.img-clip-wrap</span> &#123;<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">300px</span>;<br>   <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;http://karenmenezes.com/shapes-polygon/clip-demo.jpg&quot;</span>);<br>   <span class="hljs-attribute">background-repeat</span>: no-repeat;<br>   <span class="hljs-attribute">margin-left</span>: auto;<br>   <span class="hljs-attribute">margin-right</span>: auto;<br>   <span class="hljs-attribute">display</span>: block;<br>   <span class="hljs-attribute">position</span>: relative;<br> +  -webkit-<span class="hljs-attribute">clip-path</span>: <span class="hljs-built_in">polygon</span>(<span class="hljs-number">50%</span> <span class="hljs-number">0%</span>, <span class="hljs-number">100%</span> <span class="hljs-number">50%</span>, <span class="hljs-number">50%</span> <span class="hljs-number">100%</span>, <span class="hljs-number">0%</span> <span class="hljs-number">50%</span>);<br> + <span class="hljs-attribute">clip-path</span>: <span class="hljs-built_in">polygon</span>(<span class="hljs-number">50%</span> <span class="hljs-number">0%</span>, <span class="hljs-number">100%</span> <span class="hljs-number">50%</span>, <span class="hljs-number">50%</span> <span class="hljs-number">100%</span>, <span class="hljs-number">0%</span> <span class="hljs-number">50%</span>);<br> &#125;<br> <span class="hljs-selector-class">.img-clip-wrap</span><span class="hljs-selector-pseudo">:nth-of-type</span>(<span class="hljs-number">1</span>) &#123;<br>     <span class="hljs-attribute">background-position</span>: top;<br> &#125;<br> <span class="hljs-selector-class">.img-clip-wrap</span><span class="hljs-selector-pseudo">:nth-of-type</span>(<span class="hljs-number">2</span>) &#123;<br>     <span class="hljs-attribute">background-position</span>: left;<br> &#125;<br> <span class="hljs-selector-class">.img-clip-wrap</span><span class="hljs-selector-pseudo">:nth-of-type</span>(<span class="hljs-number">3</span>) &#123;<br>     <span class="hljs-attribute">background-position</span>: right;<br> &#125;<br> <span class="hljs-selector-class">.img-clip-wrap</span><span class="hljs-selector-pseudo">:nth-of-type</span>(<span class="hljs-number">4</span>) &#123;<br>     <span class="hljs-attribute">background-position</span>: bottom;<br> &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="第三步-调整位置"><a href="#第三步-调整位置" class="headerlink" title="第三步 调整位置"></a>第三步 调整位置</h3><p>观察我们要做的图，布局可以是分成三行，其中第二行应该有两个块，然后合在一起, 让第二行左右排列的话，只需要设置菱形块display为inline-block就可以了效果就是这样<br><img src="http://upload-images.jianshu.io/upload_images/2974893-2e80e906b65e0c82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="image.png"><br>看着这样，感觉马上就要成功了，怎么让他们合在一起呢，设置一下margin-top为负的就好了，最终效果就出来啦，最终代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-block&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-row&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-row&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-row&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-clip-wrap&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>增加的css</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.img-clip-row</span> &#123;<br>   <span class="hljs-attribute">margin-top</span>: -<span class="hljs-number">154px</span>;<br> &#125;<br><br> <span class="hljs-selector-class">.img-clip-row</span><span class="hljs-selector-pseudo">:first</span>-of-type &#123;<br>   <span class="hljs-attribute">margin-top</span>: auto;<br> &#125;<br><br> <span class="hljs-selector-class">.img-clip-wrap</span> &#123;<br>   <span class="hljs-attribute">display</span>: inline-block;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/crazylxr/blog-demos/blob/master/css/clip-path/demo4.html">点我获取完整代码</a><br><a target="_blank" rel="noopener" href="https://crazylxr.github.io/blog-demos/css/clip-path/demo3.html">点我获取升级demo</a></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>本文只是介绍了最基础的知识语法和一点小应用，但是这还是太简单的东西了。<br>大漠在微博上分享的这个网站：<a target="_blank" rel="noopener" href="http://species-in-pieces.com/">http://species-in-pieces.com/</a>，30个动物30种变换，看了之后简直打开眼界。</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a target="_blank" rel="noopener" href="https://www.w3cplus.com/css3/creating-responsive-shapes-with-clip-path.html">打破盒子模式的限制，使用Clip-Path创建响应式图形</a><br><a target="_blank" rel="noopener" href="https://css-tricks.com/clipping-masking-css/">clipping-masking-css</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/css/">css</a>
+                    
+                      <a class="hover-with-bg" href="/tags/clip-path/">clip-path</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/16/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2017文章汇总</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/6/">
+                        <span class="hidden-mobile">css实现图片剪裁</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>React 代码规范 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="React 代码规范">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-02 16:51" pubdate>
+        Thursday, April 2nd 2020, 4:51 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React 代码规范</h1>
+            
+            <div class="markdown-body">
+              <h2 id="基本规范"><a href="#基本规范" class="headerlink" title="基本规范"></a><strong>基本规范</strong></h2><ul>
+<li>每个文件只包含的一个 React 组件：<ul>
+<li>联系紧密的组件可以使用「命名空间」的形式；</li>
+<li>每个文件中可包含多个纯函数组件。</li>
+</ul>
+</li>
+<li>始终使用 JSX 语法，不要使用 <code>React.createElement</code> 创建 ReactElement，以提高编写速度、可读性、可维护性（没有 JSX 转换的特殊场景例外，如在 <code>console</code> 中测试组件）。</li>
+</ul>
+<h2 id="文件规范"><a href="#文件规范" class="headerlink" title="文件规范"></a>文件规范</h2><ul>
+<li><p>组件文件使用一致的<code>.js</code>或 <code>.jsx</code>后缀。所有组件文件的后缀名从<code>.js</code>或<code>.jsx</code>中任选其一。不应在项目中出现部分组件为<code>.js</code>文件，部分为<code>.jsx</code>的情况。</p>
+</li>
+<li><p>每个存放组件的目录使用一个<code>index.js/index.jsx</code>以命名导出的形式暴露所有组件。同目录内的组件相互引用使用<code>import Foo from &#39;./Foo&#39;;</code>进行。引用其它目录的组件使用<code>import &#123;Foo&#125; from &#39;../component&#39;;</code>进行。</p>
+</li>
+</ul>
+<h2 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h2><ul>
+<li><p>文件名：使用<strong>大驼峰命名法（PascalCase）</strong>，如 MyComponent.jsx；</p>
+</li>
+<li><p>组件命名：组件名称和文件名一致，如 MyComponent.jsx 里的组件名应该是 MyComponent；一个目录的根组件使用 index.jsx 命名，以目录名称作为组件名称；</p>
+</li>
+<li><p>引用命名：React 组件使用大驼峰命名法（PascalCase）；</p>
+</li>
+<li><p>高阶组件使用camelCase命名。高阶组件事实上并非一个组件，而是一个“生成组件类型”的函数，因此遵守JavaScript函数命名的规范，使用camelCase命名。</p>
+</li>
+<li><p>使用<code>onXxx</code>形式作为<code>props</code>中用于回调的属性名称。使用统一的命名规则用以区分<code>props</code>中回调和非回调部分的属性，在JSX上可以清晰地看到一个组件向上和向下的逻辑交互。</p>
+</li>
+<li><p>使用withXxx或xxxable形式的词作为高阶组件的名称。高阶组件是为组件添加行为和功能的函数，因此使用如上形式的词有助于对其功能进行理解。</p>
+</li>
+</ul>
+<h3 id="带命名空间的组件"><a href="#带命名空间的组件" class="headerlink" title="带命名空间的组件"></a>带命名空间的组件</h3><ul>
+<li>如果一个组件有许多关联子组件，可以以该组件作为命名空间编写、调用子组件。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Form</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;  <br>  <span class="hljs-comment">// ...</span><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Row</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Label</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Input</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;&#125;<br><br>Form.Row = Row;<br>Form.Label = Label;<br>Form.Input = Input;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Form;<br><br><span class="hljs-comment">// refence Form component</span><br><span class="hljs-keyword">import</span> Form <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Form&#x27;</span>;<br><br><span class="hljs-keyword">const</span> App = (<br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Form.Row</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Form.Label</span> /&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Form.Input</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">Form.Row</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">Form</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><h3 id="属性设置"><a href="#属性设置" class="headerlink" title="属性设置"></a>属性设置</h3><ul>
+<li>在组件行内设置属性（以便 propTypes 校验），不要在外部改变属性的值；</li>
+<li>属性较多使用 <code>&#123;…this.props&#125;</code> 语法；</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// good</span><br><span class="hljs-keyword">const</span> props = &#123;&#125;;<br>props.foo = x;<br>props.bar = y;<br><span class="hljs-keyword">const</span> component = <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span></span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>属性值明确为 <code>true</code> 时，省略值。</li>
+</ul>
+<h3 id="属性对齐方式"><a href="#属性对齐方式" class="headerlink" title="属性对齐方式"></a>属性对齐方式</h3><ul>
+<li>属性较少时可以行内排列；</li>
+<li>属性较多时每行一个属性，闭合标签单独成行。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// bad - too long</span><br>&lt;input type=<span class="hljs-string">&quot;text&quot;</span> value=&#123;<span class="hljs-built_in">this</span>.state.newDinosaurName&#125; onChange=&#123;<span class="hljs-built_in">this</span>.inputHandler.bind(<span class="hljs-built_in">this</span>, <span class="hljs-string">&#x27;newDinosaurName&#x27;</span>)&#125; /&gt;  <br><br><span class="hljs-comment">// bad - aligning attributes after the tag</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>  </span></span><br><span class="hljs-tag"><span class="xml">       <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;this.state.newDinosaurName&#125;</span></span></span><br><span class="hljs-tag"><span class="xml">       <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;this.inputHandler.bind(this,</span> &#x27;<span class="hljs-attr">newDinosaurName</span>&#x27;)&#125; /&gt;</span></span><br><br><span class="hljs-comment">// good</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>  </span></span><br><span class="hljs-tag"><span class="xml">  <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span></span></span><br><span class="hljs-tag"><span class="xml">  <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;this.state.newDinosaurName&#125;</span></span></span><br><span class="hljs-tag"><span class="xml">  <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;this.inputHandler.bind(this,</span> &#x27;<span class="hljs-attr">newDinosaurName</span>&#x27;)&#125;</span></span><br><span class="hljs-tag"><span class="xml"> /&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="属性空格"><a href="#属性空格" class="headerlink" title="属性空格"></a>属性空格</h3><ul>
+<li>属性 <code>=</code> 前后不要添加空格</li>
+<li>JSX 中的花括号前后不要添加空格。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// bad</span><br>&lt;Foo bar=&#123; baz &#125; foo = <span class="hljs-string">&quot;bar&quot;</span> /&gt;<br><br><span class="hljs-comment">// good</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Foo</span> <span class="hljs-attr">bar</span>=<span class="hljs-string">&#123;baz&#125;</span> <span class="hljs-attr">foo</span>=<span class="hljs-string">&quot;bar&quot;</span> /&gt;</span></span><br><br><span class="hljs-comment">// good &#123; left: &#x27;20px&#x27; &#125; 为一个对象</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Foo</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">left:</span> &#x27;<span class="hljs-attr">20px</span>&#x27; &#125;&#125; /&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="propTypes-及默认值"><a href="#propTypes-及默认值" class="headerlink" title="propTypes 及默认值"></a><code>propTypes</code> 及默认值</h3><ul>
+<li>组件属性都应该在 <code>propTypes</code> 中声明类型；</li>
+<li>始终明确指定非必选属性的默认值。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// bad</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SFC</span>(<span class="hljs-params">&#123; foo, bar, children &#125;</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;foo&#125;&#123;bar&#125;&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>&#125;<br><br><br><span class="hljs-comment">// good</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SFC</span>(<span class="hljs-params">&#123; foo, bar, children &#125;</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;foo&#125;&#123;bar&#125;&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;<br>&#125;<br><br>SFC.propTypes = &#123;<br>  <span class="hljs-attr">foo</span>: PropTypes.number.isRequired,<br>  <span class="hljs-attr">bar</span>: PropTypes.string,<br>  <span class="hljs-attr">children</span>: PropTypes.node,<br>&#125;;<br><br>SFC.defaultProps = &#123;<br>  <span class="hljs-attr">bar</span>: <span class="hljs-string">&#x27;&#x27;</span>,<br>  <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><ul>
+<li>JSX 属性使用<strong>双引号</strong> <code>&quot;</code>；</li>
+<li>JS 使用<strong>单引号</strong> <code>&#39;</code>；</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="() 使用"></a><code>()</code> 使用</h2><ul>
+<li>多行的 JSX 使用 () 包裹，有组件嵌套时使用多行模式；</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// bad</span><br> <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">ComponentOne</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">ComponentTwo</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>);<br><br> <span class="hljs-comment">// good</span><br> <span class="hljs-keyword">var</span> multilineJsx = (  <br>   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span></span><br><span class="xml">     <span class="hljs-tag">&lt;<span class="hljs-name">Logo</span> /&gt;</span></span><br><span class="xml">     <span class="hljs-tag">&lt;<span class="hljs-name">Nav</span> /&gt;</span></span><br><span class="xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span></span><br> );<br><br> <span class="hljs-comment">// good</span><br> <span class="hljs-keyword">return</span> (<br>   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">     <span class="hljs-tag">&lt;<span class="hljs-name">ComponentOne</span> /&gt;</span></span><br><span class="xml">     <span class="hljs-tag">&lt;<span class="hljs-name">ComponentTwo</span> /&gt;</span></span><br><span class="xml">   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>单行 JSX 省略 ()</li>
+</ul>
+<h2 id="自闭合标签"><a href="#自闭合标签" class="headerlink" title="自闭合标签"></a>自闭合标签</h2><ul>
+<li>自闭合所有没有子组件的标签；</li>
+<li>自闭合标签 <strong><code>/</code> 前留一个空格</strong>。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// bad</span><br>&lt;Logo&gt;&lt;/Logo&gt;<br><br><span class="hljs-comment">// very bad</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Foo</span>                 /&gt;</span></span><br><br><span class="hljs-comment">// bad</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Foo</span></span></span><br><span class="hljs-tag"><span class="xml"> /&gt;</span></span><br><br><span class="hljs-comment">// good</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Logo</span> /&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
+<li>事件函数用 <code>public class fields</code> 型</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// good</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;<br>  handleClick = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-built_in">this</span>.setState(&#123; <span class="hljs-attr">xxx</span>: aaa &#125;)<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.handleClick&#125;</span>&gt;</span></span><br><span class="xml">        Click me</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>    )<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// bad</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;<br>  handleClick () &#123;<br>    <span class="hljs-built_in">this</span>.setState(&#123; <span class="hljs-attr">xxx</span>: aaa &#125;)<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.handleClick.bind(this)&#125;</span>&gt;</span></span><br><span class="xml">        Click me</span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>    )<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>事件处理方法以 handle 开头，如 handleClick() {}，用 on 的作为回调做区分</li>
+</ul>
+<h2 id="组件代码组织"><a href="#组件代码组织" class="headerlink" title="组件代码组织"></a>组件代码组织</h2><ul>
+<li>按照生命周期顺序组织组件的属性、方法；</li>
+<li>方法（属性）之间空一行；</li>
+<li><code>render()</code> 方法始终放在最后；</li>
+<li>自定义方法 React API 方法之后、<code>render()</code> 之前；</li>
+<li><code>class extends React.Component</code> 顺序：<ol>
+<li><code>static</code> 属性</li>
+<li><code>static</code> 方法</li>
+<li><code>constructor</code></li>
+<li><code>getChildContext</code></li>
+<li><code>componentWillMount</code></li>
+<li><code>componentDidMount</code></li>
+<li><code>componentWillReceiveProps</code></li>
+<li><code>shouldComponentUpdate</code></li>
+<li><code>componentWillUpdate</code></li>
+<li><code>componentDidUpdate</code></li>
+<li><code>componentWillUnmount</code></li>
+<li><em>点击处理函数或者其他事件处理函数</em>，如 <code>onClickSubmit()</code> 或 <code>onChangeDescription()</code></li>
+<li><em><code>render</code> 的 getter 方法</em>，如 <code>getSelectReason()</code> 或 <code>getFooterContent()</code></li>
+<li><em>可选的 render 方法</em>，如 <code>renderNavigation()</code> 或 <code>renderProfilePicture()</code></li>
+<li><code>render</code></li>
+</ol>
+</li>
+<li>定义 propTypes, defaultProps, contextTypes</li>
+</ul>
+<h2 id="代码校验工具"><a href="#代码校验工具" class="headerlink" title="代码校验工具"></a><strong>代码校验工具</strong></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.github.com/eslint/eslint">ESLint</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yannickcr/eslint-plugin-react">ESLint React Plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/evcohen/eslint-plugin-jsx-a11y">ESLint JSX A11Y Plugin</a></li>
+</ul>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/minwe/style-guide/blob/master/React.js.md">https://github.com/minwe/style-guide/blob/master/React.js.md</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/JasonBoy/javascript/tree/master/react">JasonBoy/javascript</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0%E6%9C%AC/">笔记本</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/315/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">理解 JavaScript 中的执行上下文和执行栈</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/302/">
+                        <span class="hidden-mobile">从两个角度看 Typescript 中的类型是什么?</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,718 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个在蚂蚁的前端工程师，有一个公众号「前端桃园」">
+  <meta name="author" content="桃翁">
+  <meta name="keywords" content="前端">
+  
+  <title>发布 react 组件到 npm 上 - 桃园</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"14ce6739262565bedf140a2dcdf697ad","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"xeRpaURzyc74qJbK9hFEqrrh-MdYXbMMI","app_key":"zoMToCQRNRWaFUooxL0NUTKu","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="桃园" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>桃园</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="发布 react 组件到 npm 上">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      桃翁
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-01-28 15:43" pubdate>
+        Monday, January 28th 2019, 3:43 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      50
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">发布 react 组件到 npm 上</h1>
+            
+            <div class="markdown-body">
+              <p>我发布了我的第一个 npm 组件，一个<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react3dtagcloud">基于 react 的 3d 标签云</a>组件。在这途中我也是遇到了很多的坑，花在完善整个发布流程的时间远多于写这个组件本身的时间，所以我记录下我觉得一个正常的 react 组件的发布流程</p>
+<blockquote>
+<p>最后记录这篇文章花的时间比我完成整个组件的时间都多，最终希望能给新手带来帮助</p>
+</blockquote>
+<p>在整个发布组件的过程我做了如下几件事儿：</p>
+<ol>
+<li>开发组件</li>
+<li>编写 Readme</li>
+<li>推送到 github，并且把 demo 放到 github page 上</li>
+<li>发布组件到 npm 上</li>
+</ol>
+<h2 id="开发组件"><a href="#开发组件" class="headerlink" title="开发组件"></a>开发组件</h2><p>创建项目文件夹并初始化 <code>npm package</code> ，确保你创建的组件名称没有在 <a target="_blank" rel="noopener" href="https://www.npmjs.com/">npm</a> 上被使用过， 这里我们用 react-demo 作为示例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">mkdir react-demo<br><span class="hljs-built_in">cd</span> react-demo<br>npm init<br></code></pre></td></tr></table></figure>
+
+<p><code>npm init</code> 是生成初始的 <strong>package.json</strong> 的命令，在 <code>npm init</code> 的时候，你可以根据你自己的需要进行填写你的组件信息。或者直接使用 <code>npm init -y</code> 采用默认的，后面自己再去修改。</p>
+<p>首先安装 react 相关的包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm i react react-dom -D<br></code></pre></td></tr></table></figure>
+
+<p>采用 <strong>babel</strong> 编译相关的依赖：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i @babel/cli @babel/core @babel/preset-env @babel/preset-react -D<br></code></pre></td></tr></table></figure>
+
+<p>采用 <strong>webpack</strong> 做构建，<strong>webpack-dev-server</strong> 作为本地开发服务器，所以需要安装如下依赖：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm i webpack webpack-<span class="hljs-keyword">cli</span> webpack-dev-server -D<br></code></pre></td></tr></table></figure>
+
+<p>我这里为了简单演示，只安装 babel-loader 用来编译 jsx，其他 loader 安装自己的需要自己安装。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i babel-loader -D<br></code></pre></td></tr></table></figure>
+
+<p>另外再安装一个 webpack 插件 html-webpack-plugin ，用来生成 html：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm i html-webpack-plugin -D<br></code></pre></td></tr></table></figure>
+
+<p>然后再添加上常规的 <strong>start</strong> 和 <strong>build</strong> 脚本，<strong>package.json</strong> 如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;react-demo&quot;</span>,<br>  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,<br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;main&quot;</span>: <span class="hljs-string">&quot;index.js&quot;</span>,<br>  <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>,<br>    <span class="hljs-attr">&quot;start&quot;</span>: <span class="hljs-string">&quot;webpack-dev-server --open development&quot;</span>,<br>    <span class="hljs-attr">&quot;build&quot;</span>: <span class="hljs-string">&quot;webpack --mode production&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;keywords&quot;</span>: [],<br>  <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;license&quot;</span>: <span class="hljs-string">&quot;ISC&quot;</span>,<br>  <span class="hljs-attr">&quot;devDependencies&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;@babel/cli&quot;</span>: <span class="hljs-string">&quot;^7.2.3&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/core&quot;</span>: <span class="hljs-string">&quot;^7.2.2&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-env&quot;</span>: <span class="hljs-string">&quot;^7.3.1&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-react&quot;</span>: <span class="hljs-string">&quot;^7.0.0&quot;</span>,<br>    <span class="hljs-attr">&quot;babel-loader&quot;</span>: <span class="hljs-string">&quot;^8.0.5&quot;</span>,<br>    <span class="hljs-attr">&quot;html-webpack-plugin&quot;</span>: <span class="hljs-string">&quot;^3.2.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react-dom&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack&quot;</span>: <span class="hljs-string">&quot;^4.29.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-cli&quot;</span>: <span class="hljs-string">&quot;^3.2.1&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-dev-server&quot;</span>: <span class="hljs-string">&quot;^3.1.14&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;dependencies&quot;</span>: &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然，你也可以直接把我这个 package.json 复制过去，然后 <code>npm install</code> 进行依赖的安装，也可以一个一个的安装。</p>
+<blockquote>
+<p>一个最基本的组件只需要编译 jsx，所以我这里没有安装 css 以及处理其他的 loader，这篇文章的重点不是讲 webpack 的，所以其他的自行解决，有 webpack 问题可以私聊我。</p>
+</blockquote>
+<p>然后我们再创建如下的目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">├── example // 示例代码，在自己测试的时候可以把测试文件放到 src 里<br>│   └── src // 示例源代码<br>│       ├── index.html // 示例 html<br>│       └── app.js // 添加到 react-dom 的文件<br>├── package.json <br>├── src // 组件源代码<br>│   └── index.js // 组件源代码文件<br>├── .babelrc<br>├── .editorconfig // 不必须的，但是建议有<br>├── .gitignore // 如果要放到 github 上，这个是需要有的<br>└── webpack.config.js<br></code></pre></td></tr></table></figure>
+
+<p>下面我们再创建一个最简单的组件，来进行演示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/*** src/index.js ***/</span><br><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">const</span> ReactDemo = <span class="hljs-function">() =&gt;</span> (<br> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>这是我的第一个 react npm 组件<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br>);<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ReactDemo;<br></code></pre></td></tr></table></figure>
+
+<p>接下来添加一个 demo</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- examples/src/index.html --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My First React Component<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/*** examples/src/app.js ***/</span><br><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; render &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span><br><span class="hljs-keyword">import</span> ReactDemo <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../src&#x27;</span><br><br><span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ReactDemo</span> /&gt;</span></span><br>render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>))<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意 demo 中的 ReactDemo 是从 ../../src 中导入的</p>
+</blockquote>
+<p>接下来配置非常简单的 webpack, 在项目根路径下创建 webpack.config.js 文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;html-webpack-plugin&quot;</span>);<br><span class="hljs-keyword">const</span> htmlWebpackPlugin = <span class="hljs-keyword">new</span> HtmlWebpackPlugin(&#123;<br>	<span class="hljs-attr">template</span>: path.join(__dirname, <span class="hljs-string">&quot;./example/src/index.html&quot;</span>),<br>	<span class="hljs-attr">filename</span>: <span class="hljs-string">&quot;./index.html&quot;</span><br>&#125;);<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>	<span class="hljs-attr">entry</span>: path.join(__dirname, <span class="hljs-string">&quot;./example/src/app.js&quot;</span>),<br>	<span class="hljs-attr">output</span>: &#123;<br>		<span class="hljs-attr">path</span>: path.join(__dirname, <span class="hljs-string">&quot;example/dist&quot;</span>),<br>		<span class="hljs-attr">filename</span>: <span class="hljs-string">&quot;bundle.js&quot;</span><br>	&#125;,<br>	<span class="hljs-attr">module</span>: &#123;<br>		<span class="hljs-attr">rules</span>: [&#123;<br>			<span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.(js|jsx)$/</span>,<br>			use: <span class="hljs-string">&quot;babel-loader&quot;</span>,<br>			<span class="hljs-attr">exclude</span>: <span class="hljs-regexp">/node_modules/</span><br>		&#125;]<br>	&#125;,<br>	<span class="hljs-attr">plugins</span>: [htmlWebpackPlugin],<br>	<span class="hljs-attr">resolve</span>: &#123;<br>		<span class="hljs-attr">extensions</span>: [<span class="hljs-string">&quot;.js&quot;</span>, <span class="hljs-string">&quot;.jsx&quot;</span>]<br>	&#125;,<br>	<span class="hljs-attr">devServer</span>: &#123;<br>		<span class="hljs-attr">port</span>: <span class="hljs-number">3001</span><br>	&#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
+
+<p>Webpack 的配置文件主要做了如下事情：</p>
+<ul>
+<li>使用 example/src/index.js 作为项目入口，处理资源文件的依赖关系</li>
+<li>通过 babel-loader 来编译处理  js 和 jsx 文件</li>
+<li>通过 html-webpack-plugin 自动注入编译打包好的脚本文件</li>
+<li>为 demo 启动端口为 3001 的服务</li>
+</ul>
+<p>然后再配置一下 <strong>babel</strong>，咱们的 <strong>babel</strong> 主要做两件事，将 <strong>jsx</strong> 编译成 <strong>es5</strong>，然后再加一个通用的 <strong>env</strong>，所以 <strong>.babelrc</strong> 配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;presets&quot;</span>: [<span class="hljs-string">&quot;@babel/preset-env&quot;</span>, <span class="hljs-string">&quot;@babel/preset-react&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到之前的 <strong>package.json</strong> ，我这里 <strong>babel</strong> 安装的是 <strong>7.x</strong>，那么 <strong>babel-loader</strong> 就应该是 <strong>8.x</strong> 才行，然后 <strong>babel 7.x</strong> 相对于之前的配置是不同的，要用这个配置，版本一定要跟我的相同，不然配置可能会不一样。</p>
+<p>然后现在执行 <code>npm start</code>，然后再访问 localhost:3001 就可以访问到了。</p>
+<h3 id="编写-README"><a href="#编写-README" class="headerlink" title="编写 README"></a>编写 README</h3><p>编写 README，如果你不知道该如何编写，我给你提几点建议，你可以选择你觉得必要的点来写：</p>
+<ol>
+<li>logo</li>
+<li>官方主页</li>
+<li>介绍</li>
+<li>安装</li>
+<li>快速开始</li>
+<li>功能列表</li>
+<li>截图</li>
+<li>todoList</li>
+<li>不足之处</li>
+<li>FAQ</li>
+<li>Change Log（更新日志）</li>
+</ol>
+<h4 id="添加徽章"><a href="#添加徽章" class="headerlink" title="添加徽章"></a>添加徽章</h4><p>当你写完 <strong>README</strong> 之后，我们将添加一些来自 <a href="https://link.juejin.im/?target=https://shields.io/">shields.io</a> 的时髦徽章，让人们知道我们又酷又专业。</p>
+<p><img src="http://imgs.taoweng.site/blog/typecho/1548919239.png" srcset="/img/loading.gif" lazyload></p>
+<p>想添加什么样的徽章看自己喜欢吧，种类有很多。</p>
+<p>可以<a target="_blank" rel="noopener" href="https://github.com/crazylxr/3dtagcloudforeact">点击这里</a>看我之前写的 3d 标签云的 README。</p>
+<p>现在基本上可以发布了，但是要是能提供一个在线的 demo 让别人在用这个组件的时候可以看到效果就更好了。</p>
+<h2 id="在-GitHub-Pages-上发布一个在线-demo"><a href="#在-GitHub-Pages-上发布一个在线-demo" class="headerlink" title="在 GitHub Pages 上发布一个在线 demo"></a>在 GitHub Pages 上发布一个在线 demo</h2><p>发布在线 demo 可以直接用 Github Pages 来帮助我们托管，通过 webpack 构建生产环境版本，然后发到 Github 上去即可。</p>
+<p>首先去 Github 创建一个用来存放你组件代码的仓库。</p>
+<p>然后把你的项目初始化成 git 项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git init<br></code></pre></td></tr></table></figure>
+
+<p>再添加远程仓库，将本地仓库和远程仓库关联起来。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git remote add origin git@github.com:crazylxr/react-demo.git<br></code></pre></td></tr></table></figure>
+
+<p>接下来我们可以安装 <strong>gh-pages</strong> 来帮助我们发布到 github pages：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm i gh-pages -D<br></code></pre></td></tr></table></figure>
+
+<p>为了方便记忆，后续能更快的发布，这些命令我们可以写成 npm-scriprt，所以我们增加两个脚本：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;@taoweng/react-demo&quot;</span>,<br>  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,<br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;react demo&quot;</span>,<br>  <span class="hljs-attr">&quot;main&quot;</span>: <span class="hljs-string">&quot;lib/index.js&quot;</span>,<br>  <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>,<br>    <span class="hljs-attr">&quot;start&quot;</span>: <span class="hljs-string">&quot;webpack-dev-server --open development&quot;</span>,<br>    <span class="hljs-attr">&quot;build&quot;</span>: <span class="hljs-string">&quot;webpack --mode production&quot;</span>,<br>    <span class="hljs-attr">&quot;deploy&quot;</span>: <span class="hljs-string">&quot;gh-pages -d examples/dist&quot;</span>,<br>    <span class="hljs-attr">&quot;publish-demo&quot;</span>: <span class="hljs-string">&quot;npm run build &amp;&amp; npm run deploy&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;keywords&quot;</span>: [],<br>  <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;license&quot;</span>: <span class="hljs-string">&quot;ISC&quot;</span>,<br>  <span class="hljs-attr">&quot;devDependencies&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;@babel/cli&quot;</span>: <span class="hljs-string">&quot;^7.2.3&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/core&quot;</span>: <span class="hljs-string">&quot;^7.2.2&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-env&quot;</span>: <span class="hljs-string">&quot;^7.3.1&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-react&quot;</span>: <span class="hljs-string">&quot;^7.0.0&quot;</span>,<br>    <span class="hljs-attr">&quot;babel-loader&quot;</span>: <span class="hljs-string">&quot;^8.0.5&quot;</span>,<br>    <span class="hljs-attr">&quot;gh-pages&quot;</span>: <span class="hljs-string">&quot;^2.0.1&quot;</span>,<br>    <span class="hljs-attr">&quot;html-webpack-plugin&quot;</span>: <span class="hljs-string">&quot;^3.2.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react-dom&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack&quot;</span>: <span class="hljs-string">&quot;^4.29.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-cli&quot;</span>: <span class="hljs-string">&quot;^3.2.1&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-dev-server&quot;</span>: <span class="hljs-string">&quot;^3.1.14&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;dependencies&quot;</span>: &#123;&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>添加了 <strong>deploy</strong> 脚本和 <strong>publish-demo</strong>，以后需要发布 demo 的时候只需要 <code>npm run publish-demo</code> 即可。</p>
+<p>然后我们就可以 build 项目之后再将 expamples/dist 发布到 gh-pages 分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm run build<br>npm run deploy<br></code></pre></td></tr></table></figure>
+
+<p>或者直接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm run publish-demo<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：这里只会将 expample/src 下的文件发布到 ph-pages 分支，master 分支依然没有到 github 上，如果你要把源码放到 github 的 master 或者其他分支上，还是需要自己 push 的。 </p>
+</blockquote>
+<p>这个时候，我们可以通过 <strong>crazylxr.github.io/react-demo</strong> 访问到我们写的 demo。crazylxr 是 github 的 username，react-demo 是仓库名，注意改成你自己的。</p>
+<h2 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h2><p>我们现在的源码是 <strong>jsx</strong> 的，所以我们需要通过 <strong>babel</strong> 把 <strong>jsx</strong> 编译为正常浏览器能访问的代码。我们可以通过 <strong>babel-cli</strong> 来编译我们代码，直接编译 <strong>src</strong> 目录，到 <strong>lib</strong> 文件夹。更多命令见 <a target="_blank" rel="noopener" href="https://babeljs.io/docs/en/babel-cli/">babel-cli</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npx babel src --out-dir lib<br></code></pre></td></tr></table></figure>
+
+<p>执行完这个命令，就把生成一个 <strong>lib</strong> 文件夹，然后里面的 <strong>index.js</strong> 就是编译过后的文件，是可以直接发布到 <strong>npm</strong> 的文件。</p>
+<p>然后将这个编译命令写到 <strong>script</strong> 里，<strong>package.json</strong> 如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;@taoweng/react-demo&quot;</span>,<br>  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,<br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;react demo&quot;</span>,<br>  <span class="hljs-attr">&quot;main&quot;</span>: <span class="hljs-string">&quot;lib/index.js&quot;</span>,<br>  <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>,<br>    <span class="hljs-attr">&quot;start&quot;</span>: <span class="hljs-string">&quot;webpack-dev-server --open development&quot;</span>,<br>    <span class="hljs-attr">&quot;build&quot;</span>: <span class="hljs-string">&quot;webpack --mode production&quot;</span>,<br>    <span class="hljs-attr">&quot;compile&quot;</span>: <span class="hljs-string">&quot;npx babel src --out-dir lib&quot;</span>,<br>    <span class="hljs-attr">&quot;deploy&quot;</span>: <span class="hljs-string">&quot;gh-pages -d example/dist&quot;</span>,<br>    <span class="hljs-attr">&quot;publish-demo&quot;</span>: <span class="hljs-string">&quot;npm run build &amp;&amp; npm run deploy&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;keywords&quot;</span>: [],<br>  <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;license&quot;</span>: <span class="hljs-string">&quot;ISC&quot;</span>,<br>  <span class="hljs-attr">&quot;devDependencies&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;@babel/cli&quot;</span>: <span class="hljs-string">&quot;^7.2.3&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/core&quot;</span>: <span class="hljs-string">&quot;^7.2.2&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-env&quot;</span>: <span class="hljs-string">&quot;^7.3.1&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-react&quot;</span>: <span class="hljs-string">&quot;^7.0.0&quot;</span>,<br>    <span class="hljs-attr">&quot;babel-loader&quot;</span>: <span class="hljs-string">&quot;^8.0.5&quot;</span>,<br>    <span class="hljs-attr">&quot;gh-pages&quot;</span>: <span class="hljs-string">&quot;^2.0.1&quot;</span>,<br>    <span class="hljs-attr">&quot;html-webpack-plugin&quot;</span>: <span class="hljs-string">&quot;^3.2.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react-dom&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack&quot;</span>: <span class="hljs-string">&quot;^4.29.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-cli&quot;</span>: <span class="hljs-string">&quot;^3.2.1&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-dev-server&quot;</span>: <span class="hljs-string">&quot;^3.1.14&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;dependencies&quot;</span>: &#123;&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>那么以后要编译 <strong>src</strong> 下面的代码，只需要执行：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">npm <span class="hljs-keyword">run</span> <span class="hljs-keyword">compile</span><br></code></pre></td></tr></table></figure>
+
+<p>现在我们已经有编译好的代码了，接下来就可以发布到 npm 供其他人使用了。</p>
+<h2 id="发布-npm-包"><a href="#发布-npm-包" class="headerlink" title="发布 npm 包"></a>发布 npm 包</h2><p>在发布以前我们是需要一些准备：</p>
+<p><strong>注册 npm 账户：</strong></p>
+<p>在这里](<a target="_blank" rel="noopener" href="https://www.npmjs.com/">https://www.npmjs.com/</a>) 注册一个 npm 账号。</p>
+<p><strong>登录</strong></p>
+<p>在终端输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm adduser<br></code></pre></td></tr></table></figure>
+
+<p>也可以用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm login<br></code></pre></td></tr></table></figure>
+
+<p>然后你会得到一个让你输入<strong>username</strong>、<strong>password</strong> 和 **email ** 的提示，把它们填在相应的位置。</p>
+<p><strong>关于 package.json 需要注意的点</strong></p>
+<p>package.json 里面的配置信息非常重要，我解释一下几个重要的配置。</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json#name">name</a>: 包名，如果你学习的话建议加一个 scoped，就是我上面的 <strong>@taoweng/react-demo</strong> 而不是 <strong>react-demo</strong>，因为 npm 包特别的多，很容易重复。这样这个包就会是私有的，可以通过 <code>npm publish --access=public</code> 将这个包变为共有的包。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json#version">version</a>: 包的版本，每次发布包的版本不能和上次一样。详细规范可见<a target="_blank" rel="noopener" href="https://semver.org/lang/zh-CN/">这里</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json#description">description</a>：包的简介。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json#repository">repository</a>：适合写 Github 地址，建议写成：**:username/:repository**。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json#license">license</a>：认证。不知道该用什么的，就写MIT 吧。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json#main">main</a>：包的入口文件。就是引入这个包的时候去加载的入口文件。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json#keywords">keywords</a>：添加一些关键词更容易使你的包被搜索到。</p>
+</li>
+</ul>
+<p>更详细的 <strong>package.json</strong> 配置可见<a target="_blank" rel="noopener" href="https://docs.npmjs.com/files/package.json">官网</a>。</p>
+<p>我这里简单的添加了这些信息：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;@taoweng/react-demo&quot;</span>,<br>  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,<br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;react demo&quot;</span>,<br>  <span class="hljs-attr">&quot;main&quot;</span>: <span class="hljs-string">&quot;lib/index.js&quot;</span>,<br>  <span class="hljs-attr">&quot;repository&quot;</span>: <span class="hljs-string">&quot;crazylxr/react-demo&quot;</span>,<br>  <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>,<br>    <span class="hljs-attr">&quot;start&quot;</span>: <span class="hljs-string">&quot;webpack-dev-server --open development&quot;</span>,<br>    <span class="hljs-attr">&quot;build&quot;</span>: <span class="hljs-string">&quot;webpack --mode production&quot;</span>,<br>    <span class="hljs-attr">&quot;compile&quot;</span>: <span class="hljs-string">&quot;npx babel src --out-dir lib&quot;</span>,<br>    <span class="hljs-attr">&quot;deploy&quot;</span>: <span class="hljs-string">&quot;gh-pages -d example/dist&quot;</span>,<br>    <span class="hljs-attr">&quot;publish-demo&quot;</span>: <span class="hljs-string">&quot;npm run build &amp;&amp; npm run deploy&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;keywords&quot;</span>: [<span class="hljs-string">&quot;react&quot;</span>, <span class="hljs-string">&quot;demo&quot;</span>],<br>  <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;taoweng&quot;</span>,<br>  <span class="hljs-attr">&quot;license&quot;</span>: <span class="hljs-string">&quot;MIT&quot;</span>,<br>  <span class="hljs-attr">&quot;devDependencies&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;@babel/cli&quot;</span>: <span class="hljs-string">&quot;^7.2.3&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/core&quot;</span>: <span class="hljs-string">&quot;^7.2.2&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-env&quot;</span>: <span class="hljs-string">&quot;^7.3.1&quot;</span>,<br>    <span class="hljs-attr">&quot;@babel/preset-react&quot;</span>: <span class="hljs-string">&quot;^7.0.0&quot;</span>,<br>    <span class="hljs-attr">&quot;babel-loader&quot;</span>: <span class="hljs-string">&quot;^8.0.5&quot;</span>,<br>    <span class="hljs-attr">&quot;gh-pages&quot;</span>: <span class="hljs-string">&quot;^2.0.1&quot;</span>,<br>    <span class="hljs-attr">&quot;html-webpack-plugin&quot;</span>: <span class="hljs-string">&quot;^3.2.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;react-dom&quot;</span>: <span class="hljs-string">&quot;^16.7.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack&quot;</span>: <span class="hljs-string">&quot;^4.29.0&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-cli&quot;</span>: <span class="hljs-string">&quot;^3.2.1&quot;</span>,<br>    <span class="hljs-attr">&quot;webpack-dev-server&quot;</span>: <span class="hljs-string">&quot;^3.1.14&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;dependencies&quot;</span>: &#123;&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>这些配置信息都会在 npm 包的页面显示出来的，所以能填还是填一下：</p>
+<p><img src="http://imgs.taoweng.site/blog/typecho/1548919186.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后我们在项目中添加 .npmignore 文件，跟 .gitignore 的作用一样，就是在发布 npm 的时候需要忽略的文件和文件夹：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># .npmignore </span><br>src<br>examples<br><span class="hljs-string">.babelrc</span><br><span class="hljs-string">.gitignore</span><br>webpack.config.js<br></code></pre></td></tr></table></figure>
+
+<p>这个时候我们就可以发布到 npm 了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm publish<br></code></pre></td></tr></table></figure>
+
+<p>如果你是私有包，可以这样发布：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm publish --access=public<br></code></pre></td></tr></table></figure>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>以后发布新版本的时候，只需要更改一下 package.json 里面的 version 版本号，然后执行 npm publish 和 npm run publish-demo 就可以同步 npm 和 demo。</p>
+<p>不过如果想让你的组件在社区里给更多人用，你需要把 README 写得更好一点，然后添加好自动化测试，不然别人不太敢用。</p>
+<p>另外在写组件之前可以先了解下有没有类似的组件了，如果有就直接用吧，咱们就站在巨人的肩膀上，把自己宝贵的时间放在创造价值上。</p>
+<p>最后整个项目的源代码见 <a target="_blank" rel="noopener" href="https://github.com/crazylxr/react-demo">github</a></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37366401" title="从 0 开始发布一个 react 组件到 npm">从 0 开始发布一个 react 组件到 npm</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5c26c1b65188252dcb312ad6" title="创建并发布一个小而美的 npm 包，没你想的那么难！">创建并发布一个小而美的 npm 包，没你想的那么难！</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">基础教程</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/react/">react</a>
+                    
+                      <a class="hover-with-bg" href="/tags/npm/">npm</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/index.php/archives/237/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">桃园前端周刊第三期(2019-01-28)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/index.php/archives/228/">
+                        <span class="hidden-mobile">git 之修改 commit 以及 rebase 的使用</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://myblogs-omega.vercel.app","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?14ce6739262565bedf140a2dcdf697ad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
